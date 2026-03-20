@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minha Mochila - Registro de Aulas 2025/2026</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+      color: #1e293b;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      margin-bottom: 10px;
+      font-size: 2.8rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #475569;
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+    }
+
+    .materia {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+
+    .materia-header {
+      background: #3b82f6;
+      color: white;
+      padding: 15px 20px;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .aula {
+      padding: 20px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .aula:last-child {
+      border-bottom: none;
+    }
+
+    .data {
+      font-weight: bold;
+      color: #1e40af;
+      margin-bottom: 8px;
+      display: block;
+      font-size: 1.1rem;
+    }
+
+    .conteudo {
+      white-space: pre-wrap;
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid #60a5fa;
+      margin-top: 10px;
+    }
+
+    .add-aula {
+      background: #f1f5f9;
+      padding: 20px;
+      text-align: center;
+    }
+
+    button {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #059669;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .materia-header { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Minha Mochila 📚</h1>
+  <p class="subtitle">Registro de aulas e conteúdos - 2025/2026</p>
+
+  <!-- MATÉRIA 1 -->
+  <div class="materia">
+    <div class="materia-header">Matemática</div>
+    
+    <div class="aula">
+      <span class="data">20/03/2026</span>
+      <div class="conteudo">
+Revisão de equações do 2º grau
+- Discriminante (Δ = b² - 4ac)
+- Fórmula de Bhaskara
+- Exercícios 12, 15, 18 e 20 da lista
+- Prova dia 27/03 (cap. 3 e 4)
+      </div>
+    </div>
+
+    <div class="aula">
+      <span class="data">17/03/2026</span>
+      <div class="conteudo">
+Função quadrática - introdução
+Gráfico da parábola (vértice, concavidade)
+Atividade: esboçar 5 gráficos no caderno
+      </div>
+    </div>
+  </div>
+
+  <!-- MATÉRIA 2 -->
+  <div class="materia">
+    <div class="materia-header">Português</div>
+    
+    <div class="aula">
+      <span class="data">19/03/2026</span>
+      <div class="conteudo">
+Análise do texto "O Alienista" (Machado de Assis)
+- Características do Realismo
+- Ironia e crítica social
+- Leitura obrigatória até página 45 para próxima aula
+      </div>
+    </div>
+  </div>
+
+  <!-- MATÉRIA 3 -->
+  <div class="materia">
+    <div class="materia-header">Física</div>
+    
+    <div class="aula">
+      <span class="data">18/03/2026</span>
+      <div class="conteudo">
+Leis de Newton – 2ª Lei (F = m.a)
+Exercícios resolvidos em sala: 5 a 12
+Tarefa: resolver questões 15–22 (p. 78–80)
+      </div>
+    </div>
+  </div>
+
+  <!-- Adicione mais matérias aqui copiando o bloco .materia -->
+
+  <div class="add-aula">
+    <p>Quer adicionar mais matérias ou aulas? É só copiar e colar os blocos acima e editar!</p>
+    <button onclick="alert('É só editar o arquivo HTML no seu computador ou direto no GitHub! 😄')">Como adicionar mais?</button>
+  </div>
+
+</div>
+
+</body>
+</html>
