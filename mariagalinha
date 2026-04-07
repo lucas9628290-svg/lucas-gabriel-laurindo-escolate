@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galinha Estilosa & Cães Descolados</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ff9900, #ff3366);
+      font-family: 'Press Start 2P', cursive;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      text-shadow: 4px 4px 0 #000;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .image-container {
+      border: 8px solid #000;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0,0,0,0.9);
+      margin: 30px auto;
+      background: #000;
+    }
+
+    img {
+      width: 100%;
+      max-width: 800px;
+      display: block;
+    }
+
+    .gang {
+      font-size: 1.6rem;
+      margin: 25px 0;
+      text-shadow: 3px 3px 0 #000;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .shine {
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { text-shadow: 4px 4px 0 #000; }
+      50% { text-shadow: 4px 4px 20px #ff0; }
+      100% { text-shadow: 4px 4px 0 #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="shine">🐔 GALINHA ESTILOSA</h1>
+    <p class="subtitle">& os CÃES DESCOLADOS 🐕‍🦺🐶</p>
+    
+    <div class="image-container">
+      <img src="galinha-estilosa.png" alt="Galinha Estilosa e Cães Descolados">
+    </div>
+
+    <p class="gang">A GANGUE MAIS FODA DA RUA 💰🔥</p>
+    
+    <footer>
+      Feito com muito estilo e ouro no pescoço<br>
+      <strong>#GalinhaEstilosa #CãesDescolados</strong>
+    </footer>
+  </div>
+</body>
+</html>
