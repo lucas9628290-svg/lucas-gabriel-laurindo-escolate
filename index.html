@@ -34,31 +34,46 @@ header{
   border:none;
   border-radius:8px;
   cursor:pointer;
+  background:#b71c1c;
+  color:white;
+  border:2px solid #0d47a1;
+}
+.menu button:hover{
+  background:#0d47a1;
 }
 
 /* ABAS */
-.aba{display:none; padding:15px;}
+.aba{
+  display:none;
+  padding:15px;
+  border:3px solid #0d47a1;
+  border-radius:12px;
+  margin:10px;
+  background:#fff;
+  background-size:cover;
+  background-position:center;
+}
+
 .ativa{display:block;}
+
+/* TITULOS */
+h2{
+  border-left:6px solid #b71c1c;
+  padding-left:10px;
+}
 
 /* MOCHILA */
 #materias{
-  min-height:300px;
-  background-size:cover;
-  background-position:center;
-  transition:0.3s;
+  min-height:100vh;
 }
 
-/* BILHETE DE MATÉRIA */
+/* MATÉRIAS */
 .materia{
   background:white;
   padding:10px;
   margin:10px 0;
   border-radius:10px;
-}
-.materia textarea{
-  width:100%;
-  height:80px;
-  border-radius:8px;
+  border-left:5px solid #0d47a1;
 }
 
 /* FOTOS */
@@ -68,13 +83,12 @@ img{
   border-radius:10px;
 }
 
-/* MEMES FEED (TIKTOK STYLE) */
+/* MEMES */
 #feed{
   height:100vh;
   overflow-y:scroll;
   scroll-snap-type:y mandatory;
 }
-
 .item{
   height:100vh;
   scroll-snap-align:start;
@@ -83,20 +97,74 @@ img{
   align-items:center;
   background:black;
 }
-
 .item img, .item video{
   max-width:100%;
   max-height:100%;
 }
 
-/* BOTÃO FIXO MEME */
+/* BOTÃO MEME */
 .uploadMeme{
   position:fixed;
   bottom:20px;
   right:20px;
-  padding:10px;
+}
+
+/* DIREITOS HUMANOS */
+#direitos{
+  background: linear-gradient(135deg, #0d47a1, #b71c1c);
+  color:white;
+}
+
+#direitos .upload-box{
+  background:white;
+  color:black;
+  border-left:6px solid #0d47a1;
+  border-radius:10px;
+  margin-top:15px;
+  padding:15px;
+}
+
+#direitos .dh-card{
+  background:white;
+  color:black;
+  border-left:6px solid #b71c1c;
+  padding:15px;
+  margin-top:10px;
+  border-radius:12px;
+}
+
+#galeriaDH{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
+
+#galeriaDH img{
+  width:120px;
+  border-radius:10px;
+  border:2px solid #0d47a1;
+  cursor:pointer;
+}
+
+#modalDH{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
+}
+
+#modalDH img{
+  max-width:90%;
+  max-height:90%;
   border-radius:10px;
 }
+
 </style>
 </head>
 
@@ -111,19 +179,15 @@ img{
 <button onclick="trocar('fotos')">🖼️ Fotos</button>
 <button onclick="trocar('memes')">🎬 Memes</button>
 <button onclick="trocar('config')">⚙️ Fundo</button>
-<!-- BOTÃO SONS -->
-<button onclick="toggleSom()">🔊 Sons</button>
+<button onclick="trocar('direitos')">📜 Direitos</button>
 </div>
 
+<!-- MOCHILA -->
 <div id="materias" class="aba ativa">
-
 <h2>📚 Matérias</h2>
-
 <input id="materiaNome" placeholder="Nome da matéria">
 <button onclick="addMateria()">Adicionar</button>
-
 <div id="listaMaterias"></div>
-
 </div>
 
 <!-- FOTOS -->
@@ -136,20 +200,73 @@ img{
 
 <!-- MEMES -->
 <div id="memes" class="aba">
-
-<h2>🎬 Feed de Memes</h2>
-
+<h2>🎬 Memes</h2>
 <div id="feed"></div>
-
 <input type="file" id="memeInput" accept="image/*,video/*">
 <button class="uploadMeme" onclick="addMeme()">➕</button>
+</div>
+
+<!-- CONFIG (FUNDOS DAS ABAS) -->
+<div id="config" class="aba">
+<h2>⚙️ Fundos das Abas</h2>
+
+<p>Escolha uma aba e coloque um fundo:</p>
+
+<select id="abaFundo">
+  <option value="materias">📚 Mochila</option>
+  <option value="fotos">🖼️ Fotos</option>
+  <option value="memes">🎬 Memes</option>
+  <option value="direitos">📜 Direitos Humanos</option>
+</select>
+
+<input type="file" accept="image/*" onchange="setFundoAba(event)">
+</div>
+
+<!-- DIREITOS HUMANOS -->
+<div id="direitos" class="aba">
+
+<h2>📜 Direitos Humanos</h2>
+
+<div class="dh-card">
+<p>
+Direitos Humanos são direitos básicos que todas as pessoas possuem apenas por serem humanas.
+Eles garantem liberdade, respeito, igualdade e dignidade.
+</p>
+</div>
+
+<div class="dh-card">
+<img id="imgDH"
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Human_rights_symbol.svg/800px-Human_rights_symbol.svg.png"
+onclick="abrirImagem(this.src)">
+<p>👆 Clique para ampliar</p>
+</div>
+
+<div class="upload-box">
+<h3>📸 Adicionar fotos</h3>
+<input type="file" accept="image/*" onchange="adicionarFotoDH(event)">
+<div id="galeriaDH"></div>
+</div>
+
+<div class="upload-box">
+<h3>📘 O que são Direitos Humanos</h3>
+<p>Garantias básicas de todas as pessoas como liberdade, igualdade e dignidade.</p>
+</div>
+
+<div class="upload-box">
+<h3>⚙️ Como funcionam</h3>
+<p>Funcionam através de leis e organizações internacionais que protegem pessoas.</p>
+</div>
+
+<div class="upload-box">
+<h3>🌍 Por que existem</h3>
+<p>Para evitar injustiças e garantir vida digna para todos.</p>
+</div>
 
 </div>
 
-<!-- CONFIG -->
-<div id="config" class="aba">
-<h2>⚙️ Fundo da Mochila</h2>
-<input type="file" accept="image/*" onchange="bg(event)">
+<!-- MODAL -->
+<div id="modalDH" onclick="fecharImagem()">
+<img id="imgGrande">
 </div>
 
 <script>
@@ -159,19 +276,17 @@ function trocar(id){
   document.getElementById(id).classList.add('ativa');
 }
 
-/* =========================
-   MATÉRIAS COMO BILHETE
-========================= */
+/* MATÉRIAS */
 function addMateria(){
-  const nome = document.getElementById('materiaNome');
+  const nome=document.getElementById('materiaNome');
   if(!nome.value) return;
 
-  const div = document.createElement('div');
+  const div=document.createElement('div');
   div.className="materia";
 
   div.innerHTML=`
     <h3 contenteditable="true">${nome.value}</h3>
-    <textarea placeholder="Escreva o que aconteceu na aula..."></textarea>
+    <textarea></textarea>
     <button onclick="this.parentElement.remove()">🗑️ Excluir</button>
   `;
 
@@ -179,9 +294,7 @@ function addMateria(){
   nome.value="";
 }
 
-/* =========================
-   FOTOS
-========================= */
+/* FOTOS */
 function addFoto(){
   const input=document.getElementById('fotoInput');
   const file=input.files[0];
@@ -196,9 +309,7 @@ function addFoto(){
   r.readAsDataURL(file);
 }
 
-/* =========================
-   MEMES TIKTOK STYLE
-========================= */
+/* MEMES */
 function addMeme(){
   const input=document.getElementById('memeInput');
   const file=input.files[0];
@@ -222,242 +333,68 @@ function addMeme(){
   input.value="";
 }
 
-/* =========================
-   FUNDO
-========================= */
-function bg(e){
-  const file=e.target.files[0];
-  const r=new FileReader();
+/* FUNDO DAS ABAS */
+function setFundoAba(event){
+  const file=event.target.files[0];
+  if(!file) return;
 
-  r.onload=ev=>{
-    document.getElementById('materias').style.backgroundImage=`url(${ev.target.result})`;
-    localStorage.setItem('bg',ev.target.result);
+  const aba=document.getElementById("abaFundo").value;
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+    const img=e.target.result;
+
+    const el=document.getElementById(aba);
+    el.style.backgroundImage=`url(${img})`;
+
+    localStorage.setItem("bg_"+aba, img);
   }
 
-  r.readAsDataURL(file);
+  reader.readAsDataURL(file);
 }
 
-window.onload=()=>{
-  const bg=localStorage.getItem('bg');
-  if(bg){
-    document.getElementById('materias').style.backgroundImage=`url(${bg})`;
-  }
-}
-
-/* =========================
-   SONS POR TECLA
-========================= */
-let somLigado = true;
-
-// liga/desliga som
-function toggleSom(){
-  somLigado = !somLigado;
-  alert("Sons: " + (somLigado ? "LIGADO 🔊" : "DESLIGADO 🔇"));
-}
-
-// sons por tecla (adicione seus arquivos mp3 na mesma pasta)
-const sons = {
-  "l": "mario_jump.mp3",
-  "i": "sonic_hit.mp3",
-  "f": "roblox_damage.mp3",
-  "a": "boing.mp3",
-  "s": "fail.mp3",
-  "d": "coin.mp3",
-  "j": "pop.mp3",
-  "k": "laser.mp3",
-  "p": "punch.mp3"
-};
-
-// toca som
-function tocarSom(tecla){
-  if(!somLigado) return;
-
-  tecla = tecla.toLowerCase();
-
-  if(sons[tecla]){
-    const audio = new Audio(sons[tecla]);
-    audio.play().catch(()=>somFallback());
-  } else {
-    somFallback();
-  }
-}
-
-// fallback som engraçado
-function somFallback(){
-  if(!somLigado) return;
-
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-
-  osc.type = "square";
-  osc.frequency.value = 150 + Math.random()*800;
-
-  gain.gain.value = 0.08;
-
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-
-  osc.start();
-  osc.stop(ctx.currentTime + 0.12);
-}
-
-// captura teclado
-document.addEventListener("keydown", (e)=>{
-  tocarSom(e.key);
+/* carregar fundos salvos */
+window.addEventListener("load",()=>{
+  ["materias","fotos","memes","direitos"].forEach(id=>{
+    const img=localStorage.getItem("bg_"+id);
+    if(img){
+      document.getElementById(id).style.backgroundImage=`url(${img})`;
+    }
+  });
 });
 
+/* DIREITOS HUMANOS */
+function adicionarFotoDH(event){
+  const file=event.target.files[0];
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+    const img=document.createElement("img");
+    img.src=e.target.result;
+    img.onclick=()=>abrirImagem(img.src);
+    document.getElementById("galeriaDH").appendChild(img);
+  }
+
+  reader.readAsDataURL(file);
+}
+
+/* modal */
+function abrirImagem(src){
+  const modal=document.getElementById("modalDH");
+  const img=document.getElementById("imgGrande");
+
+  img.src=src;
+  modal.style.display="flex";
+}
+
+function fecharImagem(){
+  document.getElementById("modalDH").style.display="none";
+}
+
 </script>
 
 </body>
-  <a href="direitos.html">d.h</a>
-</html>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Direitos Humanos</title>
-
-<style>
-body{
-    font-family: Arial;
-    margin: 0;
-    background: #eef2f7;
-}
-
-header{
-    background: #0f2a5f;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-.container{
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    background: white;
-}
-
-h2{
-    color: #0f2a5f;
-}
-
-img{
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 12px;
-    border: 3px solid #0f2a5f;
-}
-
-textarea{
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-button{
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    background: #0f2a5f;
-    color: white;
-}
-
-.voltar{
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: black;
-}
-
-.upload-box{
-    margin-top: 20px;
-    padding: 15px;
-    background: #f4f4f4;
-    border-radius: 10px;
-}
-
-#galeria img{
-    margin-top: 10px;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>Direitos Humanos</h1>
-</header>
-
-<div class="container">
-
-    <h2>O que são Direitos Humanos</h2>
-
-    <p>
-        Direitos Humanos são garantias fundamentais que protegem todas as pessoas,
-        garantindo liberdade, igualdade e dignidade.
-    </p>
-
-    <!-- IMAGEM FIXA -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Human_rights_symbol.svg/800px-Human_rights_symbol.svg.png" 
-         alt="Direitos Humanos">
-
-    <!-- UPLOAD DE IMAGEM -->
-    <div class="upload-box">
-        <h3>Adicionar fotos</h3>
-        <input type="file" accept="image/*" onchange="adicionarFoto(event)">
-        <div id="galeria"></div>
-    </div>
-
-    <!-- COMENTÁRIOS -->
-    <div class="upload-box">
-        <h3>Comentários</h3>
-        <textarea id="comentario" placeholder="Escreva seu comentário..."></textarea>
-        <button onclick="enviar()">Enviar</button>
-        <p id="resposta"></p>
-    </div>
-
-</div>
-
-<button class="voltar" onclick="history.back()">⬅ Voltar</button>
-
-<script>
-function enviar(){
-    let c = document.getElementById("comentario").value;
-
-    if(c.trim() === ""){
-        document.getElementById("resposta").innerText = "Escreva algo antes de enviar.";
-    } else {
-        document.getElementById("resposta").innerText = "Comentário enviado: " + c;
-        document.getElementById("comentario").value = "";
-    }
-}
-
-function adicionarFoto(event){
-    let file = event.target.files[0];
-    let reader = new FileReader();
-
-    reader.onload = function(e){
-        let img = document.createElement("img");
-        img.src = e.target.result;
-        img.style.width = "100%";
-        img.style.borderRadius = "10px";
-        img.style.marginTop = "10px";
-
-        document.getElementById("galeria").appendChild(img);
-    }
-
-    if(file){
-        reader.readAsDataURL(file);
-    }
-}
-</script>
-
-</body>
-    <a href="index.html">i.x.</a>
 </html>
