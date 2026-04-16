@@ -312,4 +312,152 @@ document.addEventListener("keydown", (e)=>{
 </body>
   <a href="direitos.html">d.h</a>
 </html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direitos Humanos</title>
 
+<style>
+body{
+    font-family: Arial;
+    margin: 0;
+    background: #eef2f7;
+}
+
+header{
+    background: #0f2a5f;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.container{
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+}
+
+h2{
+    color: #0f2a5f;
+}
+
+img{
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 12px;
+    border: 3px solid #0f2a5f;
+}
+
+textarea{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button{
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    background: #0f2a5f;
+    color: white;
+}
+
+.voltar{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: black;
+}
+
+.upload-box{
+    margin-top: 20px;
+    padding: 15px;
+    background: #f4f4f4;
+    border-radius: 10px;
+}
+
+#galeria img{
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Direitos Humanos</h1>
+</header>
+
+<div class="container">
+
+    <h2>O que são Direitos Humanos</h2>
+
+    <p>
+        Direitos Humanos são garantias fundamentais que protegem todas as pessoas,
+        garantindo liberdade, igualdade e dignidade.
+    </p>
+
+    <!-- IMAGEM FIXA -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Human_rights_symbol.svg/800px-Human_rights_symbol.svg.png" 
+         alt="Direitos Humanos">
+
+    <!-- UPLOAD DE IMAGEM -->
+    <div class="upload-box">
+        <h3>Adicionar fotos</h3>
+        <input type="file" accept="image/*" onchange="adicionarFoto(event)">
+        <div id="galeria"></div>
+    </div>
+
+    <!-- COMENTÁRIOS -->
+    <div class="upload-box">
+        <h3>Comentários</h3>
+        <textarea id="comentario" placeholder="Escreva seu comentário..."></textarea>
+        <button onclick="enviar()">Enviar</button>
+        <p id="resposta"></p>
+    </div>
+
+</div>
+
+<button class="voltar" onclick="history.back()">⬅ Voltar</button>
+
+<script>
+function enviar(){
+    let c = document.getElementById("comentario").value;
+
+    if(c.trim() === ""){
+        document.getElementById("resposta").innerText = "Escreva algo antes de enviar.";
+    } else {
+        document.getElementById("resposta").innerText = "Comentário enviado: " + c;
+        document.getElementById("comentario").value = "";
+    }
+}
+
+function adicionarFoto(event){
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function(e){
+        let img = document.createElement("img");
+        img.src = e.target.result;
+        img.style.width = "100%";
+        img.style.borderRadius = "10px";
+        img.style.marginTop = "10px";
+
+        document.getElementById("galeria").appendChild(img);
+    }
+
+    if(file){
+        reader.readAsDataURL(file);
+    }
+}
+</script>
+
+</body>
+    <a href="index.html">i.x.</a>
+</html>
