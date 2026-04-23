@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mochila Digital</title>
 
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#111;
+  color:#fff;
+}
+
+/* HEADER */
+header{
+  background:#000;
+  text-align:center;
+  padding:15px;
+}
+
+/* MENU */
+.menu{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  background:#222;
+  padding:10px;
+}
+
+.menu button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#444;
+  color:white;
+}
+
+.menu button:hover{
+  background:#666;
+}
+
+/* MOCHILA AREA */
+.mochila-area{
+  margin-top:20px;
+  text-align:center;
+}
+
+.mochila-area button{
+  display:block;
+  margin:10px auto;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  background:#333;
+  color:white;
+  cursor:pointer;
+}
+
+.mochila-area button:hover{
+  background:#555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎒 Mochila Digital</h1>
+</header>
+
+<!-- MENU -->
+<div class="menu">
+  <button onclick="location.href='index.html'">Início</button>
+  <button onclick="location.href='meus.html'">Meus HTML</button>
+  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
+    GitHub
+  </button>
+</div>
+
+<!-- CONTEÚDO -->
+<div class="mochila-area">
+  <h2>📚 Minha Mochila Digital</h2>
+
+  <button onclick="location.href='meus.html'">
+    📄 Abrir meus arquivos HTML
+  </button>
+
+  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
+    💻 Abrir meu GitHub
+  </button>
+</div>
+
+</body>
+</html>
