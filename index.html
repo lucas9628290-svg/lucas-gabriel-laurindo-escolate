@@ -10,13 +10,12 @@ body{
   margin:0;
   font-family:Arial;
   background:#111;
-  color:#000;
+  color:#fff;
 }
 
 /* HEADER */
 header{
   background:#000;
-  color:white;
   text-align:center;
   padding:15px;
 }
@@ -29,372 +28,70 @@ header{
   background:#222;
   padding:10px;
 }
+
 .menu button{
-  padding:10px;
+  padding:10px 15px;
   border:none;
   border-radius:8px;
   cursor:pointer;
-  background:#b71c1c;
+  background:#444;
   color:white;
-  border:2px solid #0d47a1;
 }
+
 .menu button:hover{
-  background:#0d47a1;
+  background:#666;
 }
 
-/* ABAS */
-.aba{
-  display:none;
-  padding:15px;
-  border:3px solid #0d47a1;
-  border-radius:12px;
-  margin:10px;
-  background:#fff;
-  background-size:cover;
-  background-position:center;
+/* MOCHILA AREA */
+.mochila-area{
+  margin-top:20px;
+  text-align:center;
 }
 
-.ativa{display:block;}
-
-/* TITULOS */
-h2{
-  border-left:6px solid #b71c1c;
-  padding-left:10px;
-}
-
-/* MOCHILA */
-#materias{
-  min-height:100vh;
-}
-
-/* MATÉRIAS */
-.materia{
-  background:white;
-  padding:10px;
-  margin:10px 0;
+.mochila-area button{
+  display:block;
+  margin:10px auto;
+  padding:12px;
   border-radius:10px;
-  border-left:5px solid #0d47a1;
-}
-
-/* FOTOS */
-img{
-  max-width:120px;
-  margin:5px;
-  border-radius:10px;
-}
-
-/* MEMES */
-#feed{
-  height:100vh;
-  overflow-y:scroll;
-  scroll-snap-type:y mandatory;
-}
-.item{
-  height:100vh;
-  scroll-snap-align:start;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:black;
-}
-.item img, .item video{
-  max-width:100%;
-  max-height:100%;
-}
-
-/* BOTÃO MEME */
-.uploadMeme{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-}
-
-/* DIREITOS HUMANOS */
-#direitos{
-  background: linear-gradient(135deg, #0d47a1, #b71c1c);
+  border:none;
+  background:#333;
   color:white;
-}
-
-#direitos .upload-box{
-  background:white;
-  color:black;
-  border-left:6px solid #0d47a1;
-  border-radius:10px;
-  margin-top:15px;
-  padding:15px;
-}
-
-#direitos .dh-card{
-  background:white;
-  color:black;
-  border-left:6px solid #b71c1c;
-  padding:15px;
-  margin-top:10px;
-  border-radius:12px;
-}
-
-#galeriaDH{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:10px;
-}
-
-#galeriaDH img{
-  width:120px;
-  border-radius:10px;
-  border:2px solid #0d47a1;
   cursor:pointer;
 }
 
-#modalDH{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.8);
-  justify-content:center;
-  align-items:center;
+.mochila-area button:hover{
+  background:#555;
 }
-
-#modalDH img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:10px;
-}
-
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🎒 Mochila Digital</h1>
+  <h1>🎒 Mochila Digital</h1>
 </header>
 
+<!-- MENU -->
 <div class="menu">
-<button onclick="trocar('materias')">📚 Mochila</button>
-<button onclick="trocar('fotos')">🖼️ Fotos</button>
-<button onclick="trocar('memes')">🎬 Memes</button>
-<button onclick="trocar('config')">⚙️ Fundo</button>
-<button onclick="trocar('direitos')">📜 Direitos</button>
+  <button onclick="location.href='index.html'">Início</button>
+  <button onclick="location.href='meus.html'">Meus HTML</button>
+  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
+    GitHub
+  </button>
 </div>
 
-<!-- MOCHILA -->
-<div id="materias" class="aba ativa">
-<h2>📚 Matérias</h2>
-<input id="materiaNome" placeholder="Nome da matéria">
-<button onclick="addMateria()">Adicionar</button>
-<div id="listaMaterias"></div>
+<!-- CONTEÚDO -->
+<div class="mochila-area">
+  <h2>📚 Minha Mochila Digital</h2>
+
+  <button onclick="location.href='meus.html'">
+    📄 Abrir meus arquivos HTML
+  </button>
+
+  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
+    💻 Abrir meu GitHub
+  </button>
 </div>
-
-<!-- FOTOS -->
-<div id="fotos" class="aba">
-<h2>🖼️ Fotos</h2>
-<input type="file" id="fotoInput" accept="image/*">
-<button onclick="addFoto()">Adicionar</button>
-<div id="galeria"></div>
-</div>
-
-<!-- MEMES -->
-<div id="memes" class="aba">
-<h2>🎬 Memes</h2>
-<div id="feed"></div>
-<input type="file" id="memeInput" accept="image/*,video/*">
-<button class="uploadMeme" onclick="addMeme()">➕</button>
-</div>
-
-<!-- CONFIG (FUNDOS DAS ABAS) -->
-<div id="config" class="aba">
-<h2>⚙️ Fundos das Abas</h2>
-
-<p>Escolha uma aba e coloque um fundo:</p>
-
-<select id="abaFundo">
-  <option value="materias">📚 Mochila</option>
-  <option value="fotos">🖼️ Fotos</option>
-  <option value="memes">🎬 Memes</option>
-  <option value="direitos">📜 Direitos Humanos</option>
-</select>
-
-<input type="file" accept="image/*" onchange="setFundoAba(event)">
-</div>
-
-<!-- DIREITOS HUMANOS -->
-<div id="direitos" class="aba">
-
-<h2>📜 Direitos Humanos</h2>
-
-<div class="dh-card">
-<p>
-Direitos Humanos são direitos básicos que todas as pessoas possuem apenas por serem humanas.
-Eles garantem liberdade, respeito, igualdade e dignidade.
-</p>
-</div>
-
-<div class="dh-card">
-<img id="imgDH"
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Human_rights_symbol.svg/800px-Human_rights_symbol.svg.png"
-onclick="abrirImagem(this.src)">
-<p>👆 Clique para ampliar</p>
-</div>
-
-<div class="upload-box">
-<h3>📸 Adicionar fotos</h3>
-<input type="file" accept="image/*" onchange="adicionarFotoDH(event)">
-<div id="galeriaDH"></div>
-</div>
-
-<div class="upload-box">
-<h3>📘 O que são Direitos Humanos</h3>
-<p>Garantias básicas de todas as pessoas como liberdade, igualdade e dignidade.</p>
-</div>
-
-<div class="upload-box">
-<h3>⚙️ Como funcionam</h3>
-<p>Funcionam através de leis e organizações internacionais que protegem pessoas.</p>
-</div>
-
-<div class="upload-box">
-<h3>🌍 Por que existem</h3>
-<p>Para evitar injustiças e garantir vida digna para todos.</p>
-</div>
-
-</div>
-
-<!-- MODAL -->
-<div id="modalDH" onclick="fecharImagem()">
-<img id="imgGrande">
-</div>
-
-<script>
-
-function trocar(id){
-  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
-  document.getElementById(id).classList.add('ativa');
-}
-
-/* MATÉRIAS */
-function addMateria(){
-  const nome=document.getElementById('materiaNome');
-  if(!nome.value) return;
-
-  const div=document.createElement('div');
-  div.className="materia";
-
-  div.innerHTML=`
-    <h3 contenteditable="true">${nome.value}</h3>
-    <textarea></textarea>
-    <button onclick="this.parentElement.remove()">🗑️ Excluir</button>
-  `;
-
-  document.getElementById('listaMaterias').appendChild(div);
-  nome.value="";
-}
-
-/* FOTOS */
-function addFoto(){
-  const input=document.getElementById('fotoInput');
-  const file=input.files[0];
-  if(!file) return;
-
-  const r=new FileReader();
-  r.onload=e=>{
-    const img=document.createElement('img');
-    img.src=e.target.result;
-    document.getElementById('galeria').appendChild(img);
-  }
-  r.readAsDataURL(file);
-}
-
-/* MEMES */
-function addMeme(){
-  const input=document.getElementById('memeInput');
-  const file=input.files[0];
-  if(!file) return;
-
-  const r=new FileReader();
-  r.onload=e=>{
-    const div=document.createElement('div');
-    div.className="item";
-
-    if(file.type.startsWith("video")){
-      div.innerHTML=`<video src="${e.target.result}" controls autoplay loop></video>`;
-    } else {
-      div.innerHTML=`<img src="${e.target.result}">`;
-    }
-
-    document.getElementById('feed').appendChild(div);
-  }
-
-  r.readAsDataURL(file);
-  input.value="";
-}
-
-/* FUNDO DAS ABAS */
-function setFundoAba(event){
-  const file=event.target.files[0];
-  if(!file) return;
-
-  const aba=document.getElementById("abaFundo").value;
-
-  const reader=new FileReader();
-
-  reader.onload=function(e){
-    const img=e.target.result;
-
-    const el=document.getElementById(aba);
-    el.style.backgroundImage=`url(${img})`;
-
-    localStorage.setItem("bg_"+aba, img);
-  }
-
-  reader.readAsDataURL(file);
-}
-
-/* carregar fundos salvos */
-window.addEventListener("load",()=>{
-  ["materias","fotos","memes","direitos"].forEach(id=>{
-    const img=localStorage.getItem("bg_"+id);
-    if(img){
-      document.getElementById(id).style.backgroundImage=`url(${img})`;
-    }
-  });
-});
-
-/* DIREITOS HUMANOS */
-function adicionarFotoDH(event){
-  const file=event.target.files[0];
-  if(!file) return;
-
-  const reader=new FileReader();
-
-  reader.onload=function(e){
-    const img=document.createElement("img");
-    img.src=e.target.result;
-    img.onclick=()=>abrirImagem(img.src);
-    document.getElementById("galeriaDH").appendChild(img);
-  }
-
-  reader.readAsDataURL(file);
-}
-
-/* modal */
-function abrirImagem(src){
-  const modal=document.getElementById("modalDH");
-  const img=document.getElementById("imgGrande");
-
-  img.src=src;
-  modal.style.display="flex";
-}
-
-function fecharImagem(){
-  document.getElementById("modalDH").style.display="none";
-}
-
-</script>
 
 </body>
 </html>
