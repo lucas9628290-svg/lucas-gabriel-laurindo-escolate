@@ -2,96 +2,240 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mochila Digital</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   margin:0;
   font-family:Arial;
   background:#111;
-  color:#fff;
+  color:white;
+}
+
+/* 🔵🔴 BORDA ANIMADA */
+.container{
+  position:relative;
+  margin:10px;
+  padding:15px;
+  border-radius:15px;
+  overflow:hidden;
+}
+
+.container::before{
+  content:"";
+  position:absolute;
+  inset:-50%;
+  background:linear-gradient(45deg, blue, red, blue, red);
+  animation: girar 4s linear infinite;
+  z-index:0;
+}
+
+.container::after{
+  content:"";
+  position:absolute;
+  inset:5px;
+  background:#111;
+  border-radius:12px;
+  z-index:1;
+}
+
+.content{
+  position:relative;
+  z-index:2;
 }
 
 /* HEADER */
 header{
-  background:#000;
   text-align:center;
   padding:15px;
+  font-size:22px;
+  background:black;
 }
 
-/* MENU */
-.menu{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  background:#222;
+/* BOTÃO LINK */
+.link-btn{
+  display:block;
+  text-align:center;
+  margin:10px auto;
   padding:10px;
-}
-
-.menu button{
-  padding:10px 15px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
+  width:200px;
   background:#444;
   color:white;
+  text-decoration:none;
+  border-radius:10px;
 }
 
-.menu button:hover{
+.link-btn:hover{
   background:#666;
 }
 
-/* MOCHILA AREA */
-.mochila-area{
-  margin-top:20px;
-  text-align:center;
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(120px, 1fr));
+  gap:10px;
+  padding:10px;
 }
 
-.mochila-area button{
-  display:block;
-  margin:10px auto;
-  padding:12px;
+.item{
+  aspect-ratio:1/1;
+  background:#222;
   border-radius:10px;
-  border:none;
-  background:#333;
-  color:white;
+  overflow:hidden;
   cursor:pointer;
 }
 
-.mochila-area button:hover{
-  background:#555;
+.item img, .item video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* VIEWER */
+#viewer{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+}
+
+#viewer img, #viewer video{
+  max-width:90%;
+  max-height:80%;
+  border-radius:10px;
+}
+
+#close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:30px;
+  cursor:pointer;
+}
+
+.hint{
+  position:absolute;
+  bottom:20px;
+  opacity:0.6;
+}
+
+/* animação */
+@keyframes girar{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>🎒 Mochila Digital</h1>
-</header>
+<header>🎒 Mochila Digital</header>
 
-<!-- MENU -->
-<div class="menu">
-  <button onclick="location.href='index.html'">Início</button>
-  <button onclick="location.href='meus.html'">Meus HTML</button>
-  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
-    GitHub
-  </button>
+<!-- 🔗 BOTÃO PARA OUTRO INDEX.HTML -->
+<a class="link-btn" href="index.html">➡ Ir para outro index.html</a>
+
+<div class="container">
+<div class="content">
+
+<input type="file" accept="image/*,video/*" multiple onchange="addMedia(event)">
+
+<div class="grid" id="grid"></div>
+
+</div>
 </div>
 
-<!-- CONTEÚDO -->
-<div class="mochila-area">
-  <h2>📚 Minha Mochila Digital</h2>
-
-  <button onclick="location.href='meus.html'">
-    📄 Abrir meus arquivos HTML
-  </button>
-
-  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
-    💻 Abrir meu GitHub
-  </button>
+<!-- VIEWER -->
+<div id="viewer">
+  <div id="close" onclick="closeViewer()">✖</div>
+  <div id="content"></div>
+  <div class="hint">⬅️ ➡️ teclado para navegar</div>
 </div>
+
+<script>
+
+let mediaList = [];
+let currentIndex = 0;
+
+/* adicionar mídia */
+function addMedia(event){
+  const files = event.target.files;
+
+  for(let file of files){
+    const url = URL.createObjectURL(file);
+    mediaList.push({url, type:file.type});
+  }
+
+  render();
+}
+
+/* grid */
+function render(){
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  mediaList.forEach((m,i)=>{
+    const div = document.createElement("div");
+    div.classList.add("item");
+
+    if(m.type.startsWith("image")){
+      div.innerHTML = `<img src="${m.url}">`;
+    }else{
+      div.innerHTML = `<video src="${m.url}"></video>`;
+    }
+
+    div.onclick = ()=> openViewer(i);
+    grid.appendChild(div);
+  });
+}
+
+/* abrir viewer */
+function openViewer(i){
+  currentIndex = i;
+  document.getElementById("viewer").style.display = "flex";
+  show();
+}
+
+/* mostrar mídia */
+function show(){
+  const item = mediaList[currentIndex];
+  const c = document.getElementById("content");
+
+  c.innerHTML = "";
+
+  if(item.type.startsWith("image")){
+    c.innerHTML = `<img src="${item.url}">`;
+  }else{
+    c.innerHTML = `<video src="${item.url}" controls autoplay></video>`;
+  }
+}
+
+/* fechar */
+function closeViewer(){
+  document.getElementById("viewer").style.display = "none";
+}
+
+/* teclado */
+document.addEventListener("keydown",(e)=>{
+  if(document.getElementById("viewer").style.display==="flex"){
+    if(e.key==="ArrowRight"){
+      currentIndex = (currentIndex+1)%mediaList.length;
+      show();
+    }
+    if(e.key==="ArrowLeft"){
+      currentIndex = (currentIndex-1+mediaList.length)%mediaList.length;
+      show();
+    }
+    if(e.key==="Escape"){
+      closeViewer();
+    }
+  }
+});
+
+</script>
 
 </body>
 </html>
