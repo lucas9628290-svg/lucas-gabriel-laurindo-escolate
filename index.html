@@ -3,19 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mochila Digital</title>
+<title>Ultra Mochila Digital</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
   background:#111;
-  color:#fff;
+}
+
+/* 🔐 LOGIN */
+#login{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9999999;
+  color:white;
+}
+
+#login input{
+  padding:10px;
+  font-size:18px;
+  border-radius:8px;
+  border:none;
+}
+
+#login button{
+  margin-top:10px;
+  padding:10px 20px;
+  background:#0d47a1;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* 🎮 INTRO */
+#intro{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:999999;
+  overflow:hidden;
+}
+
+/* LOGO PS2 */
+#logoIntro{
+  font-size:40px;
+  font-weight:bold;
+  color:white;
+  animation: ps2 2s linear infinite;
+  text-shadow:0 0 10px #0d47a1, 0 0 20px #b71c1c;
+}
+
+@keyframes ps2{
+  0%{transform:rotate(0deg); color:#0d47a1;}
+  50%{transform:rotate(180deg) scale(1.2); color:#b71c1c;}
+  100%{transform:rotate(360deg); color:#1e88e5;}
+}
+
+/*  mochila */
+#mochilaIntro{
+  font-size:60px;
+  position:absolute;
+  top:55%;
+  animation: float 2s infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-25px);}
+  100%{transform:translateY(0);}
+}
+
+/* 📚 chuva */
+.caderno{
+  position:absolute;
+  top:-50px;
+  animation:cair linear forwards;
+  opacity:0.9;
+}
+
+@keyframes cair{
+  to{
+    transform:translateY(120vh) rotate(360deg);
+  }
+}
+
+/* 📱 APP */
+#app{
+  display:none;
 }
 
 /* HEADER */
 header{
   background:#000;
+  color:white;
   text-align:center;
   padding:15px;
 }
@@ -30,68 +123,186 @@ header{
 }
 
 .menu button{
-  padding:10px 15px;
+  padding:10px;
   border:none;
   border-radius:8px;
   cursor:pointer;
-  background:#444;
+  background:#b71c1c;
   color:white;
 }
 
-.menu button:hover{
-  background:#666;
+/* ABAS */
+.aba{
+  display:none;
+  padding:15px;
+  margin:10px;
+  border:3px solid #0d47a1;
+  border-radius:12px;
+  background:#fff;
 }
 
-/* MOCHILA AREA */
-.mochila-area{
-  margin-top:20px;
-  text-align:center;
-}
+.ativa{display:block}
 
-.mochila-area button{
-  display:block;
-  margin:10px auto;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  background:#333;
-  color:white;
-  cursor:pointer;
-}
-
-.mochila-area button:hover{
-  background:#555;
-}
 </style>
 </head>
 
 <body>
 
+<!-- 🔐 LOGIN -->
+<div id="login">
+  <h1>🔐 Mochila Digital</h1>
+  <input type="password" id="senha" placeholder="Senha">
+  <button onclick="entrar()">Entrar</button>
+</div>
+
+<!-- 🎮 INTRO -->
+<div id="intro">
+  <div id="logoIntro"> ULTRA MOCHILA DIGITAL</div>
+  <div id="mochilaIntro">🎒</div>
+  <div id="chuva"></div>
+</div>
+
+<!-- 📱 APP -->
+<div id="app">
+
 <header>
-  <h1>🎒 Mochila Digital</h1>
+<h1>🎒 Ultra Mochila Digital</h1>
 </header>
 
-<!-- MENU -->
 <div class="menu">
-  <button onclick="location.href='index.html'">Início</button>
-  <button onclick="location.href='meus.html'">Meus HTML</button>
-  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
-    GitHub
-  </button>
+<button onclick="trocar('materias')">📚 Mochila</button>
+<button onclick="trocar('fotos')">🖼️ Fotos</button>
+<button onclick="trocar('memes')">🎬 Memes</button>
 </div>
 
-<!-- CONTEÚDO -->
-<div class="mochila-area">
-  <h2>📚 Minha Mochila Digital</h2>
-
-  <button onclick="location.href='meus.html'">
-    📄 Abrir meus arquivos HTML
-  </button>
-
-  <button onclick="window.open('https://github.com/lucas9628290-svg/lucas-gabriel-laurindo-escolate')">
-    💻 Abrir meu GitHub
-  </button>
+<!-- MOCHILA -->
+<div id="materias" class="aba ativa">
+<h2>📚 Matérias</h2>
+<input id="materiaNome">
+<button onclick="addMateria()">Adicionar</button>
+<div id="listaMaterias"></div>
 </div>
+
+<!-- FOTOS -->
+<div id="fotos" class="aba">
+<h2>🖼️ Fotos</h2>
+<input type="file" id="fotoInput">
+<button onclick="addFoto()">Adicionar</button>
+<div id="galeria"></div>
+</div>
+
+<!-- MEMES -->
+<div id="memes" class="aba">
+<h2>🎬 Memes</h2>
+<div id="feed"></div>
+<input type="file" id="memeInput">
+<button onclick="addMeme()">➕</button>
+</div>
+
+</div>
+
+<script>
+
+const SENHA_CORRETA = "23245190";
+
+/* 🔐 LOGIN */
+function entrar(){
+  const senha=document.getElementById("senha").value;
+
+  if(senha===SENHA_CORRETA){
+
+    document.getElementById("login").style.display="none";
+    document.getElementById("intro").style.display="flex";
+
+    iniciarChuva();
+
+    setTimeout(()=>{
+      document.getElementById("intro").style.display="none";
+      document.getElementById("app").style.display="block";
+    }, 4000);
+
+  } else {
+    alert("Senha errada ❌");
+  }
+}
+
+/* 📚 CHUVA */
+function iniciarChuva(){
+  const emojis=["📚","📖","📓","📒","📝","📕"];
+
+  setInterval(()=>{
+    const el=document.createElement("div");
+    el.className="caderno";
+
+    el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+
+    el.style.left = Math.random()*100 + "vw";
+    el.style.fontSize = (20 + Math.random()*30) + "px";
+    el.style.animationDuration = (2 + Math.random()*2) + "s";
+
+    document.getElementById("chuva").appendChild(el);
+
+    setTimeout(()=>el.remove(),5000);
+
+  },200);
+}
+
+/* TROCAR ABAS */
+function trocar(id){
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  document.getElementById(id).classList.add('ativa');
+}
+
+/* MATÉRIAS */
+function addMateria(){
+  const nome=document.getElementById('materiaNome');
+  if(!nome.value) return;
+
+  const div=document.createElement('div');
+  div.innerHTML=`
+    <h3 contenteditable="true">${nome.value}</h3>
+    <button onclick="this.parentElement.remove()">🗑️</button>
+  `;
+
+  document.getElementById('listaMaterias').appendChild(div);
+  nome.value="";
+}
+
+/* FOTOS */
+function addFoto(){
+  const file=document.getElementById('fotoInput').files[0];
+  const r=new FileReader();
+
+  r.onload=e=>{
+    const img=document.createElement('img');
+    img.src=e.target.result;
+    document.getElementById('galeria').appendChild(img);
+  }
+
+  r.readAsDataURL(file);
+}
+
+/* MEMES */
+function addMeme(){
+  const file=document.getElementById('memeInput').files[0];
+  const r=new FileReader();
+
+  r.onload=e=>{
+    const div=document.createElement('div');
+
+    if(file.type.includes("video")){
+      div.innerHTML=`<video src="${e.target.result}" controls autoplay loop></video>`;
+    } else {
+      div.innerHTML=`<img src="${e.target.result}">`;
+    }
+
+    document.getElementById('feed').appendChild(div);
+  }
+
+  r.readAsDataURL(file);
+}
+
+</script>
 
 </body>
 </html>
