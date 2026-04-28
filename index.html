@@ -1,199 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Mochila Profissional</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0d0d0d;
+  color: white;
+  display: flex;
+  overflow: hidden;
+}
+
+/* BORDA DA TELA */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  padding: 6px;
+  background: linear-gradient(90deg, blue, red, blue, red);
+  background-size: 300% 300%;
+  animation: bordaAnimada 4s linear infinite;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes bordaAnimada {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* LIXEIRA */
+.lixeira {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  background: #222;
+  border: 2px solid red;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  z-index: 10000;
+}
+
+.lixeira.dragover {
+  background: red;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #111;
+  height: 100vh;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.materia {
+  background: #1a1a1a;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #111;
+  color: white;
+  border: 1px solid #333;
+}
+
+/* BOTÕES */
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: red;
+  color: white;
+  cursor: pointer;
+  position: relative;
+}
+
+/* 🔵🔴 BORDA ANIMADA */
+.materia::before,
+.nota::before,
+button::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, blue, red, blue, red);
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 0;
+  transition: 0.3s;
+  animation: bordaMov 2s linear infinite;
+}
+
+.materia:hover::before,
+.nota:hover::before,
+button:hover::before {
+  opacity: 1;
+}
+
+@keyframes bordaMov {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ✨ FLUTUAÇÃO SEGURA */
+.flutuar {
+  animation: flutuarGeral 6s ease-in-out infinite;
+}
+
+@keyframes flutuarGeral {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(0px); }
+}
+
+/* TÍTULO */
+.titulo-3d {
+  font-size: 40px;
+  text-align: center;
+  color: #00b7ff;
+}
+
+/* NOTAS */
+.nota {
+  background: #1a1a1a;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="lixeira" id="lixeira">🗑️</div>
+
+<div class="sidebar">
+  <h3>📚 Matérias</h3>
+
+  <input id="novaMateria" placeholder="Nova matéria">
+  <button onclick="addMateria()">Adicionar</button>
+
+  <div id="listaMaterias"></div>
+</div>
+
+<div class="main">
+
+  <div class="titulo-3d">MOCHILA DIGITAL</div>
+
+  <div id="painel" style="display:none;">
+    <h2 id="titulo"></h2>
+
+    <textarea id="texto" placeholder="Escreva a aula..."></textarea>
+    <button onclick="addNota()">Salvar</button>
+
+    <div id="listaNotas"></div>
+  </div>
+
+  <h3 id="msg">Selecione uma matéria 👈</h3>
+</div>
+
 <script>
 
-const SENHA_CORRETA = "23245190";
+let dados = JSON.parse(localStorage.getItem("dados") || "{}");
+let atual = null;
+let dragData = {};
 
-let fotos = [];
-let indexAtual = 0;
+function salvar() {
+  localStorage.setItem("dados", JSON.stringify(dados));
+}
 
-/* LOGIN */
-function entrar(){
-  const senha=document.getElementById("senha").value;
+function addMateria() {
+  let nome = document.getElementById("novaMateria").value.trim();
+  if (!nome) return;
 
-  if(senha===SENHA_CORRETA){
-    document.getElementById("login").style.display="none";
-    document.getElementById("intro").style.display="flex";
+  if (!dados[nome]) dados[nome] = [];
 
-    iniciarChuva();
+  salvar();
+  renderMaterias();
+  document.getElementById("novaMateria").value = "";
+}
 
-    setTimeout(()=>{
-      document.getElementById("intro").style.display="none";
-      document.getElementById("app").style.display="block";
-      carregarDados();
-    }, 3000);
+function renderMaterias() {
+  let div = document.getElementById("listaMaterias");
+  div.innerHTML = "";
 
-  } else {
-    alert("Senha errada ❌");
+  for (let m in dados) {
+
+    let el = document.createElement("div");
+    el.className = "materia flutuar";
+    el.innerText = m;
+
+    el.onclick = () => abrir(m);
+
+    el.draggable = true;
+    el.ondragstart = () => {
+      dragData = { tipo: "materia", nome: m };
+    };
+
+    el.ondblclick = () => {
+      let novo = prompt("Editar matéria:", m);
+      if (novo && novo !== m) {
+        dados[novo] = dados[m];
+        delete dados[m];
+        salvar();
+        renderMaterias();
+        if (atual === m) atual = novo;
+      }
+    };
+
+    div.appendChild(el);
   }
 }
 
-/* CHUVA */
-function iniciarChuva(){
-  const emojis=["📚","📖","📓","📒","📝","📕"];
-
-  setInterval(()=>{
-    const el=document.createElement("div");
-    el.className="caderno";
-
-    el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left = Math.random()*100 + "vw";
-    el.style.fontSize = (20 + Math.random()*30) + "px";
-    el.style.animationDuration = (2 + Math.random()*2) + "s";
-
-    document.getElementById("chuva").appendChild(el);
-    setTimeout(()=>el.remove(),5000);
-  },200);
+function abrir(nome) {
+  atual = nome;
+  document.getElementById("msg").style.display = "none";
+  document.getElementById("painel").style.display = "block";
+  document.getElementById("titulo").innerText = nome;
+  renderNotas();
 }
 
-/* ABAS */
-function trocar(id){
-  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
-  document.getElementById(id).classList.add('ativa');
-}
+function addNota() {
+  let texto = document.getElementById("texto").value.trim();
+  if (!texto) return;
 
-/* SALVAR */
-function salvarDados(){
-  localStorage.setItem("materias", document.getElementById("listaMaterias").innerHTML);
-  localStorage.setItem("fotos", document.getElementById("galeria").innerHTML);
-}
-
-/* CARREGAR */
-function carregarDados(){
-  document.getElementById("listaMaterias").innerHTML = localStorage.getItem("materias") || "";
-  document.getElementById("galeria").innerHTML = localStorage.getItem("fotos") || "";
-
-  reativarBotoes();
-}
-
-/* REATIVAR EVENTOS */
-function reativarBotoes(){
-
-  document.querySelectorAll(".materiaBox button").forEach(btn=>{
-    if(btn.innerText.includes("🗑️")){
-      btn.onclick = function(){
-        this.parentElement.remove();
-        salvarDados();
-      }
-    }
-
-    if(btn.innerText.includes("📱")){
-      btn.onclick = function(){
-        abrirMateria(this);
-      }
-    }
+  dados[atual].push({
+    texto,
+    data: new Date().toLocaleString()
   });
 
-  document.querySelectorAll("#galeria img").forEach((img,i)=>{
-    fotos.push(img.src);
-    img.onclick = ()=>abrirFoto(i);
+  salvar();
+  document.getElementById("texto").value = "";
+  renderNotas();
+}
+
+function renderNotas() {
+  let div = document.getElementById("listaNotas");
+  div.innerHTML = "";
+
+  dados[atual].forEach((n, i) => {
+
+    let el = document.createElement("div");
+    el.className = "nota flutuar";
+
+    el.innerHTML = `<small>${n.data}</small><br>${n.texto}`;
+
+    el.draggable = true;
+    el.ondragstart = () => {
+      dragData = { tipo: "nota", index: i };
+    };
+
+    div.appendChild(el);
   });
 }
 
-/* MATÉRIAS */
-function addMateria(){
-  const nome=document.getElementById('materiaNome');
-  if(!nome.value) return;
+/* LIXEIRA */
+let lixo = document.getElementById("lixeira");
 
-  const div=document.createElement('div');
-  div.className="materiaBox";
+lixo.ondragover = (e) => {
+  e.preventDefault();
+  lixo.classList.add("dragover");
+};
 
-  div.innerHTML=`
-    <h3 contenteditable="true">${nome.value}</h3>
-    <p contenteditable="true">✏️ Escreva aqui...</p>
-    <button>🗑️</button>
-    <button>📱</button>
-  `;
+lixo.ondragleave = () => lixo.classList.remove("dragover");
 
-  document.getElementById('listaMaterias').appendChild(div);
-  nome.value="";
+lixo.ondrop = () => {
+  lixo.classList.remove("dragover");
 
-  reativarBotoes();
-  salvarDados();
-}
-
-/* TELA CHEIA */
-function abrirMateria(btn){
-  const box = btn.parentElement;
-
-  const tela = document.createElement("div");
-  tela.style.position="fixed";
-  tela.style.top="0";
-  tela.style.left="0";
-  tela.style.width="100%";
-  tela.style.height="100%";
-  tela.style.background="#111";
-  tela.style.color="white";
-  tela.style.zIndex="999999";
-  tela.style.padding="20px";
-
-  tela.innerHTML = `
-    <button onclick="this.parentElement.remove()">❌ Fechar</button>
-    ${box.innerHTML}
-  `;
-
-  document.body.appendChild(tela);
-}
-
-/* FOTOS */
-function addFoto(){
-  const file=document.getElementById('fotoInput').files[0];
-  if(!file) return;
-
-  const r=new FileReader();
-
-  r.onload=e=>{
-    fotos.push(e.target.result);
-
-    const img=document.createElement('img');
-    img.src=e.target.result;
-    img.style.width="100px";
-    img.style.margin="5px";
-
-    img.onclick=()=>abrirFoto(fotos.length-1);
-
-    document.getElementById('galeria').appendChild(img);
-
-    salvarDados();
+  if (dragData.tipo === "materia") {
+    delete dados[dragData.nome];
+    if (atual === dragData.nome) {
+      document.getElementById("painel").style.display = "none";
+      document.getElementById("msg").style.display = "block";
+    }
   }
 
-  r.readAsDataURL(file);
-}
+  if (dragData.tipo === "nota") {
+    dados[atual].splice(dragData.index, 1);
+  }
 
-/* VISUALIZADOR */
-function abrirFoto(i){
-  indexAtual = i;
+  salvar();
+  renderMaterias();
+  renderNotas();
+};
 
-  const tela = document.createElement("div");
-  tela.style.position="fixed";
-  tela.style.top="0";
-  tela.style.left="0";
-  tela.style.width="100%";
-  tela.style.height="100%";
-  tela.style.background="rgba(0,0,0,0.9)";
-  tela.style.display="flex";
-  tela.style.flexDirection="column";
-  tela.style.alignItems="center";
-  tela.style.justifyContent="center";
-  tela.style.zIndex="999999";
-
-  tela.innerHTML=`
-    <button onclick="this.parentElement.remove()">❌</button>
-    <img id="imgView" src="${fotos[i]}" style="max-width:90%">
-    <div>
-      <button onclick="trocarFoto(-1)">⬅️</button>
-      <button onclick="trocarFoto(1)">➡️</button>
-    </div>
-  `;
-
-  document.body.appendChild(tela);
-}
-
-function trocarFoto(dir){
-  indexAtual += dir;
-
-  if(indexAtual < 0) indexAtual = fotos.length-1;
-  if(indexAtual >= fotos.length) indexAtual = 0;
-
-  document.getElementById("imgView").src = fotos[indexAtual];
-}
+renderMaterias();
 
 </script>
+
+</body>
+</html>
