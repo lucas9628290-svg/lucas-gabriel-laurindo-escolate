@@ -1,216 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultra Mochila Digital</title>
-
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#111;
-}
-
-/* 🔐 LOGIN */
-#login{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:9999999;
-  color:white;
-}
-
-#login input{
-  padding:10px;
-  font-size:18px;
-  border-radius:8px;
-  border:none;
-}
-
-#login button{
-  margin-top:10px;
-  padding:10px 20px;
-  background:#0d47a1;
-  color:white;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-/* 🎮 INTRO */
-#intro{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:999999;
-  overflow:hidden;
-}
-
-/* LOGO PS2 */
-#logoIntro{
-  font-size:40px;
-  font-weight:bold;
-  color:white;
-  animation: ps2 2s linear infinite;
-  text-shadow:0 0 10px #0d47a1, 0 0 20px #b71c1c;
-}
-
-@keyframes ps2{
-  0%{transform:rotate(0deg); color:#0d47a1;}
-  50%{transform:rotate(180deg) scale(1.2); color:#b71c1c;}
-  100%{transform:rotate(360deg); color:#1e88e5;}
-}
-
-/*  mochila */
-#mochilaIntro{
-  font-size:60px;
-  position:absolute;
-  top:55%;
-  animation: float 2s infinite;
-}
-
-@keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-25px);}
-  100%{transform:translateY(0);}
-}
-
-/* 📚 chuva */
-.caderno{
-  position:absolute;
-  top:-50px;
-  animation:cair linear forwards;
-  opacity:0.9;
-}
-
-@keyframes cair{
-  to{
-    transform:translateY(120vh) rotate(360deg);
-  }
-}
-
-/* 📱 APP */
-#app{
-  display:none;
-}
-
-/* HEADER */
-header{
-  background:#000;
-  color:white;
-  text-align:center;
-  padding:15px;
-}
-
-/* MENU */
-.menu{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  background:#222;
-  padding:10px;
-}
-
-.menu button{
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  background:#b71c1c;
-  color:white;
-}
-
-/* ABAS */
-.aba{
-  display:none;
-  padding:15px;
-  margin:10px;
-  border:3px solid #0d47a1;
-  border-radius:12px;
-  background:#fff;
-}
-
-.ativa{display:block}
-
-</style>
-</head>
-
-<body>
-
-<!-- 🔐 LOGIN -->
-<div id="login">
-  <h1>🔐 Mochila Digital</h1>
-  <input type="password" id="senha" placeholder="Senha">
-  <button onclick="entrar()">Entrar</button>
-</div>
-
-<!-- 🎮 INTRO -->
-<div id="intro">
-  <div id="logoIntro"> ULTRA MOCHILA DIGITAL</div>
-  <div id="mochilaIntro">🎒</div>
-  <div id="chuva"></div>
-</div>
-
-<!-- 📱 APP -->
-<div id="app">
-
-<header>
-<h1>🎒 Ultra Mochila Digital</h1>
-</header>
-
-<div class="menu">
-<button onclick="trocar('materias')">📚 Mochila</button>
-<button onclick="trocar('fotos')">🖼️ Fotos</button>
-<button onclick="trocar('memes')">🎬 Memes</button>
-</div>
-
-<!-- MOCHILA -->
-<div id="materias" class="aba ativa">
-<h2>📚 Matérias</h2>
-<input id="materiaNome">
-<button onclick="addMateria()">Adicionar</button>
-<div id="listaMaterias"></div>
-</div>
-
-<!-- FOTOS -->
-<div id="fotos" class="aba">
-<h2>🖼️ Fotos</h2>
-<input type="file" id="fotoInput">
-<button onclick="addFoto()">Adicionar</button>
-<div id="galeria"></div>
-</div>
-
-<!-- MEMES -->
-<div id="memes" class="aba">
-<h2>🎬 Memes</h2>
-<div id="feed"></div>
-<input type="file" id="memeInput">
-<button onclick="addMeme()">➕</button>
-</div>
-
-</div>
-
 <script>
 
 const SENHA_CORRETA = "23245190";
 
-/* 🔐 LOGIN */
+let fotos = [];
+let indexAtual = 0;
+
+/* LOGIN */
 function entrar(){
   const senha=document.getElementById("senha").value;
 
   if(senha===SENHA_CORRETA){
-
     document.getElementById("login").style.display="none";
     document.getElementById("intro").style.display="flex";
 
@@ -219,14 +18,15 @@ function entrar(){
     setTimeout(()=>{
       document.getElementById("intro").style.display="none";
       document.getElementById("app").style.display="block";
-    }, 4000);
+      carregarDados();
+    }, 3000);
 
   } else {
     alert("Senha errada ❌");
   }
 }
 
-/* 📚 CHUVA */
+/* CHUVA */
 function iniciarChuva(){
   const emojis=["📚","📖","📓","📒","📝","📕"];
 
@@ -235,22 +35,57 @@ function iniciarChuva(){
     el.className="caderno";
 
     el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-
     el.style.left = Math.random()*100 + "vw";
     el.style.fontSize = (20 + Math.random()*30) + "px";
     el.style.animationDuration = (2 + Math.random()*2) + "s";
 
     document.getElementById("chuva").appendChild(el);
-
     setTimeout(()=>el.remove(),5000);
-
   },200);
 }
 
-/* TROCAR ABAS */
+/* ABAS */
 function trocar(id){
   document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
   document.getElementById(id).classList.add('ativa');
+}
+
+/* SALVAR */
+function salvarDados(){
+  localStorage.setItem("materias", document.getElementById("listaMaterias").innerHTML);
+  localStorage.setItem("fotos", document.getElementById("galeria").innerHTML);
+}
+
+/* CARREGAR */
+function carregarDados(){
+  document.getElementById("listaMaterias").innerHTML = localStorage.getItem("materias") || "";
+  document.getElementById("galeria").innerHTML = localStorage.getItem("fotos") || "";
+
+  reativarBotoes();
+}
+
+/* REATIVAR EVENTOS */
+function reativarBotoes(){
+
+  document.querySelectorAll(".materiaBox button").forEach(btn=>{
+    if(btn.innerText.includes("🗑️")){
+      btn.onclick = function(){
+        this.parentElement.remove();
+        salvarDados();
+      }
+    }
+
+    if(btn.innerText.includes("📱")){
+      btn.onclick = function(){
+        abrirMateria(this);
+      }
+    }
+  });
+
+  document.querySelectorAll("#galeria img").forEach((img,i)=>{
+    fotos.push(img.src);
+    img.onclick = ()=>abrirFoto(i);
+  });
 }
 
 /* MATÉRIAS */
@@ -259,50 +94,106 @@ function addMateria(){
   if(!nome.value) return;
 
   const div=document.createElement('div');
+  div.className="materiaBox";
+
   div.innerHTML=`
     <h3 contenteditable="true">${nome.value}</h3>
-    <button onclick="this.parentElement.remove()">🗑️</button>
+    <p contenteditable="true">✏️ Escreva aqui...</p>
+    <button>🗑️</button>
+    <button>📱</button>
   `;
 
   document.getElementById('listaMaterias').appendChild(div);
   nome.value="";
+
+  reativarBotoes();
+  salvarDados();
+}
+
+/* TELA CHEIA */
+function abrirMateria(btn){
+  const box = btn.parentElement;
+
+  const tela = document.createElement("div");
+  tela.style.position="fixed";
+  tela.style.top="0";
+  tela.style.left="0";
+  tela.style.width="100%";
+  tela.style.height="100%";
+  tela.style.background="#111";
+  tela.style.color="white";
+  tela.style.zIndex="999999";
+  tela.style.padding="20px";
+
+  tela.innerHTML = `
+    <button onclick="this.parentElement.remove()">❌ Fechar</button>
+    ${box.innerHTML}
+  `;
+
+  document.body.appendChild(tela);
 }
 
 /* FOTOS */
 function addFoto(){
   const file=document.getElementById('fotoInput').files[0];
+  if(!file) return;
+
   const r=new FileReader();
 
   r.onload=e=>{
+    fotos.push(e.target.result);
+
     const img=document.createElement('img');
     img.src=e.target.result;
+    img.style.width="100px";
+    img.style.margin="5px";
+
+    img.onclick=()=>abrirFoto(fotos.length-1);
+
     document.getElementById('galeria').appendChild(img);
+
+    salvarDados();
   }
 
   r.readAsDataURL(file);
 }
 
-/* MEMES */
-function addMeme(){
-  const file=document.getElementById('memeInput').files[0];
-  const r=new FileReader();
+/* VISUALIZADOR */
+function abrirFoto(i){
+  indexAtual = i;
 
-  r.onload=e=>{
-    const div=document.createElement('div');
+  const tela = document.createElement("div");
+  tela.style.position="fixed";
+  tela.style.top="0";
+  tela.style.left="0";
+  tela.style.width="100%";
+  tela.style.height="100%";
+  tela.style.background="rgba(0,0,0,0.9)";
+  tela.style.display="flex";
+  tela.style.flexDirection="column";
+  tela.style.alignItems="center";
+  tela.style.justifyContent="center";
+  tela.style.zIndex="999999";
 
-    if(file.type.includes("video")){
-      div.innerHTML=`<video src="${e.target.result}" controls autoplay loop></video>`;
-    } else {
-      div.innerHTML=`<img src="${e.target.result}">`;
-    }
+  tela.innerHTML=`
+    <button onclick="this.parentElement.remove()">❌</button>
+    <img id="imgView" src="${fotos[i]}" style="max-width:90%">
+    <div>
+      <button onclick="trocarFoto(-1)">⬅️</button>
+      <button onclick="trocarFoto(1)">➡️</button>
+    </div>
+  `;
 
-    document.getElementById('feed').appendChild(div);
-  }
+  document.body.appendChild(tela);
+}
 
-  r.readAsDataURL(file);
+function trocarFoto(dir){
+  indexAtual += dir;
+
+  if(indexAtual < 0) indexAtual = fotos.length-1;
+  if(indexAtual >= fotos.length) indexAtual = 0;
+
+  document.getElementById("imgView").src = fotos[indexAtual];
 }
 
 </script>
-
-</body>
-</html>
