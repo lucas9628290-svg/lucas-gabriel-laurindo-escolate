@@ -94,12 +94,12 @@ body {
 #colorPanel button {
   padding: 8px;
   background: red;
-  border: none;
   color: white;
+  border: none;
   cursor: pointer;
 }
 
-/* BORDA */
+/* ===== BORDA NEON ===== */
 body::before {
   content: "";
   position: fixed;
@@ -107,14 +107,17 @@ body::before {
   padding: 6px;
   background: linear-gradient(90deg, blue, red, blue, red);
   background-size: 300% 300%;
-  animation: bordaAnimada 4s linear infinite;
+  animation: bordaAnimada 3s linear infinite;
+
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
+
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+
   pointer-events: none;
-  z-index: 9999;
+  z-index: 999999;
 }
 
 @keyframes bordaAnimada {
@@ -122,7 +125,7 @@ body::before {
   100% { background-position: 300% 50%; }
 }
 
-/* LIXEIRA */
+/* ===== LIXEIRA ===== */
 .lixeira {
   position: fixed;
   top: 10px;
@@ -139,7 +142,10 @@ body::before {
   z-index: 10000;
 }
 
-.lixeira.dragover { background: red; }
+.lixeira.dragover {
+  background: red;
+  box-shadow: 0 0 20px red;
+}
 
 /* SIDEBAR */
 .sidebar {
@@ -176,10 +182,18 @@ input, textarea {
 button {
   margin-top: 10px;
   padding: 10px;
-  border: none;
   background: red;
   color: white;
+  border: none;
   cursor: pointer;
+}
+
+.nota {
+  background: #1a1a1a;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: grab;
 }
 
 .flutuar {
@@ -192,20 +206,182 @@ button {
   100% { transform: translateY(0px); }
 }
 
-.nota {
-  background: #1a1a1a;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.titulo-3d {
-  font-size: 40px;
-  text-align: center;
-  color: #00b7ff;
-}
 </style>
 </head>
 
 <body>
 
+<!-- INTRO -->
+<div id="intro">
+  <div class="logo">MOCHILA DIGITAL</div>
+</div>
+
+<!-- RELÓGIO -->
+<div id="clock"></div>
+
+<!-- PAINEL COR -->
+<div id="colorPanel">
+  <input id="colorInput" placeholder="Digite uma cor">
+  <button onclick="aplicarCor()">OK</button>
+</div>
+
+<!-- LIXEIRA -->
+<div class="lixeira" id="lixeira">🗑️</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h3>📚 Matérias</h3>
+  <input id="novaMateria" placeholder="Nova matéria">
+  <button onclick="addMateria()">Adicionar</button>
+  <div id="listaMaterias"></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <h2>Mochila Digital</h2>
+
+  <div id="painel" style="display:none;">
+    <h2 id="titulo"></h2>
+    <textarea id="texto"></textarea>
+    <button onclick="addNota()">Salvar</button>
+    <div id="listaNotas"></div>
+  </div>
+
+  <h3 id="msg">Selecione uma matéria 👈</h3>
+</div>
+
+<script>
+
+/* INTRO */
+setTimeout(() => {
+  document.getElementById("intro").style.display = "none";
+}, 3000);
+
+/* RELÓGIO */
+let clock = document.getElementById("clock");
+let panel = document.getElementById("colorPanel");
+
+function hora(){
+  let d = new Date();
+  clock.innerText =
+    String(d.getHours()).padStart(2,"0") + ":" +
+    String(d.getMinutes()).padStart(2,"0") + ":" +
+    String(d.getSeconds()).padStart(2,"0");
+}
+setInterval(hora,1000);
+hora();
+
+/* COR */
+clock.onclick = () => {
+  panel.style.display = panel.style.display === "block" ? "none" : "block";
+};
+
+function aplicarCor(){
+  let cor = document.getElementById("colorInput").value;
+  if(!cor) return;
+
+  clock.style.color = cor;
+  clock.style.textShadow =
+    `0 0 10px ${cor}, 0 0 20px ${cor}, 0 0 40px ${cor}`;
+
+  localStorage.setItem("corClock", cor);
+  panel.style.display = "none";
+}
+
+/* MOCHILA */
+let dados = JSON.parse(localStorage.getItem("dados") || "{}");
+let atual = null;
+
+function salvar(){
+  localStorage.setItem("dados", JSON.stringify(dados));
+}
+
+function addMateria(){
+  let nome = document.getElementById("novaMateria").value.trim();
+  if(!nome) return;
+  if(!dados[nome]) dados[nome] = [];
+  salvar();
+  renderMaterias();
+}
+
+function renderMaterias(){
+  let div = document.getElementById("listaMaterias");
+  div.innerHTML = "";
+
+  for(let m in dados){
+    let el = document.createElement("div");
+    el.className="materia flutuar";
+    el.innerText=m;
+    el.onclick=()=>abrir(m);
+    div.appendChild(el);
+  }
+}
+
+function abrir(nome){
+  atual=nome;
+  document.getElementById("painel").style.display="block";
+  document.getElementById("msg").style.display="none";
+  document.getElementById("titulo").innerText=nome;
+  renderNotas();
+}
+
+function addNota(){
+  let texto=document.getElementById("texto").value;
+  if(!texto) return;
+
+  dados[atual].push({texto, data:new Date().toLocaleString()});
+  salvar();
+  renderNotas();
+}
+
+/* NOTAS */
+let dragIndex = null;
+
+function renderNotas(){
+  let div=document.getElementById("listaNotas");
+  div.innerHTML="";
+
+  dados[atual].forEach((n,i)=>{
+    let el=document.createElement("div");
+    el.className="nota flutuar";
+    el.innerHTML=`<small>${n.data}</small><br>${n.texto}`;
+
+    el.draggable = true;
+
+    el.ondragstart = () => {
+      dragIndex = i;
+    };
+
+    div.appendChild(el);
+  });
+}
+
+/* LIXEIRA FUNCIONANDO */
+let lixo = document.getElementById("lixeira");
+
+lixo.ondragover = (e) => {
+  e.preventDefault();
+  lixo.classList.add("dragover");
+};
+
+lixo.ondragleave = () => {
+  lixo.classList.remove("dragover");
+};
+
+lixo.ondrop = () => {
+  lixo.classList.remove("dragover");
+
+  if(dragIndex !== null){
+    dados[atual].splice(dragIndex, 1);
+    salvar();
+    renderNotas();
+    dragIndex = null;
+  }
+};
+
+renderMaterias();
+
+</script>
+
+</body>
+</html>
