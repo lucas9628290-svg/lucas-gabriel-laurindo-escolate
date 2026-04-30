@@ -14,7 +14,92 @@ body {
   overflow: hidden;
 }
 
-/* BORDA DA TELA */
+/* ===== INTRO ===== */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #050505, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  animation: sumirIntro 4s ease forwards;
+}
+
+.logo {
+  font-size: 60px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  color: #00c3ff;
+  text-shadow:
+    0 0 10px #00c3ff,
+    0 0 20px #ff003c,
+    0 0 40px #00c3ff,
+    0 0 80px #ff003c;
+  transform: perspective(500px) rotateX(15deg);
+  animation: neonPulse 1.2s infinite alternate, zoomIn 2s ease;
+}
+
+@keyframes neonPulse {
+  from { text-shadow: 0 0 5px #00c3ff, 0 0 10px #ff003c; }
+  to { text-shadow: 0 0 20px #00c3ff, 0 0 60px #ff003c; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.5) rotateX(30deg); opacity: 0; }
+  to { transform: scale(1) rotateX(15deg); opacity: 1; }
+}
+
+@keyframes sumirIntro {
+  0%,70% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* ===== RELÓGIO ===== */
+#clock {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  color: red;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+/* ===== PAINEL COR ===== */
+#colorPanel {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  border: 2px solid red;
+  padding: 10px;
+  border-radius: 10px;
+  display: none;
+  z-index: 10001;
+}
+
+#colorPanel input {
+  padding: 8px;
+  background: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+#colorPanel button {
+  padding: 8px;
+  background: red;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* BORDA */
 body::before {
   content: "";
   position: fixed;
@@ -54,9 +139,7 @@ body::before {
   z-index: 10000;
 }
 
-.lixeira.dragover {
-  background: red;
-}
+.lixeira.dragover { background: red; }
 
 /* SIDEBAR */
 .sidebar {
@@ -90,7 +173,6 @@ input, textarea {
   border: 1px solid #333;
 }
 
-/* BOTÕES */
 button {
   margin-top: 10px;
   padding: 10px;
@@ -98,37 +180,8 @@ button {
   background: red;
   color: white;
   cursor: pointer;
-  position: relative;
 }
 
-/* 🔵🔴 BORDA ANIMADA */
-.materia::before,
-.nota::before,
-button::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 10px;
-  background: linear-gradient(90deg, blue, red, blue, red);
-  background-size: 300% 300%;
-  z-index: -1;
-  opacity: 0;
-  transition: 0.3s;
-  animation: bordaMov 2s linear infinite;
-}
-
-.materia:hover::before,
-.nota:hover::before,
-button:hover::before {
-  opacity: 1;
-}
-
-@keyframes bordaMov {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
-}
-
-/* ✨ FLUTUAÇÃO SEGURA */
 .flutuar {
   animation: flutuarGeral 6s ease-in-out infinite;
 }
@@ -139,49 +192,53 @@ button:hover::before {
   100% { transform: translateY(0px); }
 }
 
-/* TÍTULO */
-.titulo-3d {
-  font-size: 40px;
-  text-align: center;
-  color: #00b7ff;
-}
-
-/* NOTAS */
 .nota {
   background: #1a1a1a;
   margin-top: 10px;
   padding: 10px;
   border-radius: 8px;
-  cursor: pointer;
-  position: relative;
 }
 
+.titulo-3d {
+  font-size: 40px;
+  text-align: center;
+  color: #00b7ff;
+}
 </style>
 </head>
 
 <body>
 
+<!-- INTRO -->
+<div id="intro">
+  <div class="logo">MOCHILA DIGITAL</div>
+</div>
+
+<!-- RELÓGIO -->
+<div id="clock"></div>
+
+<!-- PAINEL COR -->
+<div id="colorPanel">
+  <input id="colorInput" placeholder="Digite uma cor">
+  <button onclick="aplicarCor()">OK</button>
+</div>
+
 <div class="lixeira" id="lixeira">🗑️</div>
 
 <div class="sidebar">
   <h3>📚 Matérias</h3>
-
   <input id="novaMateria" placeholder="Nova matéria">
   <button onclick="addMateria()">Adicionar</button>
-
   <div id="listaMaterias"></div>
 </div>
 
 <div class="main">
-
   <div class="titulo-3d">MOCHILA DIGITAL</div>
 
   <div id="painel" style="display:none;">
     <h2 id="titulo"></h2>
-
-    <textarea id="texto" placeholder="Escreva a aula..."></textarea>
+    <textarea id="texto"></textarea>
     <button onclick="addNota()">Salvar</button>
-
     <div id="listaNotas"></div>
   </div>
 
@@ -190,128 +247,123 @@ button:hover::before {
 
 <script>
 
+/* INTRO */
+setTimeout(() => {
+  document.getElementById("intro").style.display = "none";
+}, 3500);
+
+/* RELÓGIO */
+let clock = document.getElementById("clock");
+let panel = document.getElementById("colorPanel");
+
+function atualizarHora() {
+  let d = new Date();
+  let h = String(d.getHours()).padStart(2,"0");
+  let m = String(d.getMinutes()).padStart(2,"0");
+  let s = String(d.getSeconds()).padStart(2,"0");
+  clock.innerText = `${h}:${m}:${s}`;
+}
+setInterval(atualizarHora,1000);
+atualizarHora();
+
+/* abrir painel ao clicar no relógio */
+clock.onclick = () => {
+  panel.style.display = panel.style.display === "block" ? "none" : "block";
+};
+
+/* cores */
+const cores = {
+  azul:"blue",
+  vermelho:"red",
+  amarelo:"yellow",
+  verde:"lime",
+  roxo:"purple",
+  rosa:"pink",
+  laranja:"orange",
+  branco:"white"
+};
+
+function aplicarCor(){
+  let cor = document.getElementById("colorInput").value;
+  if(!cor) return;
+
+  cor = cores[cor.toLowerCase()] || cor;
+
+  clock.style.color = cor;
+  clock.style.textShadow =
+    `0 0 10px ${cor}, 0 0 20px ${cor}, 0 0 40px ${cor}`;
+
+  localStorage.setItem("corClock", cor);
+  panel.style.display = "none";
+}
+
+/* salvar cor */
+window.addEventListener("load", () => {
+  let cor = localStorage.getItem("corClock");
+  if(cor){
+    clock.style.color = cor;
+    clock.style.textShadow =
+      `0 0 10px ${cor}, 0 0 20px ${cor}, 0 0 40px ${cor}`;
+  }
+});
+
+/* MOCHILA */
 let dados = JSON.parse(localStorage.getItem("dados") || "{}");
 let atual = null;
-let dragData = {};
 
-function salvar() {
+function salvar(){
   localStorage.setItem("dados", JSON.stringify(dados));
 }
 
-function addMateria() {
+function addMateria(){
   let nome = document.getElementById("novaMateria").value.trim();
-  if (!nome) return;
-
-  if (!dados[nome]) dados[nome] = [];
-
+  if(!nome) return;
+  if(!dados[nome]) dados[nome] = [];
   salvar();
   renderMaterias();
-  document.getElementById("novaMateria").value = "";
 }
 
-function renderMaterias() {
+function renderMaterias(){
   let div = document.getElementById("listaMaterias");
   div.innerHTML = "";
 
-  for (let m in dados) {
-
+  for(let m in dados){
     let el = document.createElement("div");
-    el.className = "materia flutuar";
-    el.innerText = m;
-
-    el.onclick = () => abrir(m);
-
-    el.draggable = true;
-    el.ondragstart = () => {
-      dragData = { tipo: "materia", nome: m };
-    };
-
-    el.ondblclick = () => {
-      let novo = prompt("Editar matéria:", m);
-      if (novo && novo !== m) {
-        dados[novo] = dados[m];
-        delete dados[m];
-        salvar();
-        renderMaterias();
-        if (atual === m) atual = novo;
-      }
-    };
-
+    el.className="materia flutuar";
+    el.innerText=m;
+    el.onclick=()=>abrir(m);
     div.appendChild(el);
   }
 }
 
-function abrir(nome) {
-  atual = nome;
-  document.getElementById("msg").style.display = "none";
-  document.getElementById("painel").style.display = "block";
-  document.getElementById("titulo").innerText = nome;
+function abrir(nome){
+  atual=nome;
+  document.getElementById("painel").style.display="block";
+  document.getElementById("msg").style.display="none";
+  document.getElementById("titulo").innerText=nome;
   renderNotas();
 }
 
-function addNota() {
-  let texto = document.getElementById("texto").value.trim();
-  if (!texto) return;
+function addNota(){
+  let texto=document.getElementById("texto").value;
+  if(!texto) return;
 
-  dados[atual].push({
-    texto,
-    data: new Date().toLocaleString()
-  });
-
+  dados[atual].push({texto, data:new Date().toLocaleString()});
   salvar();
-  document.getElementById("texto").value = "";
   renderNotas();
 }
 
-function renderNotas() {
-  let div = document.getElementById("listaNotas");
-  div.innerHTML = "";
+function renderNotas(){
+  let div=document.getElementById("listaNotas");
+  div.innerHTML="";
 
-  dados[atual].forEach((n, i) => {
-
-    let el = document.createElement("div");
-    el.className = "nota flutuar";
-
-    el.innerHTML = `<small>${n.data}</small><br>${n.texto}`;
-
-    el.draggable = true;
-    el.ondragstart = () => {
-      dragData = { tipo: "nota", index: i };
-    };
-
+  dados[atual].forEach(n=>{
+    let el=document.createElement("div");
+    el.className="nota flutuar";
+    el.innerHTML=`<small>${n.data}</small><br>${n.texto}`;
     div.appendChild(el);
   });
 }
-
-/* LIXEIRA */
-let lixo = document.getElementById("lixeira");
-
-lixo.ondragover = (e) => {
-  e.preventDefault();
-  lixo.classList.add("dragover");
-};
-
-lixo.ondragleave = () => lixo.classList.remove("dragover");
-
-lixo.ondrop = () => {
-  lixo.classList.remove("dragover");
-
-  if (dragData.tipo === "materia") {
-    delete dados[dragData.nome];
-    if (atual === dragData.nome) {
-      document.getElementById("painel").style.display = "none";
-      document.getElementById("msg").style.display = "block";
-    }
-  }
-
-  if (dragData.tipo === "nota") {
-    dados[atual].splice(dragData.index, 1);
-  }
-
-  salvar();
-  renderMaterias();
-  renderNotas();
-};
 
 renderMaterias();
 
