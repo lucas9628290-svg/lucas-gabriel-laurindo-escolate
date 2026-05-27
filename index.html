@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,615 +12,548 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
 }
 
 body{
-    background:#0b0b0b;
-    overflow-x:hidden;
+    background:#000;
     color:white;
+    overflow-x:hidden;
+    min-height:100vh;
 }
 
-/* TÍTULO */
+/* FUNDO PRINCIPAL */
 
-h1{
-    text-align:center;
-    padding:20px;
-    font-size:50px;
-    color:gold;
-    text-shadow:0 0 20px black;
+.bg{
+    position:fixed;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    z-index:-2;
+}
+
+/* TOPO */
+
+.topo{
+    width:100%;
+    padding:15px 20px;
+    background:#111;
+    border-bottom:2px solid #19ff72;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.topo h1{
+    color:#19ff72;
+    font-size:28px;
+    text-shadow:0 0 15px #19ff72;
 }
 
 /* BOTÕES */
 
-.btn-reservas,
-.btn-fundo{
-    position:fixed;
-    top:20px;
-    border:none;
-    padding:14px 24px;
+.bg-btn{
+    background:#19ff72;
+    color:#000;
+    padding:10px 18px;
     border-radius:12px;
-    font-size:18px;
-    font-weight:bold;
     cursor:pointer;
-    z-index:1000;
+    font-weight:bold;
+    transition:.3s;
 }
 
-.btn-reservas{
-    right:20px;
-    background:gold;
-    color:black;
-}
-
-.btn-fundo{
-    left:20px;
-    background:#00ff88;
-    color:black;
-}
-
-.btn-reservas:hover,
-.btn-fundo:hover{
+.bg-btn:hover{
     transform:scale(1.05);
+    box-shadow:0 0 15px #19ff72;
+}
+
+.bg-btn input{
+    display:none;
+}
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:30px;
+    padding:20px;
+    flex-wrap:wrap;
 }
 
 /* CAMPO */
 
 .campo{
-    width:1100px;
-    max-width:95%;
-    height:760px;
-    margin:20px auto;
-    position:relative;
-    border-radius:20px;
-    overflow:hidden;
-    border:4px solid rgba(255,255,255,0.2);
-    box-shadow:0 0 35px rgba(0,0,0,0.8);
-
+    width:700px;
+    height:1000px;
     background:
-    linear-gradient(rgba(0,120,0,0.2),rgba(0,120,0,0.2)),
-    url('https://i.imgur.com/Q0P4YfD.jpg');
-
+    linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1)),
+    url('https://i.imgur.com/y8b6K9F.png');
     background-size:cover;
     background-position:center;
+    border:4px solid #19ff72;
+    border-radius:25px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 0 30px #19ff72;
+}
+
+/* ESCURECIMENTO LEVE */
+
+.campo::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.12);
+    z-index:2;
 }
 
 /* FUNDO ATRÁS DAS CARTAS */
 
-.fundo-cartas{
+.campo-overlay{
     position:absolute;
-    width:100%;
-    height:100%;
-    background-image:url('https://wallpapercave.com/wp/wp7476075.jpg');
+    inset:0;
     background-size:cover;
     background-position:center;
-    opacity:0.35;
+    background-repeat:no-repeat;
+    opacity:1;
     z-index:1;
+}
+
+/* BOTÃO FUNDO CAMPO */
+
+.campo-bg-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    z-index:20;
+    background:#19ff72;
+    color:#000;
+    padding:8px 14px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 10px #19ff72;
+}
+
+.campo-bg-btn input{
+    display:none;
 }
 
 /* CARTAS */
 
-.card{
-    width:105px;
-    height:135px;
+.player{
     position:absolute;
-    background:#111;
-    border:2px solid #00ff88;
-    border-radius:12px;
-    overflow:hidden;
-    transition:0.3s;
-    box-shadow:0 0 15px rgba(0,0,0,0.8);
-    z-index:2;
+    width:95px;
+    text-align:center;
+    transition:.3s;
+    z-index:5;
 }
 
-.card:hover{
+.player:hover{
     transform:scale(1.08);
 }
 
-.topo{
-    height:25px;
-    background:#00ff88;
-    color:black;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 6px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.overall{
-    font-size:18px;
-}
-
-.player-img{
-    width:100%;
-    height:76px;
-    object-fit:cover;
+.card{
+    width:95px;
+    height:120px;
+    border-radius:16px;
+    border:2px solid #19ff72;
+    overflow:hidden;
+    position:relative;
     cursor:pointer;
+    box-shadow:0 0 15px #19ff72;
+    background:#111;
 }
 
-.info{
-    text-align:center;
-    padding-top:4px;
-    background:rgba(0,0,0,0.75);
+.card input{
+    display:none;
 }
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* FUNDO DAS CARTAS */
+
+.upload-text{
+    display:none;
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    background-image:url('https://i.imgur.com/3ZQ3Z6H.png');
+}
+
+/* NOMES */
 
 .nome{
-    font-size:12px;
+    margin-top:6px;
+    font-size:13px;
     font-weight:bold;
+    text-shadow:0 0 10px #000;
 }
 
-.camisa{
+.pos{
     font-size:11px;
-    color:gold;
+    color:#19ff72;
+    text-shadow:0 0 10px #000;
 }
 
 /* POSIÇÕES */
 
-.gk{
-    bottom:20px;
-    left:500px;
-}
+.gol{top:850px;left:300px;}
 
-.lb{
-    bottom:150px;
-    left:130px;
-}
+.z1{top:680px;left:80px;}
+.z2{top:680px;left:300px;}
+.z3{top:680px;left:520px;}
 
-.cb1{
-    bottom:120px;
-    left:360px;
-}
+.l1{top:500px;left:20px;}
+.l2{top:500px;left:580px;}
 
-.cb2{
-    bottom:120px;
-    right:360px;
-}
+.m1{top:430px;left:180px;}
+.m2{top:430px;left:420px;}
 
-.rb{
-    bottom:150px;
-    right:130px;
-}
+.a1{top:220px;left:120px;}
+.a2{top:220px;left:470px;}
 
-.cm1{
-    bottom:300px;
-    left:300px;
-}
-
-.cm2{
-    bottom:300px;
-    right:300px;
-}
-
-.cam{
-    bottom:430px;
-    left:500px;
-}
-
-.lw{
-    top:120px;
-    left:170px;
-}
-
-.st{
-    top:70px;
-    left:500px;
-}
-
-.rw{
-    top:120px;
-    right:170px;
-}
+.atk{top:80px;left:300px;}
 
 /* RESERVAS */
 
 .reservas{
-    position:fixed;
-    top:0;
-    right:-430px;
-    width:430px;
-    height:100vh;
+    width:320px;
     background:#111;
-    overflow-y:auto;
-    transition:0.5s;
+    border:3px solid #19ff72;
+    border-radius:20px;
     padding:20px;
-    z-index:999;
-    box-shadow:-5px 0 20px rgba(0,0,0,0.9);
-}
-
-.reservas.abrir{
-    right:0;
+    box-shadow:0 0 25px #19ff72;
 }
 
 .reservas h2{
     text-align:center;
     margin-bottom:20px;
-    color:gold;
+    color:#19ff72;
 }
 
-.reserva-grid{
+.banco{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:15px;
 }
 
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+    .campo{
+        transform:scale(.75);
+        transform-origin:top center;
+        height:760px;
+    }
+
+}
+
 </style>
 </head>
-
 <body>
 
-<h1>🇧🇷 ESCALAÇÃO BRASIL 2026</h1>
+<div class="bg" id="bg"></div>
 
-<button class="btn-reservas" onclick="abrirReservas()">
-RESERVAS
-</button>
-
-<button class="btn-fundo" onclick="abrirPlanoFundo()">
-🖼 FUNDO TIME
-</button>
-
-<input
-type="file"
-id="bgCartas"
-accept="image/*"
-style="display:none"
-onchange="trocarPlanoFundo(event)">
-
-<div class="campo">
-
-<div class="fundo-cartas" id="fundoCartas"></div>
-
-<!-- GOLEIRO -->
-<div class="card gk">
 <div class="topo">
-<span class="overall">89</span>
-<span>GOL</span>
-</div>
 
-<img id="img1"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/alisson-liverpool-2024-1716657909-137709.jpg"
-onclick="trocarFoto('img1')">
+    <h1>🇧🇷 BRASIL 2026 DLS</h1>
 
-<div class="info">
-<div class="nome">ALISSON</div>
-<div class="camisa">#1</div>
-</div>
-</div>
-
-<!-- LE -->
-<div class="card lb">
-<div class="topo">
-<span class="overall">84</span>
-<span>LE</span>
-</div>
-
-<img id="img2"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/wendell-fc-porto-2024-1716658684-137718.jpg"
-onclick="trocarFoto('img2')">
-
-<div class="info">
-<div class="nome">WENDELL</div>
-<div class="camisa">#6</div>
-</div>
-</div>
-
-<!-- ZAG -->
-<div class="card cb1">
-<div class="topo">
-<span class="overall">87</span>
-<span>ZAG</span>
-</div>
-
-<img id="img3"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/marquinhos-psg-2024-1716658222-137712.jpg"
-onclick="trocarFoto('img3')">
-
-<div class="info">
-<div class="nome">MARQUINHOS</div>
-<div class="camisa">#4</div>
-</div>
-</div>
-
-<!-- ZAG -->
-<div class="card cb2">
-<div class="topo">
-<span class="overall">85</span>
-<span>ZAG</span>
-</div>
-
-<img id="img4"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/gabriel-magalhaes-arsenal-2024-1716658459-137715.jpg"
-onclick="trocarFoto('img4')">
-
-<div class="info">
-<div class="nome">GABRIEL</div>
-<div class="camisa">#3</div>
-</div>
-</div>
-
-<!-- LD -->
-<div class="card rb">
-<div class="topo">
-<span class="overall">84</span>
-<span>LD</span>
-</div>
-
-<img id="img5"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/danilo-juventus-2024-1716658855-137721.jpg"
-onclick="trocarFoto('img5')">
-
-<div class="info">
-<div class="nome">DANILO</div>
-<div class="camisa">#2</div>
-</div>
-</div>
-
-<!-- MC -->
-<div class="card cm1">
-<div class="topo">
-<span class="overall">87</span>
-<span>MC</span>
-</div>
-
-<img id="img6"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/bruno-guimaraes-newcastle-2024-1716657715-137706.jpg"
-onclick="trocarFoto('img6')">
-
-<div class="info">
-<div class="nome">BRUNO G</div>
-<div class="camisa">#8</div>
-</div>
-</div>
-
-<!-- MC -->
-<div class="card cm2">
-<div class="topo">
-<span class="overall">85</span>
-<span>MC</span>
-</div>
-
-<img id="img7"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/joelinton-newcastle-2024-1716659124-137724.jpg"
-onclick="trocarFoto('img7')">
-
-<div class="info">
-<div class="nome">JOELINTON</div>
-<div class="camisa">#5</div>
-</div>
-</div>
-
-<!-- MEI -->
-<div class="card cam">
-<div class="topo">
-<span class="overall">88</span>
-<span>MEI</span>
-</div>
-
-<img id="img8"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/paqueta-west-ham-2024-1716659308-137727.jpg"
-onclick="trocarFoto('img8')">
-
-<div class="info">
-<div class="nome">PAQUETÁ</div>
-<div class="camisa">#10</div>
-</div>
-</div>
-
-<!-- PE -->
-<div class="card lw">
-<div class="topo">
-<span class="overall">92</span>
-<span>PE</span>
-</div>
-
-<img id="img9"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/vinicius-junior-real-madrid-2024-1716656781-137694.jpg"
-onclick="trocarFoto('img9')">
-
-<div class="info">
-<div class="nome">VINI JR</div>
-<div class="camisa">#7</div>
-</div>
-</div>
-
-<!-- ATA -->
-<div class="card st">
-<div class="topo">
-<span class="overall">89</span>
-<span>ATA</span>
-</div>
-
-<img id="img10"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/endrick-real-madrid-2024-1716657511-137703.jpg"
-onclick="trocarFoto('img10')">
-
-<div class="info">
-<div class="nome">ENDRICK</div>
-<div class="camisa">#9</div>
-</div>
-</div>
-
-<!-- PD -->
-<div class="card rw">
-<div class="topo">
-<span class="overall">90</span>
-<span>PD</span>
-</div>
-
-<img id="img11"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/rodrygo-real-madrid-2024-1716657021-137697.jpg"
-onclick="trocarFoto('img11')">
-
-<div class="info">
-<div class="nome">RODRYGO</div>
-<div class="camisa">#11</div>
-</div>
-</div>
+    <!-- FUNDO GERAL -->
+    <label class="bg-btn">
+        🖼️ Fundo Geral
+        <input type="file" accept="image/*" id="backgroundInput">
+    </label>
 
 </div>
 
-<!-- RESERVAS -->
+<div class="container">
 
-<div class="reservas" id="menuReservas">
+    <!-- CAMPO -->
 
-<h2>⭐ RESERVAS</h2>
+    <div class="campo">
 
-<div class="reserva-grid">
+        <!-- BOTÃO FUNDO ATRÁS DAS CARTAS -->
+        <label class="campo-bg-btn">
+            Fundo Campo
+            <input type="file" accept="image/*" id="campoBackground">
+        </label>
 
-<div class="card" style="position:relative;">
-<div class="topo">
-<span class="overall">86</span>
-<span>ATA</span>
-</div>
+        <!-- IMAGEM ATRÁS DAS CARTAS -->
+        <div class="campo-overlay" id="campoOverlay"></div>
 
-<img id="r1"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/raphinha-barcelona-2024-1716657312-137700.jpg"
-onclick="trocarFoto('r1')">
+        <!-- TITULARES -->
 
-<div class="info">
-<div class="nome">RAPHINHA</div>
-<div class="camisa">#19</div>
-</div>
-</div>
+        <div class="player gol">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Alisson</div>
+            <div class="pos">GOL</div>
+        </div>
 
-<div class="card" style="position:relative;">
-<div class="topo">
-<span class="overall">85</span>
-<span>ATA</span>
-</div>
+        <div class="player z1">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Marquinhos</div>
+            <div class="pos">ZAG</div>
+        </div>
 
-<img id="r2"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/gabriel-martinelli-arsenal-2024.jpg"
-onclick="trocarFoto('r2')">
+        <div class="player z2">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Gabriel Magalhães</div>
+            <div class="pos">ZAG</div>
+        </div>
 
-<div class="info">
-<div class="nome">MARTINELLI</div>
-<div class="camisa">#20</div>
-</div>
-</div>
+        <div class="player z3">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Militão</div>
+            <div class="pos">ZAG</div>
+        </div>
 
-<div class="card" style="position:relative;">
-<div class="topo">
-<span class="overall">84</span>
-<span>VOL</span>
-</div>
+        <div class="player l1">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Yan Couto</div>
+            <div class="pos">LD</div>
+        </div>
 
-<img id="r3"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/casemiro-manchester-united-2024.jpg"
-onclick="trocarFoto('r3')">
+        <div class="player l2">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Carlos Augusto</div>
+            <div class="pos">LE</div>
+        </div>
 
-<div class="info">
-<div class="nome">CASEMIRO</div>
-<div class="camisa">#18</div>
-</div>
-</div>
+        <div class="player m1">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Bruno Guimarães</div>
+            <div class="pos">MC</div>
+        </div>
 
-<div class="card" style="position:relative;">
-<div class="topo">
-<span class="overall">84</span>
-<span>GOL</span>
-</div>
+        <div class="player m2">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Paquetá</div>
+            <div class="pos">MEI</div>
+        </div>
 
-<img id="r4"
-class="player-img"
-src="https://tmssl.akamaized.net/images/foto/galerie/ederson-manchester-city-2024.jpg"
-onclick="trocarFoto('r4')">
+        <div class="player a1">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Vini Jr</div>
+            <div class="pos">PE</div>
+        </div>
 
-<div class="info">
-<div class="nome">EDERSON</div>
-<div class="camisa">#12</div>
-</div>
-</div>
+        <div class="player a2">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Rodrygo</div>
+            <div class="pos">PD</div>
+        </div>
 
-</div>
+        <div class="player atk">
+            <label class="card">
+                <input type="file" accept="image/*" onchange="loadImage(event)">
+                <img>
+                <div class="upload-text"></div>
+            </label>
+            <div class="nome">Endrick</div>
+            <div class="pos">ATA</div>
+        </div>
+
+    </div>
+
+    <!-- RESERVAS -->
+
+    <div class="reservas">
+
+        <h2>RESERVAS</h2>
+
+        <div class="banco">
+
+            <div>
+                <label class="card">
+                    <input type="file" accept="image/*" onchange="loadImage(event)">
+                    <img>
+                    <div class="upload-text"></div>
+                </label>
+                <div class="nome">Bento</div>
+            </div>
+
+            <div>
+                <label class="card">
+                    <input type="file" accept="image/*" onchange="loadImage(event)">
+                    <img>
+                    <div class="upload-text"></div>
+                </label>
+                <div class="nome">Bremer</div>
+            </div>
+
+            <div>
+                <label class="card">
+                    <input type="file" accept="image/*" onchange="loadImage(event)">
+                    <img>
+                    <div class="upload-text"></div>
+                </label>
+                <div class="nome">Beraldo</div>
+            </div>
+
+            <div>
+                <label class="card">
+                    <input type="file" accept="image/*" onchange="loadImage(event)">
+                    <img>
+                    <div class="upload-text"></div>
+                </label>
+                <div class="nome">João Gomes</div>
+            </div>
+
+            <div>
+                <label class="card">
+                    <input type="file" accept="image/*" onchange="loadImage(event)">
+                    <img>
+                    <div class="upload-text"></div>
+                </label>
+                <div class="nome">Martinelli</div>
+            </div>
+
+            <div>
+                <label class="card">
+                    <input type="file" accept="image/*" onchange="loadImage(event)">
+                    <img>
+                    <div class="upload-text"></div>
+                </label>
+                <div class="nome">Andrey Santos</div>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 <script>
 
-function trocarFoto(id){
+/* FOTO DAS CARTAS */
 
-    const input = document.createElement("input");
+function loadImage(event){
 
-    input.type = "file";
-    input.accept = "image/*";
+    const file = event.target.files[0];
 
-    input.onchange = function(event){
+    if(!file) return;
 
-        const arquivo = event.target.files[0];
+    const reader = new FileReader();
 
-        if(arquivo){
+    reader.onload = function(e){
 
-            const leitor = new FileReader();
+        const card = event.target.parentElement;
 
-            leitor.onload = function(e){
+        card.querySelector("img").src = e.target.result;
 
-                document.getElementById(id).src = e.target.result;
+    };
 
-            }
-
-            leitor.readAsDataURL(arquivo);
-
-        }
-
-    }
-
-    input.click();
+    reader.readAsDataURL(file);
 
 }
 
-function abrirReservas(){
+/* TROCAR FUNDO GERAL */
 
-    document
-    .getElementById("menuReservas")
-    .classList.toggle("abrir");
+const bgInput = document.getElementById("backgroundInput");
+const bg = document.getElementById("bg");
 
-}
+bgInput.addEventListener("change", function(e){
 
-function abrirPlanoFundo(){
+    const file = e.target.files[0];
 
-    document
-    .getElementById("bgCartas")
-    .click();
+    if(!file) return;
 
-}
+    const reader = new FileReader();
 
-function trocarPlanoFundo(event){
+    reader.onload = function(event){
 
-    const arquivo = event.target.files[0];
+        bg.style.backgroundImage = `
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+        url(${event.target.result})
+        `;
 
-    if(arquivo){
+    };
 
-        const leitor = new FileReader();
+    reader.readAsDataURL(file);
 
-        leitor.onload = function(e){
+});
 
-            document
-            .getElementById("fundoCartas")
-            .style.backgroundImage =
-            `url(${e.target.result})`;
+/* TROCAR FUNDO ATRÁS DAS CARTAS */
 
-        }
+const campoInput = document.getElementById("campoBackground");
+const campoOverlay = document.getElementById("campoOverlay");
 
-        leitor.readAsDataURL(arquivo);
+campoInput.addEventListener("change", function(e){
 
-    }
+    const file = e.target.files[0];
 
-}
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+
+        campoOverlay.style.backgroundImage = `
+        url(${event.target.result})
+        `;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
 
 </script>
 
