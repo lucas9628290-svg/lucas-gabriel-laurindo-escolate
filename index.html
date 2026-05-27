@@ -1,1 +1,629 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Brasil 2026 DLS</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#0b0b0b;
+    overflow-x:hidden;
+    color:white;
+}
+
+/* TÍTULO */
+
+h1{
+    text-align:center;
+    padding:20px;
+    font-size:50px;
+    color:gold;
+    text-shadow:0 0 20px black;
+}
+
+/* BOTÕES */
+
+.btn-reservas,
+.btn-fundo{
+    position:fixed;
+    top:20px;
+    border:none;
+    padding:14px 24px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:1000;
+}
+
+.btn-reservas{
+    right:20px;
+    background:gold;
+    color:black;
+}
+
+.btn-fundo{
+    left:20px;
+    background:#00ff88;
+    color:black;
+}
+
+.btn-reservas:hover,
+.btn-fundo:hover{
+    transform:scale(1.05);
+}
+
+/* CAMPO */
+
+.campo{
+    width:1100px;
+    max-width:95%;
+    height:760px;
+    margin:20px auto;
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    border:4px solid rgba(255,255,255,0.2);
+    box-shadow:0 0 35px rgba(0,0,0,0.8);
+
+    background:
+    linear-gradient(rgba(0,120,0,0.2),rgba(0,120,0,0.2)),
+    url('https://i.imgur.com/Q0P4YfD.jpg');
+
+    background-size:cover;
+    background-position:center;
+}
+
+/* FUNDO ATRÁS DAS CARTAS */
+
+.fundo-cartas{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-image:url('https://wallpapercave.com/wp/wp7476075.jpg');
+    background-size:cover;
+    background-position:center;
+    opacity:0.35;
+    z-index:1;
+}
+
+/* CARTAS */
+
+.card{
+    width:105px;
+    height:135px;
+    position:absolute;
+    background:#111;
+    border:2px solid #00ff88;
+    border-radius:12px;
+    overflow:hidden;
+    transition:0.3s;
+    box-shadow:0 0 15px rgba(0,0,0,0.8);
+    z-index:2;
+}
+
+.card:hover{
+    transform:scale(1.08);
+}
+
+.topo{
+    height:25px;
+    background:#00ff88;
+    color:black;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 6px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.overall{
+    font-size:18px;
+}
+
+.player-img{
+    width:100%;
+    height:76px;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+.info{
+    text-align:center;
+    padding-top:4px;
+    background:rgba(0,0,0,0.75);
+}
+
+.nome{
+    font-size:12px;
+    font-weight:bold;
+}
+
+.camisa{
+    font-size:11px;
+    color:gold;
+}
+
+/* POSIÇÕES */
+
+.gk{
+    bottom:20px;
+    left:500px;
+}
+
+.lb{
+    bottom:150px;
+    left:130px;
+}
+
+.cb1{
+    bottom:120px;
+    left:360px;
+}
+
+.cb2{
+    bottom:120px;
+    right:360px;
+}
+
+.rb{
+    bottom:150px;
+    right:130px;
+}
+
+.cm1{
+    bottom:300px;
+    left:300px;
+}
+
+.cm2{
+    bottom:300px;
+    right:300px;
+}
+
+.cam{
+    bottom:430px;
+    left:500px;
+}
+
+.lw{
+    top:120px;
+    left:170px;
+}
+
+.st{
+    top:70px;
+    left:500px;
+}
+
+.rw{
+    top:120px;
+    right:170px;
+}
+
+/* RESERVAS */
+
+.reservas{
+    position:fixed;
+    top:0;
+    right:-430px;
+    width:430px;
+    height:100vh;
+    background:#111;
+    overflow-y:auto;
+    transition:0.5s;
+    padding:20px;
+    z-index:999;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.9);
+}
+
+.reservas.abrir{
+    right:0;
+}
+
+.reservas h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:gold;
+}
+
+.reserva-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🇧🇷 ESCALAÇÃO BRASIL 2026</h1>
+
+<button class="btn-reservas" onclick="abrirReservas()">
+RESERVAS
+</button>
+
+<button class="btn-fundo" onclick="abrirPlanoFundo()">
+🖼 FUNDO TIME
+</button>
+
+<input
+type="file"
+id="bgCartas"
+accept="image/*"
+style="display:none"
+onchange="trocarPlanoFundo(event)">
+
+<div class="campo">
+
+<div class="fundo-cartas" id="fundoCartas"></div>
+
+<!-- GOLEIRO -->
+<div class="card gk">
+<div class="topo">
+<span class="overall">89</span>
+<span>GOL</span>
+</div>
+
+<img id="img1"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/alisson-liverpool-2024-1716657909-137709.jpg"
+onclick="trocarFoto('img1')">
+
+<div class="info">
+<div class="nome">ALISSON</div>
+<div class="camisa">#1</div>
+</div>
+</div>
+
+<!-- LE -->
+<div class="card lb">
+<div class="topo">
+<span class="overall">84</span>
+<span>LE</span>
+</div>
+
+<img id="img2"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/wendell-fc-porto-2024-1716658684-137718.jpg"
+onclick="trocarFoto('img2')">
+
+<div class="info">
+<div class="nome">WENDELL</div>
+<div class="camisa">#6</div>
+</div>
+</div>
+
+<!-- ZAG -->
+<div class="card cb1">
+<div class="topo">
+<span class="overall">87</span>
+<span>ZAG</span>
+</div>
+
+<img id="img3"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/marquinhos-psg-2024-1716658222-137712.jpg"
+onclick="trocarFoto('img3')">
+
+<div class="info">
+<div class="nome">MARQUINHOS</div>
+<div class="camisa">#4</div>
+</div>
+</div>
+
+<!-- ZAG -->
+<div class="card cb2">
+<div class="topo">
+<span class="overall">85</span>
+<span>ZAG</span>
+</div>
+
+<img id="img4"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/gabriel-magalhaes-arsenal-2024-1716658459-137715.jpg"
+onclick="trocarFoto('img4')">
+
+<div class="info">
+<div class="nome">GABRIEL</div>
+<div class="camisa">#3</div>
+</div>
+</div>
+
+<!-- LD -->
+<div class="card rb">
+<div class="topo">
+<span class="overall">84</span>
+<span>LD</span>
+</div>
+
+<img id="img5"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/danilo-juventus-2024-1716658855-137721.jpg"
+onclick="trocarFoto('img5')">
+
+<div class="info">
+<div class="nome">DANILO</div>
+<div class="camisa">#2</div>
+</div>
+</div>
+
+<!-- MC -->
+<div class="card cm1">
+<div class="topo">
+<span class="overall">87</span>
+<span>MC</span>
+</div>
+
+<img id="img6"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/bruno-guimaraes-newcastle-2024-1716657715-137706.jpg"
+onclick="trocarFoto('img6')">
+
+<div class="info">
+<div class="nome">BRUNO G</div>
+<div class="camisa">#8</div>
+</div>
+</div>
+
+<!-- MC -->
+<div class="card cm2">
+<div class="topo">
+<span class="overall">85</span>
+<span>MC</span>
+</div>
+
+<img id="img7"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/joelinton-newcastle-2024-1716659124-137724.jpg"
+onclick="trocarFoto('img7')">
+
+<div class="info">
+<div class="nome">JOELINTON</div>
+<div class="camisa">#5</div>
+</div>
+</div>
+
+<!-- MEI -->
+<div class="card cam">
+<div class="topo">
+<span class="overall">88</span>
+<span>MEI</span>
+</div>
+
+<img id="img8"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/paqueta-west-ham-2024-1716659308-137727.jpg"
+onclick="trocarFoto('img8')">
+
+<div class="info">
+<div class="nome">PAQUETÁ</div>
+<div class="camisa">#10</div>
+</div>
+</div>
+
+<!-- PE -->
+<div class="card lw">
+<div class="topo">
+<span class="overall">92</span>
+<span>PE</span>
+</div>
+
+<img id="img9"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/vinicius-junior-real-madrid-2024-1716656781-137694.jpg"
+onclick="trocarFoto('img9')">
+
+<div class="info">
+<div class="nome">VINI JR</div>
+<div class="camisa">#7</div>
+</div>
+</div>
+
+<!-- ATA -->
+<div class="card st">
+<div class="topo">
+<span class="overall">89</span>
+<span>ATA</span>
+</div>
+
+<img id="img10"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/endrick-real-madrid-2024-1716657511-137703.jpg"
+onclick="trocarFoto('img10')">
+
+<div class="info">
+<div class="nome">ENDRICK</div>
+<div class="camisa">#9</div>
+</div>
+</div>
+
+<!-- PD -->
+<div class="card rw">
+<div class="topo">
+<span class="overall">90</span>
+<span>PD</span>
+</div>
+
+<img id="img11"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/rodrygo-real-madrid-2024-1716657021-137697.jpg"
+onclick="trocarFoto('img11')">
+
+<div class="info">
+<div class="nome">RODRYGO</div>
+<div class="camisa">#11</div>
+</div>
+</div>
+
+</div>
+
+<!-- RESERVAS -->
+
+<div class="reservas" id="menuReservas">
+
+<h2>⭐ RESERVAS</h2>
+
+<div class="reserva-grid">
+
+<div class="card" style="position:relative;">
+<div class="topo">
+<span class="overall">86</span>
+<span>ATA</span>
+</div>
+
+<img id="r1"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/raphinha-barcelona-2024-1716657312-137700.jpg"
+onclick="trocarFoto('r1')">
+
+<div class="info">
+<div class="nome">RAPHINHA</div>
+<div class="camisa">#19</div>
+</div>
+</div>
+
+<div class="card" style="position:relative;">
+<div class="topo">
+<span class="overall">85</span>
+<span>ATA</span>
+</div>
+
+<img id="r2"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/gabriel-martinelli-arsenal-2024.jpg"
+onclick="trocarFoto('r2')">
+
+<div class="info">
+<div class="nome">MARTINELLI</div>
+<div class="camisa">#20</div>
+</div>
+</div>
+
+<div class="card" style="position:relative;">
+<div class="topo">
+<span class="overall">84</span>
+<span>VOL</span>
+</div>
+
+<img id="r3"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/casemiro-manchester-united-2024.jpg"
+onclick="trocarFoto('r3')">
+
+<div class="info">
+<div class="nome">CASEMIRO</div>
+<div class="camisa">#18</div>
+</div>
+</div>
+
+<div class="card" style="position:relative;">
+<div class="topo">
+<span class="overall">84</span>
+<span>GOL</span>
+</div>
+
+<img id="r4"
+class="player-img"
+src="https://tmssl.akamaized.net/images/foto/galerie/ederson-manchester-city-2024.jpg"
+onclick="trocarFoto('r4')">
+
+<div class="info">
+<div class="nome">EDERSON</div>
+<div class="camisa">#12</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function trocarFoto(id){
+
+    const input = document.createElement("input");
+
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = function(event){
+
+        const arquivo = event.target.files[0];
+
+        if(arquivo){
+
+            const leitor = new FileReader();
+
+            leitor.onload = function(e){
+
+                document.getElementById(id).src = e.target.result;
+
+            }
+
+            leitor.readAsDataURL(arquivo);
+
+        }
+
+    }
+
+    input.click();
+
+}
+
+function abrirReservas(){
+
+    document
+    .getElementById("menuReservas")
+    .classList.toggle("abrir");
+
+}
+
+function abrirPlanoFundo(){
+
+    document
+    .getElementById("bgCartas")
+    .click();
+
+}
+
+function trocarPlanoFundo(event){
+
+    const arquivo = event.target.files[0];
+
+    if(arquivo){
+
+        const leitor = new FileReader();
+
+        leitor.onload = function(e){
+
+            document
+            .getElementById("fundoCartas")
+            .style.backgroundImage =
+            `url(${e.target.result})`;
+
+        }
+
+        leitor.readAsDataURL(arquivo);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
