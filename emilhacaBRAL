@@ -1,1 +1,9 @@
-
+# descompacte o zip, entre na pasta, e rode:
+git init
+git add .
+git commit -m "Copa Simulada: simulador de torneio fictício"
+git branch -M main
+git remote add origin https://github.com/SEU_USUARIO/copa-simulada.git
+git push -u origin main
+npm install
+npm run dev
