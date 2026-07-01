@@ -217,3 +217,4 @@ camera.updateProjectionMatrix();
 renderer.setSize(window.innerWidth,window.innerHeight);
 
 });
+<script src="script.js"></script>
