@@ -2,274 +2,52 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Copa do Mundo Simulator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Dead 3D</title>
 
 <style>
-
 body{
     margin:0;
-    background:#061b11;
-    color:white;
+    overflow:hidden;
+    background:#87CEEB;
     font-family:Arial;
-    text-align:center;
 }
 
-h1{
-    color:#00ff88;
-}
-
-.container{
-    width:90%;
-    margin:auto;
-}
-
-.card{
-
-    background:#102b1d;
-    border:2px solid #00ff88;
-    border-radius:15px;
-    padding:20px;
-    margin:20px;
-
-}
-
-button{
-
-    background:#00ff88;
-    border:none;
-    padding:12px;
-    border-radius:10px;
-    cursor:pointer;
+#hud{
+    position:absolute;
+    top:20px;
+    left:20px;
+    color:white;
+    font-size:28px;
     font-weight:bold;
-
+    text-shadow:2px 2px 5px black;
 }
 
-button:hover{
-    background:white;
+#mensagem{
+    position:absolute;
+    width:100%;
+    top:50%;
+    text-align:center;
+    color:white;
+    font-size:45px;
+    transform:translateY(-50%);
+    display:none;
 }
-
-
-.jogo{
-
-background:#09150f;
-padding:15px;
-margin:10px;
-border-radius:10px;
-
-}
-
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.164/build/three.min.js"></script>
+
 </head>
-
-
 <body>
 
-
-<h1>🏆 Copa do Mundo Simulator ⚽</h1>
-
-
-<div class="container">
-
-
-<div class="card">
-
-<h2>Seleções</h2>
-
-<p id="times"></p>
-
-
+<div id="hud">
+Fase 1<br>
+Mortes: <span id="mortes">0</span>
 </div>
 
+<div id="mensagem"></div>
 
-
-<div class="card">
-
-<h2>Próximos Jogos</h2>
-
-<div id="jogos"></div>
-
-
-<button onclick="simular()">Simular Copa</button>
-
-
-</div>
-
-
-
-
-<div class="card">
-
-<h2>Classificação</h2>
-
-<div id="tabela"></div>
-
-
-</div>
-
-
-</div>
-
-
-
-<script>
-
-
-let selecoes=[
-
-{name:"🇧🇷 Brasil",p:0},
-{name:"🇦🇷 Argentina",p:0},
-{name:"🇫🇷 França",p:0},
-{name:"🇩🇪 Alemanha",p:0},
-{name:"🇵🇹 Portugal",p:0},
-{name:"🇪🇸 Espanha",p:0},
-{name:"🏴 Inglaterra",p:0},
-{name:"🇮🇹 Itália",p:0}
-
-];
-
-
-
-let jogos=[
-
-["Brasil","Argentina"],
-["França","Alemanha"],
-["Portugal","Espanha"],
-["Inglaterra","Itália"]
-
-];
-
-
-
-function carregar(){
-
-
-document.getElementById("times").innerHTML=
-selecoes.map(x=>x.name).join("<br>");
-
-
-
-let html="";
-
-
-jogos.forEach((j,i)=>{
-
-html+=`
-
-<div class="jogo">
-
-⚽ ${j[0]} VS ${j[1]}
-
-<br>
-
-${i==0?"Hoje":"Em breve"}
-
-</div>
-
-
-`;
-
-});
-
-
-document.getElementById("jogos").innerHTML=html;
-
-
-mostrarTabela();
-
-
-}
-
-
-
-
-function simular(){
-
-
-jogos.forEach(j=>{
-
-
-let a=Math.floor(Math.random()*5);
-
-let b=Math.floor(Math.random()*5);
-
-
-
-let time1=selecoes.find(x=>x.name.includes(j[0]));
-let time2=selecoes.find(x=>x.name.includes(j[1]));
-
-
-
-if(a>b)
-time1.p+=3;
-
-else if(b>a)
-time2.p+=3;
-
-else{
-
-time1.p++;
-time2.p++;
-
-}
-
-
-
-});
-
-
-alert("Copa simulada! 🏆");
-
-
-mostrarTabela();
-
-
-}
-
-
-
-
-function mostrarTabela(){
-
-
-selecoes.sort((a,b)=>b.p-a.p);
-
-
-
-let html="";
-
-
-selecoes.forEach((x,i)=>{
-
-
-html+=`
-
-<h3>
-${i+1}º ${x.name}
- - ${x.p} pontos
-
-</h3>
-
-
-`;
-
-
-});
-
-
-document.getElementById("tabela").innerHTML=html;
-
-
-
-}
-
-
-carregar();
-
-
-</script>
-
-
+<script src="script.js"></script>
 
 </body>
 </html>
