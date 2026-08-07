@@ -1,1233 +1,308 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>A Casa do Horror — Jogo de Terror 3D</title>
-<link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dia do Estudante</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(-45deg,#002855,#00AEEF,#FFD700,#FF4D6D,#7B2CBF);
+background-size:500% 500%;
+animation:fundo 12s ease infinite;
+color:white;
+overflow-x:hidden;
+}
+
+@keyframes fundo{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+header{
+position:sticky;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+background:rgba(0,0,0,.45);
+backdrop-filter:blur(10px);
+z-index:999;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
+
+header h1{
+font-size:30px;
+color:#FFD700;
+text-shadow:0 0 15px gold;
+}
+
+nav{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+padding:12px 18px;
+background:#ff0066;
+border-radius:30px;
+transition:.4s;
+font-weight:bold;
+}
+
+nav a:hover{
+background:#FFD700;
+color:#000;
+transform:translateY(-7px) scale(1.1) rotateX(15deg);
+box-shadow:0 0 20px yellow;
+}
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:30px;
+}
+
+.hero h2{
+font-size:70px;
+text-shadow:0 0 25px cyan;
+animation:flutuar 3s infinite ease-in-out;
+}
+
+.hero p{
+font-size:24px;
+margin-top:20px;
+max-width:850px;
+}
+
+@keyframes flutuar{
+50%{
+transform:translateY(-12px);
+}
+}
+
+.card{
+width:85%;
+margin:50px auto;
+padding:40px;
+background:rgba(255,255,255,.12);
+border-radius:25px;
+backdrop-filter:blur(12px);
+transition:.3s;
+transform-style:preserve-3d;
+box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.card:hover{
+box-shadow:0 0 35px cyan;
+}
+
+.card h2{
+margin-bottom:20px;
+font-size:35px;
+color:#FFD700;
+}
+
+.card p{
+font-size:21px;
+line-height:1.8;
+}
+
+footer{
+padding:35px;
+text-align:center;
+font-size:18px;
+background:rgba(0,0,0,.35);
+margin-top:50px;
+}
+
+.bola{
+position:fixed;
+border-radius:50%;
+opacity:.25;
+pointer-events:none;
+animation:subir linear infinite;
+}
+
+@keyframes subir{
+0%{
+transform:translateY(100vh);
+}
+100%{
+transform:translateY(-120vh);
+}
+}
+
+</style>
 </head>
+
 <body>
 
-  <!-- TELA DE MENU -->
-  <div id="menu-screen" class="overlay">
-    <h1 class="title">A CASA DO HORROR</h1>
-    <p class="subtitle">Encontre as 5 peças e fuja antes que ELA te pegue.</p>
-    <button id="btn-play" class="btn">JOGAR</button>
-    <button id="btn-howto" class="btn secondary">COMO JOGAR</button>
-    <p class="credits">Feito com Three.js</p>
-  </div>
+<header>
 
-  <!-- TELA DE INSTRUÇÕES -->
-  <div id="howto-screen" class="overlay hidden">
-    <h2>Como Jogar</h2>
-    <ul class="howto-list">
-      <li><b>WASD</b> — Mover</li>
-      <li><b>Mouse</b> — Olhar ao redor</li>
-      <li><b>Shift</b> — Correr (faz barulho, ela pode ouvir!)</li>
-      <li><b>E</b> — Pegar item / Entrar e sair de esconderijo</li>
-      <li><b>Objetivo</b> — Ache as 5 peças espalhadas pela casa, leve até a porta principal e fuja.</li>
-      <li><b>Cuidado</b> — Se ELA te ver ou avistar de perto, ela vai te caçar. Esconda-se em armários se necessário.</li>
-    </ul>
-    <button id="btn-back" class="btn">VOLTAR</button>
-  </div>
+<h1>📚 Dia do Estudante</h1>
 
-  <!-- TELA DE GAME OVER -->
-  <div id="gameover-screen" class="overlay hidden">
-    <h1 class="title danger">ELA TE PEGOU</h1>
-    <p class="subtitle" id="gameover-msg">Você foi capturado...</p>
-    <button id="btn-retry" class="btn">TENTAR NOVAMENTE</button>
-  </div>
+<nav>
 
-  <!-- TELA DE VITÓRIA -->
-  <div id="win-screen" class="overlay hidden">
-    <h1 class="title win">VOCÊ ESCAPOU!</h1>
-    <p class="subtitle" id="win-msg"></p>
-    <button id="btn-play-again" class="btn">JOGAR DE NOVO</button>
-  </div>
+<a href="#dia">Dia</a>
 
-  <!-- HUD -->
-  <div id="hud" class="hidden">
-    <div id="crosshair">+</div>
-    <div id="inventory">Peças: <span id="item-count">0</span> / <span id="item-total">5</span></div>
-    <div id="hint" class="hint hidden">Pressione E</div>
-    <div id="hiding-indicator" class="hidden">ESCONDIDO — pressione E para sair</div>
-    <div id="stamina-bar"><div id="stamina-fill"></div></div>
-    <div id="danger-vignette"></div>
-    <div id="chase-warning" class="hidden">ELA TE VIU!</div>
-  </div>
+<a href="#ano">Ano</a>
 
-  <div id="blocker" class="hidden">
-    <div id="click-msg">Clique para continuar</div>
-  </div>
+<a href="#historia">Como aconteceu</a>
 
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-    }
-  }
-  </script>
-  <script type="module" src="game.js"></script>
+<a href="#criador">Quem criou</a>
+
+<a href="#importancia">Importância</a>
+
+<a href="#criancas">Dia das Crianças</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h2>🎓 Feliz Dia do Estudante!</h2>
+
+<p>
+O estudante é o protagonista do conhecimento. Cada livro lido, cada aula assistida e cada desafio vencido contribuem para construir um futuro melhor.
+</p>
+
+</section>
+
+<section id="dia" class="card">
+
+<h2>📅 Dia</h2>
+
+<p>
+No Brasil, o Dia do Estudante é comemorado em <b>11 de agosto</b>. A data homenageia todos aqueles que dedicam seu tempo aos estudos e reconhece a importância da educação para transformar a sociedade.
+</p>
+
+</section>
+
+<section id="ano" class="card">
+
+<h2>📖 Ano</h2>
+
+<p>
+O Dia do Estudante passou a ser comemorado oficialmente em <b>1927</b>, durante o centenário da criação dos primeiros cursos de Direito do Brasil.
+</p>
+
+</section>
+
+<section id="historia" class="card">
+
+<h2>📜 Como aconteceu?</h2>
+
+<p>
+Em 11 de agosto de 1827, Dom Pedro I criou os dois primeiros cursos de Direito do Brasil. Cem anos depois, em 1927, o advogado Celso Gand Ley sugeriu que a data fosse comemorada como o Dia do Estudante.
+</p>
+
+</section>
+
+<section id="criador" class="card">
+
+<h2>👤 Quem criou?</h2>
+
+<p>
+A comemoração foi proposta pelo advogado <b>Celso Gand Ley</b>, que participou da organização das festividades do centenário dos cursos de Direito e ajudou a transformar a data em uma homenagem aos estudantes.
+</p>
+
+</section>
+
+<section id="importancia" class="card">
+
+<h2>🌎 Importância</h2>
+
+<p>
+O Dia do Estudante reforça o valor da educação, incentiva a dedicação aos estudos e reconhece o esforço dos alunos e professores na construção de uma sociedade mais justa, desenvolvida e preparada para o futuro.
+</p>
+
+</section>
+
+<section id="criancas" class="card">
+
+<h2>🎈 Dia das Crianças</h2>
+
+<p>
+O Dia das Crianças é comemorado no Brasil em <b>12 de outubro</b>. A data foi oficializada em 1924 pelo presidente Arthur Bernardes e tem como objetivo valorizar a infância, incentivar o cuidado, a proteção, o lazer, a educação e o desenvolvimento das crianças.
+</p>
+
+</section>
+
+<footer>
+
+⭐ Site desenvolvido para GitHub • Dia do Estudante • 2026 ⭐
+
+</footer>
+
+<script>
+
+//Efeito 3D
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.addEventListener("mousemove",(e)=>{
+
+const r=card.getBoundingClientRect();
+
+const x=e.clientX-r.left;
+const y=e.clientY-r.top;
+
+const rx=-(y-r.height/2)/18;
+const ry=(x-r.width/2)/18;
+
+card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="rotateX(0deg) rotateY(0deg) scale(1)";
+
+});
+
+});
+
+//Partículas
+
+for(let i=0;i<40;i++){
+
+let b=document.createElement("div");
+
+b.className="bola";
+
+let s=Math.random()*20+10;
+
+b.style.width=s+"px";
+b.style.height=s+"px";
+b.style.left=Math.random()*100+"vw";
+b.style.background="rgba(255,255,255,.4)";
+b.style.animationDuration=(Math.random()*10+8)+"s";
+b.style.animationDelay=(-Math.random()*15)+"s";
+
+document.body.appendChild(b);
+
+}
+
+</script>
+
 </body>
 </html>
-import * as THREE from 'three';
-import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
-
-/* =========================================================
-   A CASA DO HORROR — jogo de terror 3D em primeira pessoa
-   Motor: Three.js
-   ========================================================= */
-
-// ---------- CONFIGURAÇÕES GERAIS ----------
-const GRID = 6;              // grid GRID x GRID de salas
-const CELL = 10;             // tamanho de cada sala (unidades)
-const WALL_H = 4;            // altura das paredes
-const WALL_T = 0.4;          // espessura das paredes
-const TOTAL_ITEMS = 5;
-
-const PLAYER_RADIUS = 0.35;
-const PLAYER_EYE_HEIGHT = 1.7;
-const WALK_SPEED = 4.2;
-const SPRINT_SPEED = 7.2;
-const STAMINA_MAX = 100;
-const STAMINA_DRAIN = 28;      // por segundo enquanto corre
-const STAMINA_REGEN = 16;      // por segundo enquanto anda/parado
-
-const ENEMY_PATROL_SPEED = 2.3;
-const ENEMY_CHASE_SPEED = 5.1;
-const ENEMY_VIEW_RADIUS = 15;
-const ENEMY_FOV_DEG = 100;
-const ENEMY_CLOSE_RADIUS = 3.2;
-const ENEMY_LOSE_RADIUS = 22;
-const ENEMY_CATCH_RADIUS = 1.05;
-const ENEMY_SPRINT_HEAR_RADIUS = 11;
-
-const INTERACT_RANGE = 2.2;
-
-// ---------- ESTADO GLOBAL ----------
-let scene, camera, renderer, controls, clock;
-let wallColliders = [];       // {minX,maxX,minZ,maxZ}
-let itemMeshes = [];
-let wardrobes = [];           // {mesh, pos}
-let enemy = null;
-let doorMesh = null;
-let doorLocked = true;
-let playerVelocity = new THREE.Vector3();
-let stamina = STAMINA_MAX;
-let itemsCollected = 0;
-let isHiding = false;
-let hidingTarget = null;
-let gameActive = false;
-let mazeData = null;
-let dangerAudioCtx = null;
-
-const keys = { w:false, a:false, s:false, d:false, shift:false };
-
-// ---------- DOM ----------
-const menuScreen = document.getElementById('menu-screen');
-const howtoScreen = document.getElementById('howto-screen');
-const gameoverScreen = document.getElementById('gameover-screen');
-const winScreen = document.getElementById('win-screen');
-const hud = document.getElementById('hud');
-const blocker = document.getElementById('blocker');
-const itemCountEl = document.getElementById('item-count');
-const itemTotalEl = document.getElementById('item-total');
-const hintEl = document.getElementById('hint');
-const hidingIndicator = document.getElementById('hiding-indicator');
-const staminaFill = document.getElementById('stamina-fill');
-const dangerVignette = document.getElementById('danger-vignette');
-const chaseWarning = document.getElementById('chase-warning');
-
-itemTotalEl.textContent = TOTAL_ITEMS;
-
-document.getElementById('btn-play').addEventListener('click', startGame);
-document.getElementById('btn-play-again').addEventListener('click', startGame);
-document.getElementById('btn-retry').addEventListener('click', startGame);
-document.getElementById('btn-howto').addEventListener('click', () => {
-  menuScreen.classList.add('hidden');
-  howtoScreen.classList.remove('hidden');
-});
-document.getElementById('btn-back').addEventListener('click', () => {
-  howtoScreen.classList.add('hidden');
-  menuScreen.classList.remove('hidden');
-});
-
-window.addEventListener('keydown', onKeyDown);
-window.addEventListener('keyup', onKeyUp);
-window.addEventListener('resize', onResize);
-
-function onKeyDown(e) {
-  if (!gameActive) return;
-  switch (e.code) {
-    case 'KeyW': keys.w = true; break;
-    case 'KeyA': keys.a = true; break;
-    case 'KeyS': keys.s = true; break;
-    case 'KeyD': keys.d = true; break;
-    case 'ShiftLeft': case 'ShiftRight': keys.shift = true; break;
-    case 'KeyE': tryInteract(); break;
-  }
-}
-function onKeyUp(e) {
-  switch (e.code) {
-    case 'KeyW': keys.w = false; break;
-    case 'KeyA': keys.a = false; break;
-    case 'KeyS': keys.s = false; break;
-    case 'KeyD': keys.d = false; break;
-    case 'ShiftLeft': case 'ShiftRight': keys.shift = false; break;
-  }
-}
-function onResize() {
-  if (!camera || !renderer) return;
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-// =========================================================
-// GERAÇÃO DO LABIRINTO (recursive backtracker + loops extras)
-// =========================================================
-function generateMaze() {
-  // open[i][j] = {N,S,E,W} booleanos = existe passagem
-  const cells = [];
-  for (let i = 0; i < GRID; i++) {
-    cells.push([]);
-    for (let j = 0; j < GRID; j++) {
-      cells[i].push({ N:false, S:false, E:false, W:false, visited:false });
-    }
-  }
-  const dirs = [
-    { name:'N', di:0, dj:-1, opp:'S' },
-    { name:'S', di:0, dj:1,  opp:'N' },
-    { name:'E', di:1, dj:0,  opp:'W' },
-    { name:'W', di:-1,dj:0,  opp:'E' },
-  ];
-  function shuffle(arr) {
-    for (let k = arr.length - 1; k > 0; k--) {
-      const r = Math.floor(Math.random() * (k + 1));
-      [arr[k], arr[r]] = [arr[r], arr[k]];
-    }
-    return arr;
-  }
-  const stack = [];
-  let ci = 0, cj = 0;
-  cells[ci][cj].visited = true;
-  stack.push([ci, cj]);
-  while (stack.length) {
-    const [i, j] = stack[stack.length - 1];
-    const options = shuffle(dirs.slice()).filter(d => {
-      const ni = i + d.di, nj = j + d.dj;
-      return ni >= 0 && ni < GRID && nj >= 0 && nj < GRID && !cells[ni][nj].visited;
-    });
-    if (options.length === 0) {
-      stack.pop();
-      continue;
-    }
-    const d = options[0];
-    const ni = i + d.di, nj = j + d.dj;
-    cells[i][j][d.name] = true;
-    cells[ni][nj][d.opp] = true;
-    cells[ni][nj].visited = true;
-    stack.push([ni, nj]);
-  }
-  // adiciona loops extras (~18% das paredes internas removidas) para parecer mais com uma casa
-  for (let i = 0; i < GRID; i++) {
-    for (let j = 0; j < GRID; j++) {
-      dirs.forEach(d => {
-        const ni = i + d.di, nj = j + d.dj;
-        if (ni < 0 || ni >= GRID || nj < 0 || nj >= GRID) return;
-        if (!cells[i][j][d.name] && Math.random() < 0.16) {
-          cells[i][j][d.name] = true;
-          cells[ni][nj][d.opp] = true;
-        }
-      });
-    }
-  }
-  return cells;
-}
-
-function cellToWorld(i, j) {
-  const x = (i - GRID / 2 + 0.5) * CELL;
-  const z = (j - GRID / 2 + 0.5) * CELL;
-  return { x, z };
-}
-
-function bfsPath(cells, start, goal) {
-  const key = (i,j) => i + ',' + j;
-  const visited = new Set([key(start.i, start.j)]);
-  const queue = [[start.i, start.j]];
-  const prev = {};
-  const dirs = [
-    { name:'N', di:0, dj:-1 }, { name:'S', di:0, dj:1 },
-    { name:'E', di:1, dj:0 },  { name:'W', di:-1,dj:0 },
-  ];
-  while (queue.length) {
-    const [i, j] = queue.shift();
-    if (i === goal.i && j === goal.j) break;
-    const cell = cells[i][j];
-    for (const d of dirs) {
-      if (!cell[d.name]) continue;
-      const ni = i + d.di, nj = j + d.dj;
-      const k = key(ni, nj);
-      if (visited.has(k)) continue;
-      visited.add(k);
-      prev[k] = [i, j];
-      queue.push([ni, nj]);
-    }
-  }
-  const path = [];
-  let cur = [goal.i, goal.j];
-  if (!visited.has(key(goal.i, goal.j))) return [[start.i, start.j]];
-  while (!(cur[0] === start.i && cur[1] === start.j)) {
-    path.push(cur);
-    cur = prev[key(cur[0], cur[1])];
-    if (!cur) break;
-  }
-  path.push([start.i, start.j]);
-  path.reverse();
-  return path;
-}
-
-// =========================================================
-// CONSTRUÇÃO DO NÍVEL
-// =========================================================
-function buildLevel(cells, spawnCell, exitCell, doorSide) {
-  const levelGroup = new THREE.Group();
-  wallColliders = [];
-
-  const floorMat = new THREE.MeshStandardMaterial({ color: 0x2b2420, roughness: 0.95 });
-  const ceilMat = new THREE.MeshStandardMaterial({ color: 0x0e0d0c, roughness: 1 });
-  const wallMat = new THREE.MeshStandardMaterial({ color: 0x4a3f36, roughness: 0.9 });
-
-  const totalSize = GRID * CELL;
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(totalSize, totalSize), floorMat);
-  floor.rotation.x = -Math.PI / 2;
-  levelGroup.add(floor);
-
-  const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(totalSize, totalSize), ceilMat);
-  ceiling.rotation.x = Math.PI / 2;
-  ceiling.position.y = WALL_H;
-  levelGroup.add(ceiling);
-
-  function addWallBox(cx, cz, sx, sz) {
-    const box = new THREE.Mesh(new THREE.BoxGeometry(sx, WALL_H, sz), wallMat);
-    box.position.set(cx, WALL_H / 2, cz);
-    levelGroup.add(box);
-    wallColliders.push({
-      minX: cx - sx / 2 - PLAYER_RADIUS, maxX: cx + sx / 2 + PLAYER_RADIUS,
-      minZ: cz - sz / 2 - PLAYER_RADIUS, maxZ: cz + sz / 2 + PLAYER_RADIUS,
-    });
-  }
-
-  // paredes internas: para cada célula, se não há passagem N ou W, desenha parede
-  // (evita duplicar: sempre desenha limite N e W de cada célula, e os limites externos S/E na borda)
-  for (let i = 0; i < GRID; i++) {
-    for (let j = 0; j < GRID; j++) {
-      const { x, z } = cellToWorld(i, j);
-      const half = CELL / 2;
-      const c = cells[i][j];
-      const isDoorCell = exitCell.i === i && exitCell.j === j;
-      // parede norte (topo, -z)
-      if (!c.N) {
-        const isExit = isDoorCell && doorSide === 'N';
-        if (!isExit) addWallBox(x, z - half, CELL, WALL_T);
-      }
-      // parede oeste (-x)
-      if (!c.W) {
-        const isExit = isDoorCell && doorSide === 'W';
-        if (!isExit) addWallBox(x - half, z, WALL_T, CELL);
-      }
-      // bordas externas sul/leste do grid
-      if (j === GRID - 1 && !c.S) {
-        const isExit = isDoorCell && doorSide === 'S';
-        if (!isExit) addWallBox(x, z + half, CELL, WALL_T);
-      }
-      if (i === GRID - 1 && !c.E) {
-        const isExit = isDoorCell && doorSide === 'E';
-        if (!isExit) addWallBox(x + half, z, WALL_T, CELL);
-      }
-    }
-  }
-
-  // luzes: ambiente bem fraca + algumas lanternas piscando
-  scene.fog = new THREE.FogExp2(0x000000, 0.045);
-  const ambient = new THREE.AmbientLight(0x404050, 0.35);
-  levelGroup.add(ambient);
-
-  for (let i = 0; i < GRID; i += 2) {
-    for (let j = 0; j < GRID; j += 2) {
-      if (Math.random() < 0.55) {
-        const { x, z } = cellToWorld(i, j);
-        const light = new THREE.PointLight(0xffb066, 1.1, 13, 2);
-        light.position.set(x, WALL_H - 0.6, z);
-        levelGroup.add(light);
-        // pequena "lâmpada" visual
-        const bulb = new THREE.Mesh(
-          new THREE.SphereGeometry(0.12, 8, 8),
-          new THREE.MeshBasicMaterial({ color: 0xffcc88 })
-        );
-        bulb.position.copy(light.position);
-        levelGroup.add(bulb);
-        // leve flicker
-        light.userData.flicker = 0.5 + Math.random();
-        flickerLights.push(light);
-      }
-    }
-  }
-
-  scene.add(levelGroup);
-  return { spawnCell, exitCell };
-}
-
-const flickerLights = [];
-
-function buildDoor(exitCell, side) {
-  const { x, z } = cellToWorld(exitCell.i, exitCell.j);
-  const half = CELL / 2;
-  let px = x, pz = z, rotY = 0;
-  if (side === 'S') { pz = z + half; rotY = 0; }
-  if (side === 'E') { px = x + half; rotY = Math.PI / 2; }
-  if (side === 'N') { pz = z - half; rotY = 0; }
-  if (side === 'W') { px = x - half; rotY = Math.PI / 2; }
-
-  const doorMat = new THREE.MeshStandardMaterial({ color: 0x5c2b1a, roughness: 0.7, emissive: 0x000000 });
-  const mesh = new THREE.Mesh(new THREE.BoxGeometry(CELL * 0.55, WALL_H * 0.85, 0.35), doorMat);
-  mesh.position.set(px, (WALL_H * 0.85) / 2, pz);
-  mesh.rotation.y = rotY;
-  scene.add(mesh);
-  doorMesh = mesh;
-
-  // luz externa fraca para indicar a saída (mais visível quando destrancada)
-  const light = new THREE.PointLight(0x3355ff, 0, 10, 2);
-  light.position.set(px, 2, pz);
-  scene.add(light);
-  doorMesh.userData.light = light;
-
-  return mesh;
-}
-
-function placeItems(cells, spawnCell, exitCell) {
-  itemMeshes = [];
-  const candidates = [];
-  for (let i = 0; i < GRID; i++)
-    for (let j = 0; j < GRID; j++)
-      if (!(i === spawnCell.i && j === spawnCell.j) && !(i === exitCell.i && j === exitCell.j))
-        candidates.push({ i, j });
-  for (let k = candidates.length - 1; k > 0; k--) {
-    const r = Math.floor(Math.random() * (k + 1));
-    [candidates[k], candidates[r]] = [candidates[r], candidates[k]];
-  }
-  const chosen = candidates.slice(0, TOTAL_ITEMS);
-  const geo = new THREE.OctahedronGeometry(0.35, 0);
-  const mat = new THREE.MeshStandardMaterial({ color: 0xffd54a, emissive: 0x664400, roughness: 0.3, metalness: 0.6 });
-  chosen.forEach(c => {
-    const { x, z } = cellToWorld(c.i, c.j);
-    const ox = (Math.random() - 0.5) * CELL * 0.5;
-    const oz = (Math.random() - 0.5) * CELL * 0.5;
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(x + ox, 1.1, z + oz);
-    const light = new THREE.PointLight(0xffd54a, 0.6, 3);
-    mesh.add(light);
-    scene.add(mesh);
-    itemMeshes.push(mesh);
-  });
-  return chosen;
-}
-
-function placeWardrobes(cells, spawnCell, exitCell, avoidCells) {
-  wardrobes = [];
-  const candidates = [];
-  for (let i = 0; i < GRID; i++)
-    for (let j = 0; j < GRID; j++) {
-      if (i === spawnCell.i && j === spawnCell.j) continue;
-      if (i === exitCell.i && j === exitCell.j) continue;
-      if (avoidCells.some(c => c.i === i && c.j === j)) continue;
-      candidates.push({ i, j });
-    }
-  for (let k = candidates.length - 1; k > 0; k--) {
-    const r = Math.floor(Math.random() * (k + 1));
-    [candidates[k], candidates[r]] = [candidates[r], candidates[k]];
-  }
-  const chosen = candidates.slice(0, 7);
-  const geo = new THREE.BoxGeometry(1.4, 2.6, 0.9);
-  const mat = new THREE.MeshStandardMaterial({ color: 0x2f2117, roughness: 0.8 });
-  chosen.forEach(c => {
-    const { x, z } = cellToWorld(c.i, c.j);
-    const half = CELL / 2 - 0.6;
-    const side = Math.floor(Math.random() * 4);
-    let px = x, pz = z, rot = 0;
-    if (side === 0) { pz = z - half; rot = 0; }
-    if (side === 1) { pz = z + half; rot = Math.PI; }
-    if (side === 2) { px = x - half; rot = Math.PI / 2; }
-    if (side === 3) { px = x + half; rot = -Math.PI / 2; }
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(px, 1.3, pz);
-    mesh.rotation.y = rot;
-    scene.add(mesh);
-    wardrobes.push({ mesh, pos: new THREE.Vector3(px, PLAYER_EYE_HEIGHT, pz) });
-  });
-}
-
-// =========================================================
-// INIMIGA (IA)
-// =========================================================
-function createEnemy(spawnCellPos) {
-  const group = new THREE.Group();
-  const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.9 });
-  const skinMat = new THREE.MeshStandardMaterial({ color: 0x8a7d6e, roughness: 0.8 });
-  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-
-  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.4, 1.3, 8), bodyMat);
-  body.position.y = 0.95;
-  group.add(body);
-
-  const head = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 10), skinMat);
-  head.position.y = 1.75;
-  group.add(head);
-
-  const eyeGeo = new THREE.SphereGeometry(0.045, 6, 6);
-  const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
-  eyeL.position.set(-0.1, 1.78, 0.24);
-  const eyeR = new THREE.Mesh(eyeGeo, eyeMat);
-  eyeR.position.set(0.1, 1.78, 0.24);
-  group.add(eyeL, eyeR);
-
-  const eyeLight = new THREE.PointLight(0xff2200, 0, 4);
-  eyeLight.position.set(0, 1.78, 0.2);
-  group.add(eyeLight);
-
-  const armGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.9, 6);
-  const armL = new THREE.Mesh(armGeo, bodyMat);
-  armL.position.set(-0.42, 1.05, 0);
-  armL.rotation.z = 0.25;
-  const armR = armL.clone();
-  armR.position.x = 0.42;
-  armR.rotation.z = -0.25;
-  group.add(armL, armR);
-
-  group.position.set(spawnCellPos.x, 0, spawnCellPos.z);
-  scene.add(group);
-
-  return {
-    group, eyeLight,
-    state: 'patrol',            // patrol | investigate | chase
-    speed: ENEMY_PATROL_SPEED,
-    waypoints: [],
-    lastKnownPlayerPos: null,
-    stateTimer: 0,
-    cell: { i: null, j: null },
-    alert: 0,
-  };
-}
-
-function enemyCurrentCell() {
-  const gx = Math.floor(enemy.group.position.x / CELL + GRID / 2);
-  const gz = Math.floor(enemy.group.position.z / CELL + GRID / 2);
-  return { i: THREE.MathUtils.clamp(gx, 0, GRID - 1), j: THREE.MathUtils.clamp(gz, 0, GRID - 1) };
-}
-
-function pickRandomCell(exclude) {
-  let c;
-  do {
-    c = { i: Math.floor(Math.random() * GRID), j: Math.floor(Math.random() * GRID) };
-  } while (exclude && c.i === exclude.i && c.j === exclude.j);
-  return c;
-}
-
-function setEnemyPathTo(targetCell) {
-  const cur = enemyCurrentCell();
-  const path = bfsPath(mazeData, cur, targetCell);
-  enemy.waypoints = path.map(([i, j]) => {
-    const { x, z } = cellToWorld(i, j);
-    return new THREE.Vector3(x, 0, z);
-  });
-  // remove primeiro waypoint se já estamos perto dele
-  if (enemy.waypoints.length > 1) enemy.waypoints.shift();
-}
-
-function hasLineOfSight(fromPos, toPos) {
-  const dir = new THREE.Vector3().subVectors(toPos, fromPos);
-  const dist = dir.length();
-  dir.normalize();
-  // teste por amostragem ao longo do segmento contra os colliders (suficiente nessa escala)
-  const steps = Math.ceil(dist / 0.5);
-  for (let s = 0; s <= steps; s++) {
-    const t = s / steps;
-    const px = fromPos.x + dir.x * dist * t;
-    const pz = fromPos.z + dir.z * dist * t;
-    for (const w of wallColliders) {
-      if (px > w.minX && px < w.maxX && pz > w.minZ && pz < w.maxZ) return false;
-    }
-  }
-  return true;
-}
-
-function updateEnemy(dt, playerPos) {
-  if (!enemy) return;
-  const eyePos = new THREE.Vector3(enemy.group.position.x, 1.78, enemy.group.position.z);
-  const playerHead = new THREE.Vector3(playerPos.x, PLAYER_EYE_HEIGHT, playerPos.z);
-  const toPlayer = new THREE.Vector3().subVectors(playerHead, eyePos);
-  const dist = toPlayer.length();
-
-  let seesPlayer = false;
-  if (!isHiding) {
-    if (dist < ENEMY_CLOSE_RADIUS) {
-      seesPlayer = hasLineOfSight(eyePos, playerHead);
-    } else if (dist < ENEMY_VIEW_RADIUS) {
-      const forward = new THREE.Vector3(0, 0, 1).applyQuaternion(enemy.group.quaternion);
-      const angle = forward.angleTo(toPlayer.clone().normalize()) * (180 / Math.PI);
-      if (angle < ENEMY_FOV_DEG / 2 && hasLineOfSight(eyePos, playerHead)) {
-        seesPlayer = true;
-      }
-    }
-    // detecção por som (correndo perto)
-    if (!seesPlayer && keys.shift && dist < ENEMY_SPRINT_HEAR_RADIUS) {
-      enemy.alert += dt * 1.4;
-    } else if (!seesPlayer) {
-      enemy.alert = Math.max(0, enemy.alert - dt * 0.5);
-    }
-  }
-
-  if (seesPlayer) {
-    if (enemy.state !== 'chase') {
-      chaseWarning.classList.remove('hidden');
-      setTimeout(() => chaseWarning.classList.add('hidden'), 1400);
-    }
-    enemy.state = 'chase';
-    enemy.speed = ENEMY_CHASE_SPEED;
-    enemy.lastKnownPlayerPos = playerHead.clone();
-    enemy.stateTimer = 0;
-    enemy.waypoints = [];
-  } else if (enemy.alert > 2.2 && enemy.state === 'patrol') {
-    enemy.state = 'investigate';
-    enemy.speed = ENEMY_PATROL_SPEED * 1.4;
-    enemy.lastKnownPlayerPos = playerHead.clone();
-    enemy.waypoints = [];
-    enemy.alert = 0;
-  }
-
-  if (enemy.state === 'chase') {
-    // persegue posição real do jogador enquanto visível; senão vai até a última posição conhecida
-    let target = seesPlayer ? playerHead : enemy.lastKnownPlayerPos;
-    if (target) moveEnemyToward(dt, target);
-    if (!seesPlayer) {
-      enemy.stateTimer += dt;
-      const dToLast = enemy.group.position.distanceTo(new THREE.Vector3(target.x, 0, target.z));
-      if (dToLast < 1.2 || enemy.stateTimer > 6) {
-        enemy.state = 'investigate';
-        enemy.stateTimer = 0;
-        enemy.speed = ENEMY_PATROL_SPEED * 1.3;
-      }
-    }
-    if (dist > ENEMY_LOSE_RADIUS + 5) {
-      enemy.state = 'patrol';
-    }
-  } else if (enemy.state === 'investigate') {
-    if (enemy.waypoints.length === 0 && enemy.lastKnownPlayerPos) {
-      const cur = enemyCurrentCell();
-      const tgtCell = {
-        i: THREE.MathUtils.clamp(Math.floor(enemy.lastKnownPlayerPos.x / CELL + GRID / 2), 0, GRID - 1),
-        j: THREE.MathUtils.clamp(Math.floor(enemy.lastKnownPlayerPos.z / CELL + GRID / 2), 0, GRID - 1),
-      };
-      setEnemyPathTo(tgtCell);
-      enemy.lastKnownPlayerPos = null;
-    }
-    followWaypoints(dt);
-    if (enemy.waypoints.length === 0) {
-      enemy.stateTimer += dt;
-      if (enemy.stateTimer > 2.5) {
-        enemy.state = 'patrol';
-        enemy.speed = ENEMY_PATROL_SPEED;
-        enemy.stateTimer = 0;
-      }
-    }
-  } else {
-    // patrol
-    if (enemy.waypoints.length === 0) {
-      const cur = enemyCurrentCell();
-      const tgt = pickRandomCell(cur);
-      setEnemyPathTo(tgt);
-    }
-    followWaypoints(dt);
-  }
-
-  // olhos brilham mais forte durante perseguição
-  enemy.eyeLight.intensity = THREE.MathUtils.lerp(enemy.eyeLight.intensity, enemy.state === 'chase' ? 2.2 : 0.15, dt * 4);
-
-  // vinheta de perigo / aviso
-  if (enemy.state === 'chase') {
-    dangerVignette.classList.add('active');
-  } else {
-    dangerVignette.classList.remove('active');
-  }
-
-  // captura
-  if (dist < ENEMY_CATCH_RADIUS && !isHiding) {
-    triggerCapture();
-  }
-}
-
-function followWaypoints(dt) {
-  if (enemy.waypoints.length === 0) return;
-  const target = enemy.waypoints[0];
-  moveEnemyToward(dt, target, () => enemy.waypoints.shift());
-}
-
-function moveEnemyToward(dt, targetVec3, onArrive) {
-  const pos = enemy.group.position;
-  const dir = new THREE.Vector3(targetVec3.x - pos.x, 0, targetVec3.z - pos.z);
-  const dist = dir.length();
-  if (dist < 0.35) {
-    if (onArrive) onArrive();
-    return;
-  }
-  dir.normalize();
-  const step = Math.min(dist, enemy.speed * dt);
-  pos.x += dir.x * step;
-  pos.z += dir.z * step;
-  const targetAngle = Math.atan2(dir.x, dir.z);
-  enemy.group.rotation.y = THREE.MathUtils.lerp(enemy.group.rotation.y, targetAngle, dt * 6);
-}
-
-// =========================================================
-// JOGADOR: MOVIMENTO E COLISÃO
-// =========================================================
-function resolveCollision(pos) {
-  for (const w of wallColliders) {
-    if (pos.x > w.minX && pos.x < w.maxX && pos.z > w.minZ && pos.z < w.maxZ) {
-      // empurra para fora pelo eixo de menor penetração
-      const dLeft = pos.x - w.minX;
-      const dRight = w.maxX - pos.x;
-      const dTop = pos.z - w.minZ;
-      const dBottom = w.maxZ - pos.z;
-      const min = Math.min(dLeft, dRight, dTop, dBottom);
-      if (min === dLeft) pos.x = w.minX;
-      else if (min === dRight) pos.x = w.maxX;
-      else if (min === dTop) pos.z = w.minZ;
-      else pos.z = w.maxZ;
-    }
-  }
-}
-
-function updatePlayer(dt) {
-  if (isHiding) return;
-
-  const sprinting = keys.shift && stamina > 0 && (keys.w || keys.a || keys.s || keys.d);
-  const speed = sprinting ? SPRINT_SPEED : WALK_SPEED;
-
-  if (sprinting) {
-    stamina = Math.max(0, stamina - STAMINA_DRAIN * dt);
-  } else {
-    stamina = Math.min(STAMINA_MAX, stamina + STAMINA_REGEN * dt);
-  }
-  staminaFill.style.width = stamina + '%';
-
-  const forward = new THREE.Vector3();
-  camera.getWorldDirection(forward);
-  forward.y = 0;
-  forward.normalize();
-  const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
-
-  const move = new THREE.Vector3();
-  if (keys.w) move.add(forward);
-  if (keys.s) move.sub(forward);
-  if (keys.d) move.add(right);
-  if (keys.a) move.sub(right);
-  if (move.lengthSq() > 0) move.normalize().multiplyScalar(speed * dt);
-
-  const obj = controls.getObject();
-  const nextPos = obj.position.clone();
-  nextPos.x += move.x;
-  nextPos.z += move.z;
-  resolveCollision(nextPos);
-  obj.position.x = nextPos.x;
-  obj.position.z = nextPos.z;
-  obj.position.y = PLAYER_EYE_HEIGHT;
-
-  // limita ao grid geral (segurança extra)
-  const half = (GRID * CELL) / 2 - 0.3;
-  obj.position.x = THREE.MathUtils.clamp(obj.position.x, -half, half);
-  obj.position.z = THREE.MathUtils.clamp(obj.position.z, -half, half);
-}
-
-// =========================================================
-// INTERAÇÕES (E)
-// =========================================================
-function getPlayerPos() {
-  return controls.getObject().position;
-}
-
-function tryInteract() {
-  if (!gameActive) return;
-  const pPos = getPlayerPos();
-
-  if (isHiding) {
-    isHiding = false;
-    hidingIndicator.classList.add('hidden');
-    if (hidingTarget) {
-      pPos.copy(hidingTarget).add(new THREE.Vector3(0.2, 0, 0.2));
-      pPos.y = PLAYER_EYE_HEIGHT;
-    }
-    return;
-  }
-
-  // tenta pegar item
-  for (let k = itemMeshes.length - 1; k >= 0; k--) {
-    const it = itemMeshes[k];
-    if (pPos.distanceTo(it.position) < INTERACT_RANGE) {
-      scene.remove(it);
-      itemMeshes.splice(k, 1);
-      itemsCollected++;
-      itemCountEl.textContent = itemsCollected;
-      playPickupSound();
-      if (itemsCollected >= TOTAL_ITEMS) unlockDoor();
-      return;
-    }
-  }
-
-  // tenta esconder
-  for (const w of wardrobes) {
-    if (pPos.distanceTo(w.pos) < 1.7) {
-      isHiding = true;
-      hidingTarget = w.pos.clone();
-      hidingIndicator.classList.remove('hidden');
-      return;
-    }
-  }
-
-  // tenta abrir a porta / fugir
-  if (doorMesh && pPos.distanceTo(doorMesh.position) < INTERACT_RANGE + 1) {
-    if (!doorLocked) {
-      triggerWin();
-    }
-  }
-}
-
-function unlockDoor() {
-  doorLocked = false;
-  if (doorMesh) {
-    doorMesh.material.color.set(0x2a6b2a);
-    doorMesh.material.emissive.set(0x0a3a0a);
-    if (doorMesh.userData.light) doorMesh.userData.light.intensity = 1.4;
-  }
-}
-
-function updateHint() {
-  if (!gameActive) return;
-  const pPos = getPlayerPos();
-  let show = false;
-  if (!isHiding) {
-    for (const it of itemMeshes) {
-      if (pPos.distanceTo(it.position) < INTERACT_RANGE) { hintEl.textContent = 'Pressione E para pegar'; show = true; break; }
-    }
-    if (!show) for (const w of wardrobes) {
-      if (pPos.distanceTo(w.pos) < 1.7) { hintEl.textContent = 'Pressione E para se esconder'; show = true; break; }
-    }
-    if (!show && doorMesh && pPos.distanceTo(doorMesh.position) < INTERACT_RANGE + 1) {
-      hintEl.textContent = doorLocked ? 'Porta trancada — encontre as peças' : 'Pressione E para fugir';
-      show = true;
-    }
-  }
-  hintEl.classList.toggle('hidden', !show);
-}
-
-// =========================================================
-// ÁUDIO SINTETIZADO (sem arquivos externos)
-// =========================================================
-function getAudioCtx() {
-  if (!dangerAudioCtx) {
-    dangerAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  return dangerAudioCtx;
-}
-
-function playTone(freq, duration, type = 'sine', gainStart = 0.25) {
-  try {
-    const ctx = getAudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = type;
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(gainStart, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + duration);
-  } catch (e) { /* áudio pode ser bloqueado antes da interação do usuário */ }
-}
-
-function playJumpscareSound() {
-  playTone(90, 0.9, 'sawtooth', 0.4);
-  setTimeout(() => playTone(60, 1.1, 'square', 0.35), 80);
-}
-
-function playWinSound() {
-  playTone(440, 0.25, 'sine', 0.2);
-  setTimeout(() => playTone(660, 0.35, 'sine', 0.2), 180);
-  setTimeout(() => playTone(880, 0.5, 'sine', 0.2), 380);
-}
-
-function playPickupSound() {
-  playTone(700, 0.12, 'triangle', 0.15);
-}
-
-let heartbeatInterval = null;
-function startHeartbeat() {
-  if (heartbeatInterval) return;
-  heartbeatInterval = setInterval(() => {
-    if (enemy && enemy.state === 'chase') {
-      playTone(70, 0.18, 'sine', 0.3);
-      setTimeout(() => playTone(70, 0.15, 'sine', 0.25), 220);
-    }
-  }, 700);
-}
-function stopHeartbeat() {
-  clearInterval(heartbeatInterval);
-  heartbeatInterval = null;
-}
-
-// =========================================================
-// FIM DE JOGO
-// =========================================================
-function triggerCapture() {
-  if (!gameActive) return;
-  gameActive = false;
-  playJumpscareSound();
-  document.exitPointerLock();
-  hud.classList.add('hidden');
-  gameoverScreen.classList.remove('hidden');
-  stopHeartbeat();
-}
-
-function triggerWin() {
-  if (!gameActive) return;
-  gameActive = false;
-  playWinSound();
-  document.exitPointerLock();
-  hud.classList.add('hidden');
-  document.getElementById('win-msg').textContent =
-    'Você encontrou as ' + TOTAL_ITEMS + ' peças e escapou da casa. Parabéns!';
-  winScreen.classList.remove('hidden');
-  stopHeartbeat();
-}
-
-// =========================================================
-// INICIALIZAÇÃO / LOOP
-// =========================================================
-function clearScene() {
-  if (scene) {
-    while (scene.children.length) scene.remove(scene.children[0]);
-  }
-  flickerLights.length = 0;
-  itemMeshes = [];
-  wardrobes = [];
-  wallColliders = [];
-  enemy = null;
-  doorMesh = null;
-  doorLocked = true;
-  itemsCollected = 0;
-  isHiding = false;
-  stamina = STAMINA_MAX;
-}
-
-function initScene() {
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x000000);
-
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-
-  renderer = renderer || new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  if (!document.body.contains(renderer.domElement)) {
-    document.body.appendChild(renderer.domElement);
-  }
-
-  controls = new PointerLockControls(camera, renderer.domElement);
-  scene.add(controls.getObject());
-
-  controls.addEventListener('lock', () => blocker.classList.add('hidden'));
-  controls.addEventListener('unlock', () => {
-    if (gameActive) blocker.classList.remove('hidden');
-  });
-}
-
-function buildNewLevel() {
-  mazeData = generateMaze();
-  const spawnCell = { i: 0, j: 0 };
-  const exitCell = { i: GRID - 1, j: GRID - 1 };
-  const doorSide = Math.random() < 0.5 ? 'S' : 'E';
-
-  buildLevel(mazeData, spawnCell, exitCell, doorSide);
-  buildDoor(exitCell, doorSide);
-  const chosenItemCells = placeItems(mazeData, spawnCell, exitCell);
-  placeWardrobes(mazeData, spawnCell, exitCell, chosenItemCells);
-
-  const spawnPos = cellToWorld(spawnCell.i, spawnCell.j);
-  const obj = controls.getObject();
-  obj.position.set(spawnPos.x, PLAYER_EYE_HEIGHT, spawnPos.z);
-
-  // spawn da inimiga longe do jogador (distância mínima; algumas tentativas)
-  let enemyCell = pickRandomCell(spawnCell);
-  for (let attempt = 0; attempt < 20; attempt++) {
-    const dist = Math.abs(enemyCell.i - spawnCell.i) + Math.abs(enemyCell.j - spawnCell.j);
-    if (dist >= Math.floor(GRID * 0.6)) break;
-    enemyCell = pickRandomCell(spawnCell);
-  }
-  const enemyPos = cellToWorld(enemyCell.i, enemyCell.j);
-  enemy = createEnemy(enemyPos);
-}
-
-function startGame() {
-  menuScreen.classList.add('hidden');
-  howtoScreen.classList.add('hidden');
-  gameoverScreen.classList.add('hidden');
-  winScreen.classList.add('hidden');
-
-  if (!scene) initScene();
-  clearScene();
-  scene.add(controls.getObject());
-  buildNewLevel();
-
-  itemCountEl.textContent = '0';
-  staminaFill.style.width = '100%';
-  hidingIndicator.classList.add('hidden');
-  dangerVignette.classList.remove('active');
-  chaseWarning.classList.add('hidden');
-  hud.classList.remove('hidden');
-
-  gameActive = true;
-  startHeartbeat();
-
-  blocker.classList.remove('hidden');
-  blocker.onclick = () => controls.lock();
-
-  if (!clock) clock = new THREE.Clock();
-  clock.getDelta();
-  if (!animating) { animating = true; animate(); }
-}
-
-let animating = false;
-function animate() {
-  requestAnimationFrame(animate);
-  const dt = Math.min(clock.getDelta(), 0.1);
-
-  if (gameActive) {
-    updatePlayer(dt);
-    updateEnemy(dt, getPlayerPos());
-    updateHint();
-
-    flickerLights.forEach(l => {
-      l.intensity = 0.85 + Math.sin(Date.now() * 0.005 * l.userData.flicker) * 0.25
-        + (Math.random() < 0.02 ? -0.6 : 0);
-    });
-  }
-
-  renderer.render(scene, camera);
-}
-          * { margin: 0; padding: 0; box-sizing: border-box; }
-
-@font-face {
-  font-family: 'system';
-}
-
-html, body {
-  width: 100%; height: 100%;
-  overflow: hidden;
-  background: #000;
-  font-family: 'Georgia', 'Times New Roman', serif;
-  color: #ddd;
-  cursor: default;
-}
-
-canvas { display: block; }
-
-.overlay {
-  position: fixed; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: radial-gradient(ellipse at center, #1a0000 0%, #000000 100%);
-  z-index: 20;
-  text-align: center;
-  padding: 20px;
-}
-
-.hidden { display: none !important; }
-
-.title {
-  font-size: 4rem;
-  letter-spacing: 6px;
-  color: #b00000;
-  text-shadow: 0 0 20px rgba(200,0,0,0.7), 0 0 60px rgba(200,0,0,0.4);
-  margin-bottom: 10px;
-  animation: flicker 4s infinite;
-}
-
-.title.danger { color: #ff2222; }
-.title.win { color: #ffcc55; text-shadow: 0 0 20px rgba(255,200,80,0.7); }
-
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 45%, 55%, 100% { opacity: 1; }
-  20%, 22%, 50% { opacity: 0.6; }
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: #999;
-  margin-bottom: 30px;
-  max-width: 500px;
-}
-
-.btn {
-  background: #2a0000;
-  border: 2px solid #700000;
-  color: #eee;
-  padding: 14px 40px;
-  font-size: 1.1rem;
-  letter-spacing: 2px;
-  margin: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-}
-
-.btn:hover {
-  background: #700000;
-  border-color: #ff3333;
-  box-shadow: 0 0 15px rgba(255,0,0,0.5);
-}
-
-.btn.secondary {
-  background: #111;
-  border-color: #444;
-}
-.btn.secondary:hover {
-  background: #333;
-  border-color: #888;
-  box-shadow: none;
-}
-
-.credits {
-  position: absolute;
-  bottom: 20px;
-  font-size: 0.75rem;
-  color: #555;
-}
-
-.howto-list {
-  list-style: none;
-  text-align: left;
-  max-width: 460px;
-  margin-bottom: 30px;
-}
-.howto-list li {
-  margin: 10px 0;
-  font-size: 1rem;
-  color: #ccc;
-}
-.howto-list b { color: #ff5555; }
-
-#hud {
-  position: fixed; inset: 0;
-  pointer-events: none;
-  z-index: 10;
-}
-
-#crosshair {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgba(255,255,255,0.6);
-  font-size: 1.4rem;
-  font-family: monospace;
-}
-
-#inventory {
-  position: absolute;
-  top: 20px; left: 20px;
-  background: rgba(0,0,0,0.5);
-  padding: 10px 16px;
-  border: 1px solid #500;
-  font-size: 1rem;
-  border-radius: 4px;
-}
-
-.hint {
-  position: absolute;
-  top: 55%; left: 50%;
-  transform: translate(-50%, 0);
-  background: rgba(0,0,0,0.7);
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  color: #fff;
-}
-
-#hiding-indicator {
-  position: absolute;
-  bottom: 30px; left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.7);
-  color: #7fdc7f;
-  padding: 8px 20px;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  letter-spacing: 1px;
-}
-
-#stamina-bar {
-  position: absolute;
-  bottom: 20px; right: 20px;
-  width: 160px; height: 12px;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid #555;
-  border-radius: 3px;
-  overflow: hidden;
-}
-#stamina-fill {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, #4caf50, #8bc34a);
-  transition: width 0.1s linear;
-}
-
-#danger-vignette {
-  position: absolute; inset: 0;
-  box-shadow: inset 0 0 0px rgba(180,0,0,0);
-  transition: box-shadow 0.4s;
-}
-#danger-vignette.active {
-  box-shadow: inset 0 0 200px rgba(180,0,0,0.7);
-  animation: pulse-danger 1s infinite;
-}
-@keyframes pulse-danger {
-  0%, 100% { box-shadow: inset 0 0 150px rgba(180,0,0,0.5); }
-  50% { box-shadow: inset 0 0 250px rgba(180,0,0,0.85); }
-}
-
-#chase-warning {
-  position: absolute;
-  top: 15%; left: 50%;
-  transform: translateX(-50%);
-  color: #ff3333;
-  font-size: 1.8rem;
-  letter-spacing: 3px;
-  text-shadow: 0 0 15px rgba(255,0,0,0.8);
-  animation: flicker 0.5s infinite;
-}
-
-#blocker {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 15;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-}
-#click-msg {
-  color: #fff;
-  font-size: 1.3rem;
-  background: rgba(0,0,0,0.6);
-  padding: 16px 30px;
-  border: 1px solid #666;
-}
