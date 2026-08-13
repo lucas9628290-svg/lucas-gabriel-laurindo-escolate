@@ -3,303 +3,823 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dia do Estudante</title>
+<title>NEON SCHOOL // TERMINAL</title>
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
-scroll-behavior:smooth;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-background:linear-gradient(-45deg,#002855,#00AEEF,#FFD700,#FF4D6D,#7B2CBF);
-background-size:500% 500%;
-animation:fundo 12s ease infinite;
-color:white;
-overflow-x:hidden;
+    background:#020509;
+    color:#00ffcc;
+    font-family:"Courier New",monospace;
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
-@keyframes fundo{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+/* FUNDO TERMINAL */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(rgba(0,255,200,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,255,200,.035) 1px,transparent 1px);
+    background-size:35px 35px;
+    pointer-events:none;
+    z-index:-2;
 }
 
-header{
-position:sticky;
-top:0;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 40px;
-background:rgba(0,0,0,.45);
-backdrop-filter:blur(10px);
-z-index:999;
-box-shadow:0 10px 25px rgba(0,0,0,.4);
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:linear-gradient(
+        transparent 50%,
+        rgba(0,255,200,.025) 50%
+    );
+    background-size:100% 4px;
+    pointer-events:none;
+    z-index:20;
 }
 
-header h1{
-font-size:30px;
-color:#FFD700;
-text-shadow:0 0 15px gold;
+/* ================= INTRO ================= */
+
+#intro{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    transition:1s;
 }
 
-nav{
-display:flex;
-gap:15px;
-flex-wrap:wrap;
+.terminal{
+    width:92%;
+    max-width:850px;
+    background:#03070b;
+    border:1px solid #00ffcc;
+    border-radius:10px;
+    box-shadow:
+        0 0 20px #00ffcc55,
+        0 0 80px #00ffcc22;
+    overflow:hidden;
 }
 
-nav a{
-text-decoration:none;
-color:white;
-padding:12px 18px;
-background:#ff0066;
-border-radius:30px;
-transition:.4s;
-font-weight:bold;
+.terminal-bar{
+    height:38px;
+    background:#0b1117;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding-left:15px;
+    border-bottom:1px solid #00ffcc33;
 }
 
-nav a:hover{
-background:#FFD700;
-color:#000;
-transform:translateY(-7px) scale(1.1) rotateX(15deg);
-box-shadow:0 0 20px yellow;
+.dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
 }
 
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:30px;
+.red{
+    background:#ff3b3b;
+    box-shadow:0 0 10px #ff3b3b;
 }
 
-.hero h2{
-font-size:70px;
-text-shadow:0 0 25px cyan;
-animation:flutuar 3s infinite ease-in-out;
+.yellow{
+    background:#ffd43b;
+    box-shadow:0 0 10px #ffd43b;
 }
 
-.hero p{
-font-size:24px;
-margin-top:20px;
-max-width:850px;
+.green{
+    background:#00ff88;
+    box-shadow:0 0 10px #00ff88;
 }
 
-@keyframes flutuar{
-50%{
-transform:translateY(-12px);
-}
-}
-
-.card{
-width:85%;
-margin:50px auto;
-padding:40px;
-background:rgba(255,255,255,.12);
-border-radius:25px;
-backdrop-filter:blur(12px);
-transition:.3s;
-transform-style:preserve-3d;
-box-shadow:0 20px 40px rgba(0,0,0,.4);
+.terminal-content{
+    padding:30px;
+    min-height:350px;
+    line-height:1.8;
+    font-size:15px;
 }
 
-.card:hover{
-box-shadow:0 0 35px cyan;
+.green-text{
+    color:#00ff88;
 }
 
-.card h2{
-margin-bottom:20px;
-font-size:35px;
-color:#FFD700;
+.cyan{
+    color:#00ffff;
 }
 
-.card p{
-font-size:21px;
-line-height:1.8;
+.white{
+    color:#fff;
+}
+
+.cursor{
+    display:inline-block;
+    width:9px;
+    height:18px;
+    background:#00ffcc;
+    vertical-align:middle;
+    animation:blink .7s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:0}
+}
+
+.start{
+    margin-top:25px;
+    padding:13px 25px;
+    background:transparent;
+    border:1px solid #00ffcc;
+    color:#00ffcc;
+    font-family:inherit;
+    cursor:pointer;
+    border-radius:5px;
+    transition:.3s;
+}
+
+.start:hover{
+    background:#00ffcc;
+    color:#000;
+    box-shadow:0 0 30px #00ffcc;
+}
+
+/* ================= MENU ================= */
+
+#menu{
+    display:none;
+    min-height:100vh;
+    padding:35px 20px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.menu-terminal{
+    border:1px solid #00ffcc;
+    background:#03080d;
+    box-shadow:0 0 30px #00ffcc22;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.menu-top{
+    background:#0a1118;
+    padding:12px 18px;
+    color:#78909c;
+    border-bottom:1px solid #00ffcc33;
+}
+
+.menu-body{
+    padding:35px;
+}
+
+.prompt{
+    color:#00ff88;
+    margin-bottom:10px;
+}
+
+.menu-title{
+    color:#fff;
+    font-size:clamp(30px,6vw,60px);
+    text-shadow:
+        0 0 10px #00ffcc,
+        0 0 30px #0088ff;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#5c8290;
+    margin-bottom:35px;
+}
+
+/* APPS */
+
+.apps{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.app{
+    position:relative;
+    padding:25px;
+    background:#050c12;
+    border:1px solid #00ffcc44;
+    color:#00ffcc;
+    text-decoration:none;
+    border-radius:7px;
+    transition:.3s;
+    overflow:hidden;
+}
+
+.app::before{
+    content:">";
+    margin-right:10px;
+    color:#00ff88;
+}
+
+.app:hover{
+    border-color:#00ffcc;
+    background:#071820;
+    transform:translateX(7px);
+    box-shadow:
+        0 0 20px #00ffcc33,
+        inset 0 0 20px #00ffcc08;
+}
+
+.app-name{
+    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.app-info{
+    display:block;
+    margin-top:8px;
+    color:#587783;
+    font-size:12px;
+}
+
+.status{
+    margin-top:30px;
+    color:#00ff88;
+}
+
+.status span{
+    animation:blink 1s infinite;
+}
+
+/* BOTÃO ATIVIDADE */
+
+.open-activity{
+    margin-top:30px;
+    width:100%;
+    padding:17px;
+    background:transparent;
+    color:#00ffff;
+    border:1px solid #00ffff;
+    font-family:inherit;
+    cursor:pointer;
+    border-radius:6px;
+    font-size:15px;
+    transition:.3s;
+}
+
+.open-activity:hover{
+    background:#00ffff;
+    color:#000;
+    box-shadow:0 0 30px #00ffff;
+}
+
+/* ================= ATIVIDADE ================= */
+
+#site{
+    display:none;
+    max-width:1100px;
+    margin:auto;
+    padding:30px 20px 60px;
+}
+
+.activity-header{
+    border:1px solid #00ffff;
+    background:#03080d;
+    padding:45px 25px;
+    text-align:center;
+    border-radius:12px;
+    margin-bottom:25px;
+    box-shadow:0 0 30px #00ffff18;
+}
+
+.activity-header small{
+    color:#00ff88;
+}
+
+.activity-header h1{
+    margin:15px 0;
+    color:#fff;
+    font-size:clamp(30px,6vw,58px);
+    text-shadow:
+        0 0 10px #00ffff,
+        0 0 30px #0077ff;
+}
+
+.activity-header p{
+    color:#66828e;
+}
+
+.panel{
+    background:#03080d;
+    border:1px solid #00ffff44;
+    border-radius:10px;
+    padding:30px;
+    margin-bottom:22px;
+    transition:.3s;
+}
+
+.panel:hover{
+    border-color:#00ffff;
+    box-shadow:0 0 25px #00ffff12;
+}
+
+.panel-title{
+    color:#00ffff;
+    font-size:18px;
+    padding-bottom:13px;
+    border-bottom:1px solid #00ffff22;
+    margin-bottom:22px;
+}
+
+.dados{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.dado{
+    background:#071018;
+    padding:15px;
+    border-left:3px solid #00ffcc;
+    color:#b5dce5;
+}
+
+.dado strong{
+    color:#00ff88;
+}
+
+.texto{
+    font-family:Arial,sans-serif;
+    color:#d5faff;
+    font-size:17px;
+    line-height:1.9;
+}
+
+.pergunta{
+    border-color:#9b59ff;
+}
+
+.pergunta .panel-title{
+    color:#b88cff;
+}
+
+.resposta{
+    border-color:#00ff88;
+}
+
+.resposta .panel-title{
+    color:#00ff88;
+}
+
+.finish{
+    display:block;
+    margin:30px auto;
+    padding:15px 30px;
+    background:transparent;
+    border:1px solid #ff3b81;
+    color:#ff4f91;
+    font-family:inherit;
+    cursor:pointer;
+    border-radius:6px;
+    transition:.3s;
+}
+
+.finish:hover{
+    background:#ff3b81;
+    color:#000;
+    box-shadow:0 0 30px #ff3b81;
 }
 
 footer{
-padding:35px;
-text-align:center;
-font-size:18px;
-background:rgba(0,0,0,.35);
-margin-top:50px;
+    text-align:center;
+    color:#405762;
+    font-size:12px;
 }
 
-.bola{
-position:fixed;
-border-radius:50%;
-opacity:.25;
-pointer-events:none;
-animation:subir linear infinite;
-}
+/* RESPONSIVO */
 
-@keyframes subir{
-0%{
-transform:translateY(100vh);
-}
-100%{
-transform:translateY(-120vh);
-}
-}
+@media(max-width:650px){
 
+    .apps{
+        grid-template-columns:1fr;
+    }
+
+    .dados{
+        grid-template-columns:1fr;
+    }
+
+    .terminal-content,
+    .menu-body,
+    .panel{
+        padding:20px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<header>
+<!-- ================================================= -->
+<!-- INTRO CONSOLE -->
+<!-- ================================================= -->
 
-<h1>📚 Dia do Estudante</h1>
+<div id="intro">
 
-<nav>
+    <div class="terminal">
 
-<a href="#dia">Dia</a>
+        <div class="terminal-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+        </div>
 
-<a href="#ano">Ano</a>
+        <div class="terminal-content">
 
-<a href="#historia">Como aconteceu</a>
+            <div id="boot"></div>
 
-<a href="#criador">Quem criou</a>
+            <span class="cursor"></span>
 
-<a href="#importancia">Importância</a>
+            <br>
 
-<a href="#criancas">Dia das Crianças</a>
+            <button class="start" onclick="entrar()">
+                [ EXECUTAR SISTEMA ]
+            </button>
 
-</nav>
+        </div>
 
-</header>
+    </div>
 
-<section class="hero">
+</div>
 
-<h2>🎓 Feliz Dia do Estudante!</h2>
 
-<p>
-O estudante é o protagonista do conhecimento. Cada livro lido, cada aula assistida e cada desafio vencido contribuem para construir um futuro melhor.
-</p>
+<!-- ================================================= -->
+<!-- MENU -->
+<!-- ================================================= -->
 
-</section>
+<div id="menu">
 
-<section id="dia" class="card">
+    <div class="menu-terminal">
 
-<h2>📅 Dia</h2>
+        <div class="menu-top">
+            NEON-SCHOOL TERMINAL // v2.0
+        </div>
 
-<p>
-No Brasil, o Dia do Estudante é comemorado em <b>11 de agosto</b>. A data homenageia todos aqueles que dedicam seu tempo aos estudos e reconhece a importância da educação para transformar a sociedade.
-</p>
+        <div class="menu-body">
 
-</section>
+            <div class="prompt">
+                user@school:~$ ./menu
+            </div>
 
-<section id="ano" class="card">
+            <h1 class="menu-title">
+                CENTRAL
+            </h1>
 
-<h2>📖 Ano</h2>
+            <p class="subtitle">
+                Sistema de acesso rápido
+            </p>
 
-<p>
-O Dia do Estudante passou a ser comemorado oficialmente em <b>1927</b>, durante o centenário da criação dos primeiros cursos de Direito do Brasil.
-</p>
 
-</section>
+            <div class="prompt">
+                user@school:~$ ls applications/
+            </div>
 
-<section id="historia" class="card">
 
-<h2>📜 Como aconteceu?</h2>
+            <div class="apps">
 
-<p>
-Em 11 de agosto de 1827, Dom Pedro I criou os dois primeiros cursos de Direito do Brasil. Cem anos depois, em 1927, o advogado Celso Gand Ley sugeriu que a data fosse comemorada como o Dia do Estudante.
-</p>
+                <!-- GOOGLE -->
 
-</section>
+                <a
+                    class="app"
+                    href="https://www.google.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="app-name">GOOGLE</span>
+                    <span class="app-info">
+                        ./google // SEARCH ENGINE // ONLINE
+                    </span>
+                </a>
 
-<section id="criador" class="card">
 
-<h2>👤 Quem criou?</h2>
+                <!-- YOUTUBE -->
 
-<p>
-A comemoração foi proposta pelo advogado <b>Celso Gand Ley</b>, que participou da organização das festividades do centenário dos cursos de Direito e ajudou a transformar a data em uma homenagem aos estudantes.
-</p>
+                <a
+                    class="app"
+                    href="https://www.youtube.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="app-name">YOUTUBE</span>
+                    <span class="app-info">
+                        ./youtube // VIDEO PLATFORM // ONLINE
+                    </span>
+                </a>
 
-</section>
 
-<section id="importancia" class="card">
+                <!-- TIKTOK -->
 
-<h2>🌎 Importância</h2>
+                <a
+                    class="app"
+                    href="https://www.tiktok.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="app-name">TIKTOK</span>
+                    <span class="app-info">
+                        ./tiktok // SHORT VIDEOS // ONLINE
+                    </span>
+                </a>
 
-<p>
-O Dia do Estudante reforça o valor da educação, incentiva a dedicação aos estudos e reconhece o esforço dos alunos e professores na construção de uma sociedade mais justa, desenvolvida e preparada para o futuro.
-</p>
 
-</section>
+                <!-- CHATGPT -->
 
-<section id="criancas" class="card">
+                <a
+                    class="app"
+                    href="https://chatgpt.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="app-name">CHATGPT</span>
+                    <span class="app-info">
+                        ./chatgpt // AI ASSISTANT // ONLINE
+                    </span>
+                </a>
 
-<h2>🎈 Dia das Crianças</h2>
+            </div>
 
-<p>
-O Dia das Crianças é comemorado no Brasil em <b>12 de outubro</b>. A data foi oficializada em 1924 pelo presidente Arthur Bernardes e tem como objetivo valorizar a infância, incentivar o cuidado, a proteção, o lazer, a educação e o desenvolvimento das crianças.
-</p>
 
-</section>
+            <button
+                class="open-activity"
+                onclick="abrirAtividade()"
+            >
+                &gt; ./ABRIR_ATIVIDADE
+            </button>
 
-<footer>
 
-⭐ Site desenvolvido para GitHub • Dia do Estudante • 2026 ⭐
+            <div class="status">
+                [●] SYSTEM STATUS: ONLINE
+            </div>
 
-</footer>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ATIVIDADE -->
+<!-- ================================================= -->
+
+<div id="site">
+
+    <header class="activity-header">
+
+        <small>
+            SCHOOL // PROJECT // GT
+        </small>
+
+        <h1>
+            Planejamento do Atendimento
+        </h1>
+
+        <p>
+            Atividade de Gestão e Trabalho
+        </p>
+
+    </header>
+
+
+    <!-- INFORMAÇÕES -->
+
+    <section class="panel">
+
+        <div class="panel-title">
+            &gt; ./INFORMACOES_DA_ATIVIDADE
+        </div>
+
+        <div class="dados">
+
+            <div class="dado">
+                <strong>Escola:</strong><br>
+                Escola Estadual Emília Cabral Mota
+            </div>
+
+            <div class="dado">
+                <strong>Componente:</strong><br>
+                GT
+            </div>
+
+            <div class="dado">
+                <strong>Professor:</strong><br>
+                Cleiton Gonçalves Silva
+            </div>
+
+            <div class="dado">
+                <strong>Período:</strong><br>
+                Vespertino
+            </div>
+
+            <div class="dado">
+                <strong>Turma:</strong><br>
+                2º Técnico – EMTIp
+            </div>
+
+            <div class="dado">
+                <strong>Atividade:</strong><br>
+                2T - GT - 2 TRI - 07/08
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLANEJAMENTO -->
+
+    <section class="panel">
+
+        <div class="panel-title">
+            &gt; ./PLANEJAMENTO_DO_ATENDIMENTO
+        </div>
+
+        <div class="texto">
+
+            Você está iniciando sua carreira como fotógrafa profissional
+            e recebeu uma mensagem de um casal interessado em contratar
+            seus serviços para fotografar um casamento que acontecerá em
+            dois meses. O casal pede um orçamento e deseja saber como será
+            todo o atendimento, desde o primeiro contato até a entrega das
+            fotografias. Além desse casamento, você já possui outros ensaios
+            agendados para as próximas semanas.
+
+        </div>
+
+    </section>
+
+
+    <!-- PERGUNTA -->
+
+    <section class="panel pergunta">
+
+        <div class="panel-title">
+            &gt; ./PERGUNTA
+        </div>
+
+        <div class="texto">
+
+            <strong>
+                Como você organizaria seu planejamento para atender esse
+                novo cliente, cumprir todos os prazos e garantir um
+                atendimento de qualidade, sem comprometer os demais
+                trabalhos?
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESPOSTA -->
+
+    <section class="panel resposta">
+
+        <div class="panel-title">
+            &gt; ./RESPOSTA
+        </div>
+
+        <div class="texto">
+
+            Eu organizaria tudo em um cronograma, anotando as datas do
+            casamento e dos outros ensaios. Primeiro faria o orçamento e
+            combinaria todos os detalhes com o casal. Depois reservaria
+            horários para fotografar, editar e entregar as fotos, deixando
+            alguns dias de folga para evitar atrasos. Assim, conseguiria
+            atender bem o novo cliente sem prejudicar os outros trabalhos.
+
+        </div>
+
+    </section>
+
+
+    <button
+        class="finish"
+        onclick="finalizar()"
+    >
+        &gt; ./FINALIZAR_ATIVIDADE
+    </button>
+
+
+    <footer>
+        Escola Estadual Emília Cabral Mota // 2026
+    </footer>
+
+</div>
+
 
 <script>
 
-//Efeito 3D
+/* ================================================= */
+/* INTRO */
+/* ================================================= */
 
-document.querySelectorAll(".card").forEach(card=>{
+const linhas = [
+    "> NEON SCHOOL TERMINAL v2.0",
+    "> Initializing system...",
+    "> Checking network connection...",
+    "> Loading applications...",
+    "> GOOGLE ............ ONLINE",
+    "> YOUTUBE ........... ONLINE",
+    "> TIKTOK ............ ONLINE",
+    "> CHATGPT ........... ONLINE",
+    "> Loading school project...",
+    "> All systems ready.",
+    "> ACCESS GRANTED_"
+];
 
-card.addEventListener("mousemove",(e)=>{
+let linha = 0;
+let letra = 0;
 
-const r=card.getBoundingClientRect();
+function escreverBoot(){
 
-const x=e.clientX-r.left;
-const y=e.clientY-r.top;
+    if(linha >= linhas.length){
+        return;
+    }
 
-const rx=-(y-r.height/2)/18;
-const ry=(x-r.width/2)/18;
+    if(letra < linhas[linha].length){
 
-card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+        document.getElementById("boot").innerHTML +=
+            linhas[linha][letra];
 
-});
+        letra++;
 
-card.addEventListener("mouseleave",()=>{
+        setTimeout(escreverBoot,25);
 
-card.style.transform="rotateX(0deg) rotateY(0deg) scale(1)";
+    }else{
 
-});
+        document.getElementById("boot").innerHTML += "<br>";
 
-});
+        linha++;
+        letra = 0;
 
-//Partículas
+        setTimeout(escreverBoot,250);
+    }
+}
 
-for(let i=0;i<40;i++){
+escreverBoot();
 
-let b=document.createElement("div");
 
-b.className="bola";
+/* ================================================= */
+/* ENTRAR */
+/* ================================================= */
 
-let s=Math.random()*20+10;
+function entrar(){
 
-b.style.width=s+"px";
-b.style.height=s+"px";
-b.style.left=Math.random()*100+"vw";
-b.style.background="rgba(255,255,255,.4)";
-b.style.animationDuration=(Math.random()*10+8)+"s";
-b.style.animationDelay=(-Math.random()*15)+"s";
+    const intro = document.getElementById("intro");
 
-document.body.appendChild(b);
+    intro.style.opacity = "0";
 
+    setTimeout(function(){
+
+        intro.style.display = "none";
+
+        document.getElementById("menu").style.display = "block";
+
+    },900);
+}
+
+
+/* ================================================= */
+/* ABRIR ATIVIDADE */
+/* ================================================= */
+
+function abrirAtividade(){
+
+    document.getElementById("menu").style.display = "none";
+
+    document.getElementById("site").style.display = "block";
+
+    window.scrollTo(0,0);
+}
+
+
+/* ================================================= */
+/* FINALIZAR */
+/* ================================================= */
+
+function finalizar(){
+
+    document.getElementById("site").style.display = "none";
+
+    document.getElementById("menu").style.display = "block";
+
+    window.scrollTo(0,0);
 }
 
 </script>
