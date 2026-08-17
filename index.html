@@ -1,9 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEON SCHOOL // TERMINAL</title>
+
+<title>STOCK TERMINAL // P.W.</title>
 
 <style>
 *{
@@ -13,14 +15,14 @@
 }
 
 body{
-    background:#020509;
+    background:#020609;
     color:#00ffcc;
     font-family:"Courier New",monospace;
     min-height:100vh;
     overflow-x:hidden;
 }
 
-/* FUNDO TERMINAL */
+/* FUNDO */
 body::before{
     content:"";
     position:fixed;
@@ -28,8 +30,7 @@ body::before{
     background:
         linear-gradient(rgba(0,255,200,.035) 1px,transparent 1px),
         linear-gradient(90deg,rgba(0,255,200,.035) 1px,transparent 1px);
-    background-size:35px 35px;
-    pointer-events:none;
+    background-size:40px 40px;
     z-index:-2;
 }
 
@@ -43,7 +44,7 @@ body::after{
     );
     background-size:100% 4px;
     pointer-events:none;
-    z-index:20;
+    z-index:100;
 }
 
 /* ================= INTRO ================= */
@@ -53,27 +54,27 @@ body::after{
     inset:0;
     background:#000;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     z-index:9999;
     transition:1s;
 }
 
 .terminal{
     width:92%;
-    max-width:850px;
-    background:#03070b;
+    max-width:900px;
+    background:#03080c;
     border:1px solid #00ffcc;
     border-radius:10px;
-    box-shadow:
-        0 0 20px #00ffcc55,
-        0 0 80px #00ffcc22;
     overflow:hidden;
+    box-shadow:
+        0 0 25px #00ffcc55,
+        0 0 100px #00ffcc15;
 }
 
 .terminal-bar{
-    height:38px;
-    background:#0b1117;
+    height:40px;
+    background:#0a1117;
     display:flex;
     align-items:center;
     gap:8px;
@@ -104,12 +105,12 @@ body::after{
 
 .terminal-content{
     padding:30px;
-    min-height:350px;
+    min-height:390px;
     line-height:1.8;
     font-size:15px;
 }
 
-.green-text{
+.neon{
     color:#00ff88;
 }
 
@@ -126,7 +127,6 @@ body::after{
     width:9px;
     height:18px;
     background:#00ffcc;
-    vertical-align:middle;
     animation:blink .7s infinite;
 }
 
@@ -136,9 +136,9 @@ body::after{
 
 .start{
     margin-top:25px;
-    padding:13px 25px;
-    background:transparent;
+    padding:14px 28px;
     border:1px solid #00ffcc;
+    background:transparent;
     color:#00ffcc;
     font-family:inherit;
     cursor:pointer;
@@ -149,251 +149,264 @@ body::after{
 .start:hover{
     background:#00ffcc;
     color:#000;
-    box-shadow:0 0 30px #00ffcc;
+    box-shadow:0 0 35px #00ffcc;
 }
 
-/* ================= MENU ================= */
+/* ================= SISTEMA ================= */
 
-#menu{
+#system{
     display:none;
-    min-height:100vh;
-    padding:35px 20px;
-    max-width:1100px;
-    margin:auto;
-}
-
-.menu-terminal{
-    border:1px solid #00ffcc;
-    background:#03080d;
-    box-shadow:0 0 30px #00ffcc22;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-.menu-top{
-    background:#0a1118;
-    padding:12px 18px;
-    color:#78909c;
-    border-bottom:1px solid #00ffcc33;
-}
-
-.menu-body{
-    padding:35px;
-}
-
-.prompt{
-    color:#00ff88;
-    margin-bottom:10px;
-}
-
-.menu-title{
-    color:#fff;
-    font-size:clamp(30px,6vw,60px);
-    text-shadow:
-        0 0 10px #00ffcc,
-        0 0 30px #0088ff;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    color:#5c8290;
-    margin-bottom:35px;
-}
-
-/* APPS */
-
-.apps{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-.app{
-    position:relative;
-    padding:25px;
-    background:#050c12;
-    border:1px solid #00ffcc44;
-    color:#00ffcc;
-    text-decoration:none;
-    border-radius:7px;
-    transition:.3s;
-    overflow:hidden;
-}
-
-.app::before{
-    content:">";
-    margin-right:10px;
-    color:#00ff88;
-}
-
-.app:hover{
-    border-color:#00ffcc;
-    background:#071820;
-    transform:translateX(7px);
-    box-shadow:
-        0 0 20px #00ffcc33,
-        inset 0 0 20px #00ffcc08;
-}
-
-.app-name{
-    color:#fff;
-    font-size:20px;
-    font-weight:bold;
-}
-
-.app-info{
-    display:block;
-    margin-top:8px;
-    color:#587783;
-    font-size:12px;
-}
-
-.status{
-    margin-top:30px;
-    color:#00ff88;
-}
-
-.status span{
-    animation:blink 1s infinite;
-}
-
-/* BOTÃO ATIVIDADE */
-
-.open-activity{
-    margin-top:30px;
-    width:100%;
-    padding:17px;
-    background:transparent;
-    color:#00ffff;
-    border:1px solid #00ffff;
-    font-family:inherit;
-    cursor:pointer;
-    border-radius:6px;
-    font-size:15px;
-    transition:.3s;
-}
-
-.open-activity:hover{
-    background:#00ffff;
-    color:#000;
-    box-shadow:0 0 30px #00ffff;
-}
-
-/* ================= ATIVIDADE ================= */
-
-#site{
-    display:none;
-    max-width:1100px;
+    max-width:1150px;
     margin:auto;
     padding:30px 20px 60px;
 }
 
-.activity-header{
-    border:1px solid #00ffff;
-    background:#03080d;
-    padding:45px 25px;
-    text-align:center;
-    border-radius:12px;
+/* CABEÇALHO */
+
+.header{
+    border:1px solid #00ffcc;
+    background:#030a0f;
+    padding:35px;
+    border-radius:10px;
+    box-shadow:0 0 30px #00ffcc15;
     margin-bottom:25px;
-    box-shadow:0 0 30px #00ffff18;
 }
 
-.activity-header small{
-    color:#00ff88;
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    color:#66828d;
+    font-size:12px;
+    margin-bottom:25px;
 }
 
-.activity-header h1{
-    margin:15px 0;
+.header h1{
     color:#fff;
-    font-size:clamp(30px,6vw,58px);
+    font-size:clamp(30px,6vw,60px);
     text-shadow:
-        0 0 10px #00ffff,
+        0 0 10px #00ffcc,
         0 0 30px #0077ff;
 }
 
-.activity-header p{
-    color:#66828e;
+.header p{
+    color:#68848f;
+    margin-top:10px;
 }
+
+/* STATUS */
+
+.status-bar{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.status{
+    background:#050d13;
+    border:1px solid #00ffcc33;
+    padding:15px;
+    border-radius:6px;
+}
+
+.status strong{
+    display:block;
+    color:#00ff88;
+    margin-bottom:6px;
+}
+
+.status span{
+    color:#66818c;
+    font-size:12px;
+}
+
+/* PAINEL */
 
 .panel{
-    background:#03080d;
-    border:1px solid #00ffff44;
-    border-radius:10px;
+    background:#03090e;
+    border:1px solid #00ffcc44;
     padding:30px;
-    margin-bottom:22px;
-    transition:.3s;
-}
-
-.panel:hover{
-    border-color:#00ffff;
-    box-shadow:0 0 25px #00ffff12;
+    border-radius:10px;
+    margin-bottom:25px;
+    box-shadow:0 0 20px #00ffcc08;
 }
 
 .panel-title{
     color:#00ffff;
-    font-size:18px;
+    border-bottom:1px solid #00ffcc22;
     padding-bottom:13px;
-    border-bottom:1px solid #00ffff22;
     margin-bottom:22px;
 }
 
-.dados{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
+/* PESQUISA */
+
+.search-box{
+    display:flex;
+    gap:10px;
 }
 
-.dado{
-    background:#071018;
-    padding:15px;
-    border-left:3px solid #00ffcc;
-    color:#b5dce5;
+.search-box input{
+    flex:1;
+    background:#010508;
+    border:1px solid #00ffcc55;
+    color:#00ffcc;
+    padding:17px;
+    outline:none;
+    font-family:inherit;
+    border-radius:5px;
 }
 
-.dado strong{
-    color:#00ff88;
+.search-box input:focus{
+    border-color:#00ffcc;
+    box-shadow:0 0 15px #00ffcc22;
 }
 
-.texto{
-    font-family:Arial,sans-serif;
-    color:#d5faff;
-    font-size:17px;
-    line-height:1.9;
-}
-
-.pergunta{
-    border-color:#9b59ff;
-}
-
-.pergunta .panel-title{
-    color:#b88cff;
-}
-
-.resposta{
-    border-color:#00ff88;
-}
-
-.resposta .panel-title{
-    color:#00ff88;
-}
-
-.finish{
-    display:block;
-    margin:30px auto;
-    padding:15px 30px;
+.search-box button{
+    padding:0 25px;
     background:transparent;
-    border:1px solid #ff3b81;
-    color:#ff4f91;
+    color:#00ffcc;
+    border:1px solid #00ffcc;
     font-family:inherit;
     cursor:pointer;
-    border-radius:6px;
+    border-radius:5px;
     transition:.3s;
 }
 
-.finish:hover{
-    background:#ff3b81;
+.search-box button:hover{
+    background:#00ffcc;
     color:#000;
-    box-shadow:0 0 30px #ff3b81;
+    box-shadow:0 0 25px #00ffcc;
+}
+
+/* CONSOLE */
+
+.console{
+    background:#010304;
+    border:1px solid #123;
+    padding:20px;
+    margin-top:20px;
+    min-height:120px;
+    color:#00ff88;
+    line-height:1.8;
+    border-radius:5px;
+}
+
+.console-title{
+    color:#526a73;
+    margin-bottom:10px;
+}
+
+/* RESULTADO */
+
+#resultado{
+    display:none;
+}
+
+.product{
+    display:grid;
+    grid-template-columns:130px 1fr;
+    gap:25px;
+    align-items:center;
+}
+
+.mouse-icon{
+    height:130px;
+    border:1px solid #00ffcc;
+    border-radius:30px 30px 40px 40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:55px;
+    box-shadow:0 0 25px #00ffcc22;
+}
+
+.product-info h2{
+    color:#fff;
+    margin-bottom:15px;
+}
+
+.product-info p{
+    color:#78909c;
+    margin:7px 0;
+}
+
+.product-info strong{
+    color:#00ff88;
+}
+
+.price{
+    font-size:28px;
+    color:#00ffff;
+    text-shadow:0 0 12px #00ffff;
+}
+
+/* STATUS PRODUTO */
+
+.stock-ok{
+    display:inline-block;
+    margin-top:12px;
+    padding:7px 12px;
+    border:1px solid #00ff88;
+    color:#00ff88;
+    border-radius:4px;
+    font-size:12px;
+}
+
+.stock-no{
+    border-color:#ff3b81;
+    color:#ff3b81;
+}
+
+/* FLUXO */
+
+.flow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.step{
+    background:#050c12;
+    padding:20px;
+    border:1px solid #00ffcc33;
+    border-radius:6px;
+}
+
+.step-number{
+    color:#00ff88;
+    font-size:12px;
+}
+
+.step h3{
+    color:#fff;
+    margin:10px 0;
+}
+
+.step p{
+    color:#607983;
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* VOLTAR */
+
+.back{
+    display:block;
+    margin:30px auto;
+    padding:14px 28px;
+    background:transparent;
+    color:#ff4f91;
+    border:1px solid #ff4f91;
+    border-radius:5px;
+    font-family:inherit;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.back:hover{
+    background:#ff4f91;
+    color:#000;
+    box-shadow:0 0 30px #ff4f91;
 }
 
 footer{
@@ -404,19 +417,39 @@ footer{
 
 /* RESPONSIVO */
 
-@media(max-width:650px){
+@media(max-width:700px){
 
-    .apps{
-        grid-template-columns:1fr;
+    .status-bar{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .dados{
+    .flow{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-box button{
+        padding:15px;
+    }
+
+    .product{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:450px){
+
+    .status-bar,
+    .flow{
         grid-template-columns:1fr;
     }
 
     .terminal-content,
-    .menu-body,
-    .panel{
+    .panel,
+    .header{
         padding:20px;
     }
 }
@@ -426,214 +459,119 @@ footer{
 <body>
 
 <!-- ================================================= -->
-<!-- INTRO CONSOLE -->
+<!-- INTRO -->
 <!-- ================================================= -->
 
 <div id="intro">
 
-    <div class="terminal">
+<div class="terminal">
 
-        <div class="terminal-bar">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-        </div>
+    <div class="terminal-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+    </div>
 
-        <div class="terminal-content">
+    <div class="terminal-content">
 
-            <div id="boot"></div>
+        <div id="boot"></div>
 
-            <span class="cursor"></span>
+        <span class="cursor"></span>
 
-            <br>
+        <br>
 
-            <button class="start" onclick="entrar()">
-                [ EXECUTAR SISTEMA ]
-            </button>
-
-        </div>
+        <button class="start" onclick="entrar()">
+            [ EXECUTAR STOCK TERMINAL ]
+        </button>
 
     </div>
 
 </div>
 
-
-<!-- ================================================= -->
-<!-- MENU -->
-<!-- ================================================= -->
-
-<div id="menu">
-
-    <div class="menu-terminal">
-
-        <div class="menu-top">
-            NEON-SCHOOL TERMINAL // v2.0
-        </div>
-
-        <div class="menu-body">
-
-            <div class="prompt">
-                user@school:~$ ./menu
-            </div>
-
-            <h1 class="menu-title">
-                CENTRAL
-            </h1>
-
-            <p class="subtitle">
-                Sistema de acesso rápido
-            </p>
-
-
-            <div class="prompt">
-                user@school:~$ ls applications/
-            </div>
-
-
-            <div class="apps">
-
-                <!-- GOOGLE -->
-
-                <a
-                    class="app"
-                    href="https://www.google.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="app-name">GOOGLE</span>
-                    <span class="app-info">
-                        ./google // SEARCH ENGINE // ONLINE
-                    </span>
-                </a>
-
-
-                <!-- YOUTUBE -->
-
-                <a
-                    class="app"
-                    href="https://www.youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="app-name">YOUTUBE</span>
-                    <span class="app-info">
-                        ./youtube // VIDEO PLATFORM // ONLINE
-                    </span>
-                </a>
-
-
-                <!-- TIKTOK -->
-
-                <a
-                    class="app"
-                    href="https://www.tiktok.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="app-name">TIKTOK</span>
-                    <span class="app-info">
-                        ./tiktok // SHORT VIDEOS // ONLINE
-                    </span>
-                </a>
-
-
-                <!-- CHATGPT -->
-
-                <a
-                    class="app"
-                    href="https://chatgpt.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="app-name">CHATGPT</span>
-                    <span class="app-info">
-                        ./chatgpt // AI ASSISTANT // ONLINE
-                    </span>
-                </a>
-
-            </div>
-
-
-            <button
-                class="open-activity"
-                onclick="abrirAtividade()"
-            >
-                &gt; ./ABRIR_ATIVIDADE
-            </button>
-
-
-            <div class="status">
-                [●] SYSTEM STATUS: ONLINE
-            </div>
-
-        </div>
-
-    </div>
-
 </div>
 
 
 <!-- ================================================= -->
-<!-- ATIVIDADE -->
+<!-- SISTEMA -->
 <!-- ================================================= -->
 
-<div id="site">
+<div id="system">
 
-    <header class="activity-header">
+    <header class="header">
 
-        <small>
-            SCHOOL // PROJECT // GT
-        </small>
+        <div class="header-top">
+            <span>USER@STOCK-SYSTEM:~$</span>
+            <span>DATABASE // ONLINE</span>
+        </div>
 
-        <h1>
-            Planejamento do Atendimento
-        </h1>
+        <h1>STOCK TERMINAL</h1>
 
         <p>
-            Atividade de Gestão e Trabalho
+            Sistema de Consulta de Estoque // P.W.
         </p>
 
     </header>
 
 
-    <!-- INFORMAÇÕES -->
+    <!-- STATUS -->
+
+    <div class="status-bar">
+
+        <div class="status">
+            <strong>● ONLINE</strong>
+            <span>Servidor</span>
+        </div>
+
+        <div class="status">
+            <strong>● CONNECTED</strong>
+            <span>MySQL</span>
+        </div>
+
+        <div class="status">
+            <strong>● READY</strong>
+            <span>PHP Backend</span>
+        </div>
+
+        <div class="status">
+            <strong>● ACTIVE</strong>
+            <span>JavaScript</span>
+        </div>
+
+    </div>
+
+
+    <!-- PESQUISA -->
 
     <section class="panel">
 
         <div class="panel-title">
-            &gt; ./INFORMACOES_DA_ATIVIDADE
+            &gt; ./PESQUISAR_PRODUTO
         </div>
 
-        <div class="dados">
+        <div class="search-box">
 
-            <div class="dado">
-                <strong>Escola:</strong><br>
-                Escola Estadual Emília Cabral Mota
+            <input
+                id="produto"
+                type="text"
+                placeholder="Digite o nome do mouse..."
+                onkeydown="enterSearch(event)"
+            >
+
+            <button onclick="pesquisar()">
+                [ PESQUISAR ]
+            </button>
+
+        </div>
+
+
+        <div class="console">
+
+            <div class="console-title">
+                TERMINAL OUTPUT
             </div>
 
-            <div class="dado">
-                <strong>Componente:</strong><br>
-                GT
-            </div>
-
-            <div class="dado">
-                <strong>Professor:</strong><br>
-                Cleiton Gonçalves Silva
-            </div>
-
-            <div class="dado">
-                <strong>Período:</strong><br>
-                Vespertino
-            </div>
-
-            <div class="dado">
-                <strong>Turma:</strong><br>
-                2º Técnico – EMTIp
-            </div>
-
-            <div class="dado">
-                <strong>Atividade:</strong><br>
-                2T - GT - 2 TRI - 07/08
+            <div id="consoleText">
+                &gt; Aguardando consulta...
             </div>
 
         </div>
@@ -641,67 +579,133 @@ footer{
     </section>
 
 
-    <!-- PLANEJAMENTO -->
+    <!-- RESULTADO -->
+
+    <section
+        class="panel"
+        id="resultado"
+    >
+
+        <div class="panel-title">
+            &gt; ./RESULTADO_DA_CONSULTA
+        </div>
+
+        <div class="product">
+
+            <div class="mouse-icon">
+                🖱️
+            </div>
+
+            <div class="product-info">
+
+                <h2 id="nomeProduto">
+                    Mouse Gamer
+                </h2>
+
+                <p>
+                    <strong>Disponibilidade:</strong>
+                    <span id="disponibilidade"></span>
+                </p>
+
+                <p>
+                    <strong>Quantidade:</strong>
+                    <span id="quantidade"></span>
+                </p>
+
+                <p>
+                    <strong>Preço:</strong>
+                </p>
+
+                <div class="price" id="preco">
+                    R$ 0,00
+                </div>
+
+                <div
+                    id="stockStatus"
+                    class="stock-ok"
+                >
+                    EM ESTOQUE
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- COMO FUNCIONA -->
 
     <section class="panel">
 
         <div class="panel-title">
-            &gt; ./PLANEJAMENTO_DO_ATENDIMENTO
+            &gt; ./FLUXO_DO_SISTEMA
         </div>
 
-        <div class="texto">
+        <div class="flow">
 
-            Você está iniciando sua carreira como fotógrafa profissional
-            e recebeu uma mensagem de um casal interessado em contratar
-            seus serviços para fotografar um casamento que acontecerá em
-            dois meses. O casal pede um orçamento e deseja saber como será
-            todo o atendimento, desde o primeiro contato até a entrega das
-            fotografias. Além desse casamento, você já possui outros ensaios
-            agendados para as próximas semanas.
+            <div class="step">
 
-        </div>
+                <span class="step-number">
+                    STEP 01
+                </span>
 
-    </section>
+                <h3>JavaScript</h3>
 
+                <p>
+                    Captura o nome digitado pelo vendedor e envia a
+                    solicitação de pesquisa.
+                </p>
 
-    <!-- PERGUNTA -->
-
-    <section class="panel pergunta">
-
-        <div class="panel-title">
-            &gt; ./PERGUNTA
-        </div>
-
-        <div class="texto">
-
-            <strong>
-                Como você organizaria seu planejamento para atender esse
-                novo cliente, cumprir todos os prazos e garantir um
-                atendimento de qualidade, sem comprometer os demais
-                trabalhos?
-            </strong>
-
-        </div>
-
-    </section>
+            </div>
 
 
-    <!-- RESPOSTA -->
+            <div class="step">
 
-    <section class="panel resposta">
+                <span class="step-number">
+                    STEP 02
+                </span>
 
-        <div class="panel-title">
-            &gt; ./RESPOSTA
-        </div>
+                <h3>PHP</h3>
 
-        <div class="texto">
+                <p>
+                    Recebe a solicitação e realiza a comunicação
+                    com o banco de dados.
+                </p>
 
-            Eu organizaria tudo em um cronograma, anotando as datas do
-            casamento e dos outros ensaios. Primeiro faria o orçamento e
-            combinaria todos os detalhes com o casal. Depois reservaria
-            horários para fotografar, editar e entregar as fotos, deixando
-            alguns dias de folga para evitar atrasos. Assim, conseguiria
-            atender bem o novo cliente sem prejudicar os outros trabalhos.
+            </div>
+
+
+            <div class="step">
+
+                <span class="step-number">
+                    STEP 03
+                </span>
+
+                <h3>MySQL</h3>
+
+                <p>
+                    Procura o produto armazenado no banco e retorna
+                    quantidade e preço.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <span class="step-number">
+                    STEP 04
+                </span>
+
+                <h3>Resultado</h3>
+
+                <p>
+                    As informações retornam para a página e são
+                    exibidas na tela.
+                </p>
+
+            </div>
 
         </div>
 
@@ -709,15 +713,15 @@ footer{
 
 
     <button
-        class="finish"
-        onclick="finalizar()"
+        class="back"
+        onclick="voltar()"
     >
-        &gt; ./FINALIZAR_ATIVIDADE
+        &gt; ./ENCERRAR_SISTEMA
     </button>
 
 
     <footer>
-        Escola Estadual Emília Cabral Mota // 2026
+        Escola Estadual Emília Cabral Mota // P.W. // 2026
     </footer>
 
 </div>
@@ -726,53 +730,54 @@ footer{
 <script>
 
 /* ================================================= */
-/* INTRO */
+/* INTRO CONSOLE */
 /* ================================================= */
 
 const linhas = [
-    "> NEON SCHOOL TERMINAL v2.0",
+
+    "> STOCK TERMINAL v1.0",
     "> Initializing system...",
-    "> Checking network connection...",
-    "> Loading applications...",
-    "> GOOGLE ............ ONLINE",
-    "> YOUTUBE ........... ONLINE",
-    "> TIKTOK ............ ONLINE",
-    "> CHATGPT ........... ONLINE",
-    "> Loading school project...",
-    "> All systems ready.",
-    "> ACCESS GRANTED_"
+    "> Loading JavaScript module...",
+    "> Loading PHP backend...",
+    "> Connecting to MySQL...",
+    "> Checking database...",
+    "> Database connection: SUCCESS",
+    "> Inventory system: ONLINE",
+    "> Security protocol: ACTIVE",
+    "> Access granted_"
+
 ];
 
-let linha = 0;
-let letra = 0;
+let linhaAtual = 0;
+let letraAtual = 0;
 
-function escreverBoot(){
+function escrever(){
 
-    if(linha >= linhas.length){
+    if(linhaAtual >= linhas.length){
         return;
     }
 
-    if(letra < linhas[linha].length){
+    if(letraAtual < linhas[linhaAtual].length){
 
         document.getElementById("boot").innerHTML +=
-            linhas[linha][letra];
+            linhas[linhaAtual][letraAtual];
 
-        letra++;
+        letraAtual++;
 
-        setTimeout(escreverBoot,25);
+        setTimeout(escrever,25);
 
     }else{
 
         document.getElementById("boot").innerHTML += "<br>";
 
-        linha++;
-        letra = 0;
+        linhaAtual++;
+        letraAtual = 0;
 
-        setTimeout(escreverBoot,250);
+        setTimeout(escrever,220);
     }
 }
 
-escreverBoot();
+escrever();
 
 
 /* ================================================= */
@@ -781,48 +786,189 @@ escreverBoot();
 
 function entrar(){
 
-    const intro = document.getElementById("intro");
+    document.getElementById("intro").style.opacity="0";
 
-    intro.style.opacity = "0";
+    setTimeout(()=>{
 
-    setTimeout(function(){
+        document.getElementById("intro").style.display="none";
 
-        intro.style.display = "none";
+        document.getElementById("system").style.display="block";
 
-        document.getElementById("menu").style.display = "block";
+        document.getElementById("produto").focus();
 
     },900);
 }
 
 
 /* ================================================= */
-/* ABRIR ATIVIDADE */
+/* BANCO DE DADOS SIMULADO */
 /* ================================================= */
 
-function abrirAtividade(){
+const produtos = {
 
-    document.getElementById("menu").style.display = "none";
+    "mouse gamer":{
+        nome:"Mouse Gamer RGB X7",
+        quantidade:12,
+        preco:149.90
+    },
 
-    document.getElementById("site").style.display = "block";
+    "mouse":{
+        nome:"Mouse Gamer RGB X7",
+        quantidade:12,
+        preco:149.90
+    },
 
-    window.scrollTo(0,0);
+    "mouse rgb":{
+        nome:"Mouse Gamer RGB X7",
+        quantidade:12,
+        preco:149.90
+    },
+
+    "teclado":{
+        nome:"Teclado Mecânico RGB",
+        quantidade:8,
+        preco:229.90
+    },
+
+    "headset":{
+        nome:"Headset Gamer 7.1",
+        quantidade:5,
+        preco:189.90
+    },
+
+    "webcam":{
+        nome:"Webcam Full HD",
+        quantidade:3,
+        preco:159.90
+    }
+
+};
+
+
+/* ================================================= */
+/* PESQUISA */
+/* ================================================= */
+
+function pesquisar(){
+
+    const campo =
+        document.getElementById("produto");
+
+    const busca =
+        campo.value.toLowerCase().trim();
+
+    const consoleText =
+        document.getElementById("consoleText");
+
+    const resultado =
+        document.getElementById("resultado");
+
+
+    if(busca === ""){
+
+        consoleText.innerHTML =
+            "> ERRO: nenhum produto informado.";
+
+        resultado.style.display="none";
+
+        return;
+    }
+
+
+    consoleText.innerHTML =
+        "> Recebendo consulta...<br>" +
+        "> Produto: " + busca + "<br>" +
+        "> Consultando banco de dados...";
+
+
+    setTimeout(()=>{
+
+        const produto = produtos[busca];
+
+
+        if(produto){
+
+            consoleText.innerHTML +=
+                "<br>> Produto encontrado!" +
+                "<br>> Dados recebidos com sucesso.";
+
+
+            document.getElementById("nomeProduto")
+                .textContent = produto.nome;
+
+            document.getElementById("disponibilidade")
+                .textContent = " DISPONÍVEL";
+
+            document.getElementById("quantidade")
+                .textContent = " " + produto.quantidade + " unidades";
+
+            document.getElementById("preco")
+                .textContent =
+                "R$ " +
+                produto.preco.toFixed(2).replace(".",",");
+
+
+            const status =
+                document.getElementById("stockStatus");
+
+            status.textContent="EM ESTOQUE";
+
+            status.className="stock-ok";
+
+            resultado.style.display="block";
+
+        }else{
+
+            consoleText.innerHTML +=
+                "<br>> ERRO: produto não encontrado." +
+                "<br>> Verifique o nome informado.";
+
+            resultado.style.display="none";
+
+        }
+
+    },800);
+
 }
 
 
 /* ================================================= */
-/* FINALIZAR */
+/* ENTER PARA PESQUISAR */
 /* ================================================= */
 
-function finalizar(){
+function enterSearch(event){
 
-    document.getElementById("site").style.display = "none";
+    if(event.key === "Enter"){
+        pesquisar();
+    }
 
-    document.getElementById("menu").style.display = "block";
+}
 
-    window.scrollTo(0,0);
+
+/* ================================================= */
+/* VOLTAR */
+/* ================================================= */
+
+function voltar(){
+
+    if(confirm("Encerrar o sistema de estoque?")){
+
+        document.getElementById("system").style.display="none";
+
+        document.getElementById("intro").style.display="flex";
+
+        setTimeout(()=>{
+
+            document.getElementById("intro").style.opacity="1";
+
+        },50);
+
+    }
+
 }
 
 </script>
 
 </body>
 </html>
+```
