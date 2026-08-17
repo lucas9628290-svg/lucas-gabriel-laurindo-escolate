@@ -1,3 +1,4 @@
+
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -5,9 +6,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>STOCK TERMINAL // P.W.</title>
+<title>STOCK TERMINAL // SECURE ACCESS</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -15,36 +17,10 @@
 }
 
 body{
-    background:#020609;
+    background:#020509;
     color:#00ffcc;
     font-family:"Courier New",monospace;
     min-height:100vh;
-    overflow-x:hidden;
-}
-
-/* FUNDO */
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-        linear-gradient(rgba(0,255,200,.035) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,255,200,.035) 1px,transparent 1px);
-    background-size:40px 40px;
-    z-index:-2;
-}
-
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:linear-gradient(
-        transparent 50%,
-        rgba(0,255,200,.025) 50%
-    );
-    background-size:100% 4px;
-    pointer-events:none;
-    z-index:100;
 }
 
 /* ================= INTRO ================= */
@@ -54,15 +30,14 @@ body::after{
     inset:0;
     background:#000;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     z-index:9999;
-    transition:1s;
 }
 
 .terminal{
     width:92%;
-    max-width:900px;
+    max-width:850px;
     background:#03080c;
     border:1px solid #00ffcc;
     border-radius:10px;
@@ -105,21 +80,8 @@ body::after{
 
 .terminal-content{
     padding:30px;
-    min-height:390px;
+    min-height:330px;
     line-height:1.8;
-    font-size:15px;
-}
-
-.neon{
-    color:#00ff88;
-}
-
-.cyan{
-    color:#00ffff;
-}
-
-.white{
-    color:#fff;
 }
 
 .cursor{
@@ -131,56 +93,225 @@ body::after{
 }
 
 @keyframes blink{
-    50%{opacity:0}
+    50%{
+        opacity:0;
+    }
 }
 
-.start{
-    margin-top:25px;
-    padding:14px 28px;
+/* ================= SENHA ================= */
+
+#login{
+    display:none;
+}
+
+.login-title{
+    color:#fff;
+    font-size:22px;
+    margin-bottom:15px;
+    text-shadow:0 0 10px #00ffff;
+}
+
+.login-warning{
+    color:#ffcc00;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.password-box{
+    display:flex;
+    gap:10px;
+}
+
+.password-box input{
+    flex:1;
+    background:#010508;
     border:1px solid #00ffcc;
+    color:#00ffcc;
+    padding:14px;
+    font-family:inherit;
+    outline:none;
+}
+
+.password-box input:focus{
+    box-shadow:0 0 20px #00ffcc33;
+}
+
+.password-box button{
     background:transparent;
     color:#00ffcc;
+    border:1px solid #00ffcc;
+    padding:0 20px;
     font-family:inherit;
     cursor:pointer;
-    border-radius:5px;
     transition:.3s;
 }
 
-.start:hover{
+.password-box button:hover{
     background:#00ffcc;
     color:#000;
-    box-shadow:0 0 35px #00ffcc;
+    box-shadow:0 0 25px #00ffcc;
+}
+
+#error{
+    color:#ff3b81;
+    margin-top:15px;
+    display:none;
+}
+
+/* ================= LOADING ================= */
+
+#loading{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#000;
+    overflow:hidden;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+/* CÓDIGO NO FUNDO */
+
+.binary{
+    position:absolute;
+    inset:0;
+    color:#00ff66;
+    opacity:.15;
+    font-size:18px;
+    line-height:1.5;
+    word-break:break-all;
+    overflow:hidden;
+    animation:matrix 8s linear infinite;
+}
+
+@keyframes matrix{
+    from{
+        transform:translateY(-20%);
+    }
+
+    to{
+        transform:translateY(20%);
+    }
+}
+
+/* TRIÂNGULO */
+
+.hacker-symbol{
+    position:relative;
+    z-index:2;
+    width:170px;
+    height:150px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#00ffcc;
+    font-size:55px;
+
+    clip-path:polygon(
+        50% 100%,
+        0 0,
+        100% 0
+    );
+
+    background:#00ffcc;
+    filter:
+        drop-shadow(0 0 10px #00ffcc)
+        drop-shadow(0 0 35px #00ffcc);
+
+    animation:trianglePulse 1s infinite;
+}
+
+.hacker-symbol::after{
+    content:"";
+    position:absolute;
+    inset:4px;
+
+    clip-path:polygon(
+        50% 100%,
+        0 0,
+        100% 0
+    );
+
+    background:#020609;
+}
+
+.hacker-symbol span{
+    position:relative;
+    z-index:5;
+    margin-top:-20px;
+    font-weight:bold;
+    animation:symbolBlink .65s infinite;
+}
+
+@keyframes trianglePulse{
+
+    0%,100%{
+        transform:scale(1);
+        filter:
+            drop-shadow(0 0 10px #00ffcc)
+            drop-shadow(0 0 35px #00ffcc);
+    }
+
+    50%{
+        transform:scale(1.08);
+        filter:
+            drop-shadow(0 0 25px #00ffff)
+            drop-shadow(0 0 70px #00ffff);
+    }
+}
+
+@keyframes symbolBlink{
+    50%{
+        opacity:.1;
+    }
+}
+
+.loading-text{
+    position:relative;
+    z-index:3;
+    margin-top:35px;
+    color:#00ffcc;
+    text-align:center;
+    letter-spacing:3px;
+}
+
+.progress{
+    position:relative;
+    z-index:3;
+    width:300px;
+    height:5px;
+    margin-top:20px;
+    background:#071014;
+    border:1px solid #00ffcc55;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#00ffcc;
+    box-shadow:0 0 15px #00ffcc;
+    transition:width .2s;
 }
 
 /* ================= SISTEMA ================= */
 
 #system{
     display:none;
-    max-width:1150px;
+    padding:40px 20px;
+    max-width:1100px;
     margin:auto;
-    padding:30px 20px 60px;
 }
 
-/* CABEÇALHO */
-
-.header{
+.system-title{
     border:1px solid #00ffcc;
-    background:#030a0f;
     padding:35px;
-    border-radius:10px;
-    box-shadow:0 0 30px #00ffcc15;
-    margin-bottom:25px;
+    text-align:center;
+    background:#03090e;
+    box-shadow:0 0 30px #00ffcc22;
 }
 
-.header-top{
-    display:flex;
-    justify-content:space-between;
-    color:#66828d;
-    font-size:12px;
-    margin-bottom:25px;
-}
-
-.header h1{
+.system-title h1{
     color:#fff;
     font-size:clamp(30px,6vw,60px);
     text-shadow:
@@ -188,275 +319,34 @@ body::after{
         0 0 30px #0077ff;
 }
 
-.header p{
-    color:#68848f;
-    margin-top:10px;
+.system-title p{
+    margin-top:12px;
+    color:#66828d;
 }
-
-/* STATUS */
-
-.status-bar{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-bottom:25px;
-}
-
-.status{
-    background:#050d13;
-    border:1px solid #00ffcc33;
-    padding:15px;
-    border-radius:6px;
-}
-
-.status strong{
-    display:block;
-    color:#00ff88;
-    margin-bottom:6px;
-}
-
-.status span{
-    color:#66818c;
-    font-size:12px;
-}
-
-/* PAINEL */
 
 .panel{
+    margin-top:25px;
     background:#03090e;
     border:1px solid #00ffcc44;
     padding:30px;
-    border-radius:10px;
-    margin-bottom:25px;
-    box-shadow:0 0 20px #00ffcc08;
 }
 
-.panel-title{
+.panel h2{
     color:#00ffff;
-    border-bottom:1px solid #00ffcc22;
-    padding-bottom:13px;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
-/* PESQUISA */
-
-.search-box{
-    display:flex;
-    gap:10px;
-}
-
-.search-box input{
-    flex:1;
-    background:#010508;
-    border:1px solid #00ffcc55;
-    color:#00ffcc;
-    padding:17px;
-    outline:none;
-    font-family:inherit;
-    border-radius:5px;
-}
-
-.search-box input:focus{
-    border-color:#00ffcc;
-    box-shadow:0 0 15px #00ffcc22;
-}
-
-.search-box button{
-    padding:0 25px;
-    background:transparent;
-    color:#00ffcc;
-    border:1px solid #00ffcc;
-    font-family:inherit;
-    cursor:pointer;
-    border-radius:5px;
-    transition:.3s;
-}
-
-.search-box button:hover{
-    background:#00ffcc;
-    color:#000;
-    box-shadow:0 0 25px #00ffcc;
-}
-
-/* CONSOLE */
-
-.console{
-    background:#010304;
-    border:1px solid #123;
-    padding:20px;
-    margin-top:20px;
-    min-height:120px;
-    color:#00ff88;
+.panel p{
+    color:#d5faff;
+    font-family:Arial,sans-serif;
     line-height:1.8;
-    border-radius:5px;
 }
 
-.console-title{
-    color:#526a73;
-    margin-bottom:10px;
-}
-
-/* RESULTADO */
-
-#resultado{
-    display:none;
-}
-
-.product{
-    display:grid;
-    grid-template-columns:130px 1fr;
-    gap:25px;
-    align-items:center;
-}
-
-.mouse-icon{
-    height:130px;
-    border:1px solid #00ffcc;
-    border-radius:30px 30px 40px 40px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:55px;
-    box-shadow:0 0 25px #00ffcc22;
-}
-
-.product-info h2{
-    color:#fff;
-    margin-bottom:15px;
-}
-
-.product-info p{
-    color:#78909c;
-    margin:7px 0;
-}
-
-.product-info strong{
-    color:#00ff88;
-}
-
-.price{
-    font-size:28px;
-    color:#00ffff;
-    text-shadow:0 0 12px #00ffff;
-}
-
-/* STATUS PRODUTO */
-
-.stock-ok{
-    display:inline-block;
-    margin-top:12px;
-    padding:7px 12px;
-    border:1px solid #00ff88;
-    color:#00ff88;
-    border-radius:4px;
-    font-size:12px;
-}
-
-.stock-no{
-    border-color:#ff3b81;
-    color:#ff3b81;
-}
-
-/* FLUXO */
-
-.flow{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-}
-
-.step{
-    background:#050c12;
-    padding:20px;
-    border:1px solid #00ffcc33;
-    border-radius:6px;
-}
-
-.step-number{
-    color:#00ff88;
-    font-size:12px;
-}
-
-.step h3{
-    color:#fff;
-    margin:10px 0;
-}
-
-.step p{
-    color:#607983;
-    font-size:12px;
-    line-height:1.6;
-}
-
-/* VOLTAR */
-
-.back{
-    display:block;
-    margin:30px auto;
-    padding:14px 28px;
-    background:transparent;
-    color:#ff4f91;
-    border:1px solid #ff4f91;
-    border-radius:5px;
-    font-family:inherit;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.back:hover{
-    background:#ff4f91;
-    color:#000;
-    box-shadow:0 0 30px #ff4f91;
-}
-
-footer{
-    text-align:center;
-    color:#405762;
-    font-size:12px;
-}
-
-/* RESPONSIVO */
-
-@media(max-width:700px){
-
-    .status-bar{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .flow{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .search-box{
-        flex-direction:column;
-    }
-
-    .search-box button{
-        padding:15px;
-    }
-
-    .product{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:450px){
-
-    .status-bar,
-    .flow{
-        grid-template-columns:1fr;
-    }
-
-    .terminal-content,
-    .panel,
-    .header{
-        padding:20px;
-    }
-}
 </style>
 </head>
 
 <body>
+
 
 <!-- ================================================= -->
 <!-- INTRO -->
@@ -464,29 +354,91 @@ footer{
 
 <div id="intro">
 
-<div class="terminal">
+    <div class="terminal">
 
-    <div class="terminal-bar">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-    </div>
+        <div class="terminal-bar">
 
-    <div class="terminal-content">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
 
-        <div id="boot"></div>
+        </div>
 
-        <span class="cursor"></span>
 
-        <br>
+        <div class="terminal-content">
 
-        <button class="start" onclick="entrar()">
-            [ EXECUTAR STOCK TERMINAL ]
-        </button>
+            <div id="boot"></div>
+
+            <span class="cursor"></span>
+
+
+            <!-- LOGIN -->
+
+            <div id="login">
+
+                <div class="login-title">
+                    > SECURE SYSTEM ACCESS
+                </div>
+
+                <div class="login-warning">
+                    [!] ÁREA PROTEGIDA // AUTENTICAÇÃO NECESSÁRIA
+                </div>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Digite a senha..."
+                        onkeydown="verificarEnter(event)"
+                    >
+
+                    <button onclick="verificarSenha()">
+                        [ LOGIN ]
+                    </button>
+
+                </div>
+
+                <div id="error">
+                    &gt; ACCESS DENIED // SENHA INCORRETA
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
+
+
+<!-- ================================================= -->
+<!-- LOADING CYBER -->
+<!-- ================================================= -->
+
+<div id="loading">
+
+    <div class="binary" id="binary"></div>
+
+
+    <div class="hacker-symbol">
+        <span>?</span>
+    </div>
+
+
+    <div class="loading-text" id="loadingText">
+        INITIALIZING...
+    </div>
+
+
+    <div class="progress">
+
+        <div
+            class="progress-bar"
+            id="progressBar"
+        ></div>
+
+    </div>
 
 </div>
 
@@ -497,263 +449,63 @@ footer{
 
 <div id="system">
 
-    <header class="header">
+    <div class="system-title">
 
-        <div class="header-top">
-            <span>USER@STOCK-SYSTEM:~$</span>
-            <span>DATABASE // ONLINE</span>
-        </div>
-
-        <h1>STOCK TERMINAL</h1>
+        <h1>
+            STOCK TERMINAL
+        </h1>
 
         <p>
             Sistema de Consulta de Estoque // P.W.
         </p>
 
-    </header>
-
-
-    <!-- STATUS -->
-
-    <div class="status-bar">
-
-        <div class="status">
-            <strong>● ONLINE</strong>
-            <span>Servidor</span>
-        </div>
-
-        <div class="status">
-            <strong>● CONNECTED</strong>
-            <span>MySQL</span>
-        </div>
-
-        <div class="status">
-            <strong>● READY</strong>
-            <span>PHP Backend</span>
-        </div>
-
-        <div class="status">
-            <strong>● ACTIVE</strong>
-            <span>JavaScript</span>
-        </div>
-
     </div>
 
 
-    <!-- PESQUISA -->
+    <div class="panel">
 
-    <section class="panel">
+        <h2>
+            &gt; SYSTEM ONLINE
+        </h2>
 
-        <div class="panel-title">
-            &gt; ./PESQUISAR_PRODUTO
-        </div>
+        <p>
+            Acesso autorizado. O sistema de consulta de estoque
+            foi carregado com sucesso.
+        </p>
 
-        <div class="search-box">
-
-            <input
-                id="produto"
-                type="text"
-                placeholder="Digite o nome do mouse..."
-                onkeydown="enterSearch(event)"
-            >
-
-            <button onclick="pesquisar()">
-                [ PESQUISAR ]
-            </button>
-
-        </div>
-
-
-        <div class="console">
-
-            <div class="console-title">
-                TERMINAL OUTPUT
-            </div>
-
-            <div id="consoleText">
-                &gt; Aguardando consulta...
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- RESULTADO -->
-
-    <section
-        class="panel"
-        id="resultado"
-    >
-
-        <div class="panel-title">
-            &gt; ./RESULTADO_DA_CONSULTA
-        </div>
-
-        <div class="product">
-
-            <div class="mouse-icon">
-                🖱️
-            </div>
-
-            <div class="product-info">
-
-                <h2 id="nomeProduto">
-                    Mouse Gamer
-                </h2>
-
-                <p>
-                    <strong>Disponibilidade:</strong>
-                    <span id="disponibilidade"></span>
-                </p>
-
-                <p>
-                    <strong>Quantidade:</strong>
-                    <span id="quantidade"></span>
-                </p>
-
-                <p>
-                    <strong>Preço:</strong>
-                </p>
-
-                <div class="price" id="preco">
-                    R$ 0,00
-                </div>
-
-                <div
-                    id="stockStatus"
-                    class="stock-ok"
-                >
-                    EM ESTOQUE
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- COMO FUNCIONA -->
-
-    <section class="panel">
-
-        <div class="panel-title">
-            &gt; ./FLUXO_DO_SISTEMA
-        </div>
-
-        <div class="flow">
-
-            <div class="step">
-
-                <span class="step-number">
-                    STEP 01
-                </span>
-
-                <h3>JavaScript</h3>
-
-                <p>
-                    Captura o nome digitado pelo vendedor e envia a
-                    solicitação de pesquisa.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <span class="step-number">
-                    STEP 02
-                </span>
-
-                <h3>PHP</h3>
-
-                <p>
-                    Recebe a solicitação e realiza a comunicação
-                    com o banco de dados.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <span class="step-number">
-                    STEP 03
-                </span>
-
-                <h3>MySQL</h3>
-
-                <p>
-                    Procura o produto armazenado no banco e retorna
-                    quantidade e preço.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <span class="step-number">
-                    STEP 04
-                </span>
-
-                <h3>Resultado</h3>
-
-                <p>
-                    As informações retornam para a página e são
-                    exibidas na tela.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <button
-        class="back"
-        onclick="voltar()"
-    >
-        &gt; ./ENCERRAR_SISTEMA
-    </button>
-
-
-    <footer>
-        Escola Estadual Emília Cabral Mota // P.W. // 2026
-    </footer>
+    </div>
 
 </div>
 
 
 <script>
 
-/* ================================================= */
-/* INTRO CONSOLE */
-/* ================================================= */
+/* ================= BOOT ================= */
 
 const linhas = [
 
-    "> STOCK TERMINAL v1.0",
-    "> Initializing system...",
-    "> Loading JavaScript module...",
-    "> Loading PHP backend...",
-    "> Connecting to MySQL...",
-    "> Checking database...",
-    "> Database connection: SUCCESS",
-    "> Inventory system: ONLINE",
-    "> Security protocol: ACTIVE",
-    "> Access granted_"
+    "> STOCK TERMINAL v2.0",
+    "> Initializing secure environment...",
+    "> Loading JavaScript...",
+    "> Connecting to database...",
+    "> Checking authorization...",
+    "> Security system: ACTIVE",
+    "> Protected area detected.",
+    "> Waiting for user authentication..."
 
 ];
 
 let linhaAtual = 0;
 let letraAtual = 0;
 
-function escrever(){
+function escreverBoot(){
 
     if(linhaAtual >= linhas.length){
+
+        document.getElementById("login").style.display="block";
+
+        document.getElementById("password").focus();
+
         return;
     }
 
@@ -764,206 +516,149 @@ function escrever(){
 
         letraAtual++;
 
-        setTimeout(escrever,25);
+        setTimeout(escreverBoot,25);
 
     }else{
 
         document.getElementById("boot").innerHTML += "<br>";
 
         linhaAtual++;
-        letraAtual = 0;
+        letraAtual=0;
 
-        setTimeout(escrever,220);
+        setTimeout(escreverBoot,250);
     }
 }
 
-escrever();
+escreverBoot();
 
 
-/* ================================================= */
-/* ENTRAR */
-/* ================================================= */
+/* ================= SENHA ================= */
 
-function entrar(){
+function verificarEnter(event){
 
-    document.getElementById("intro").style.opacity="0";
+    if(event.key === "Enter"){
+        verificarSenha();
+    }
 
-    setTimeout(()=>{
-
-        document.getElementById("intro").style.display="none";
-
-        document.getElementById("system").style.display="block";
-
-        document.getElementById("produto").focus();
-
-    },900);
 }
 
 
-/* ================================================= */
-/* BANCO DE DADOS SIMULADO */
-/* ================================================= */
+function verificarSenha(){
 
-const produtos = {
+    const senha =
+        document.getElementById("password").value;
 
-    "mouse gamer":{
-        nome:"Mouse Gamer RGB X7",
-        quantidade:12,
-        preco:149.90
-    },
+    const erro =
+        document.getElementById("error");
 
-    "mouse":{
-        nome:"Mouse Gamer RGB X7",
-        quantidade:12,
-        preco:149.90
-    },
 
-    "mouse rgb":{
-        nome:"Mouse Gamer RGB X7",
-        quantidade:12,
-        preco:149.90
-    },
+    if(senha === "2324"){
 
-    "teclado":{
-        nome:"Teclado Mecânico RGB",
-        quantidade:8,
-        preco:229.90
-    },
+        erro.style.display="none";
 
-    "headset":{
-        nome:"Headset Gamer 7.1",
-        quantidade:5,
-        preco:189.90
-    },
+        iniciarCarregamento();
 
-    "webcam":{
-        nome:"Webcam Full HD",
-        quantidade:3,
-        preco:159.90
+    }else{
+
+        erro.style.display="block";
+
+        document.getElementById("password").value="";
+
     }
 
-};
+}
 
 
-/* ================================================= */
-/* PESQUISA */
-/* ================================================= */
+/* ================= CARREGAMENTO ================= */
 
-function pesquisar(){
+function iniciarCarregamento(){
 
-    const campo =
-        document.getElementById("produto");
+    document.getElementById("intro").style.display="none";
 
-    const busca =
-        campo.value.toLowerCase().trim();
+    const loading =
+        document.getElementById("loading");
 
-    const consoleText =
-        document.getElementById("consoleText");
-
-    const resultado =
-        document.getElementById("resultado");
+    loading.style.display="flex";
 
 
-    if(busca === ""){
+    /* CÓDIGO BINÁRIO */
 
-        consoleText.innerHTML =
-            "> ERRO: nenhum produto informado.";
+    let codigo="";
 
-        resultado.style.display="none";
+    for(let i=0;i<5000;i++){
 
-        return;
+        codigo +=
+            Math.random() > .5
+            ? "1"
+            : "0";
+
+        if(i % 50 === 0){
+            codigo += "<br>";
+        }
+
     }
 
-
-    consoleText.innerHTML =
-        "> Recebendo consulta...<br>" +
-        "> Produto: " + busca + "<br>" +
-        "> Consultando banco de dados...";
+    document.getElementById("binary").innerHTML=codigo;
 
 
-    setTimeout(()=>{
+    /* PROGRESSO */
 
-        const produto = produtos[busca];
+    let progresso=0;
 
+    const barra =
+        document.getElementById("progressBar");
 
-        if(produto){
-
-            consoleText.innerHTML +=
-                "<br>> Produto encontrado!" +
-                "<br>> Dados recebidos com sucesso.";
-
-
-            document.getElementById("nomeProduto")
-                .textContent = produto.nome;
-
-            document.getElementById("disponibilidade")
-                .textContent = " DISPONÍVEL";
-
-            document.getElementById("quantidade")
-                .textContent = " " + produto.quantidade + " unidades";
-
-            document.getElementById("preco")
-                .textContent =
-                "R$ " +
-                produto.preco.toFixed(2).replace(".",",");
+    const texto =
+        document.getElementById("loadingText");
 
 
-            const status =
-                document.getElementById("stockStatus");
+    const mensagens=[
 
-            status.textContent="EM ESTOQUE";
+        "ANALYZING SYSTEM...",
+        "VERIFYING ACCESS...",
+        "LOADING DATABASE...",
+        "CONNECTING TO SERVER...",
+        "DECRYPTING DATA...",
+        "SYSTEM READY..."
 
-            status.className="stock-ok";
+    ];
 
-            resultado.style.display="block";
 
-        }else{
+    const intervalo=setInterval(()=>{
 
-            consoleText.innerHTML +=
-                "<br>> ERRO: produto não encontrado." +
-                "<br>> Verifique o nome informado.";
+        progresso++;
 
-            resultado.style.display="none";
+        barra.style.width =
+            progresso + "%";
+
+
+        let indice =
+            Math.floor(progresso / 17);
+
+        if(indice >= mensagens.length){
+            indice=mensagens.length-1;
+        }
+
+        texto.textContent =
+            mensagens[indice];
+
+
+        if(progresso >= 100){
+
+            clearInterval(intervalo);
+
+            setTimeout(()=>{
+
+                loading.style.display="none";
+
+                document.getElementById("system")
+                    .style.display="block";
+
+            },700);
 
         }
 
-    },800);
-
-}
-
-
-/* ================================================= */
-/* ENTER PARA PESQUISAR */
-/* ================================================= */
-
-function enterSearch(event){
-
-    if(event.key === "Enter"){
-        pesquisar();
-    }
-
-}
-
-
-/* ================================================= */
-/* VOLTAR */
-/* ================================================= */
-
-function voltar(){
-
-    if(confirm("Encerrar o sistema de estoque?")){
-
-        document.getElementById("system").style.display="none";
-
-        document.getElementById("intro").style.display="flex";
-
-        setTimeout(()=>{
-
-            document.getElementById("intro").style.opacity="1";
-
-        },50);
-
-    }
+    },60);
 
 }
 
@@ -972,3 +667,4 @@ function voltar(){
 </body>
 </html>
 ```
+
