@@ -1,118 +1,184 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Digitalização no Mundo do Trabalho</title>
+    <title>Digitalização no Mundo do Trabalho</title>
 
-<style>
-body {
-    background: white;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 30px;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-}
+        body {
+            background: #050505;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
 
-h1 {
-    text-align: center;
-    margin-bottom: 25px;
-}
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
 
-.introducao {
-    font-size: 17px;
-    line-height: 1.7;
-    margin-bottom: 30px;
-}
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 1px solid #222;
+            border-radius: 18px;
+            background: #0b0b0b;
+        }
 
-.questao {
-    margin-bottom: 30px;
-}
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
 
-.questao h2 {
-    font-size: 19px;
-    line-height: 1.5;
-}
+        header p {
+            color: #bdbdbd;
+            font-size: 16px;
+            line-height: 1.7;
+        }
 
-.resposta {
-    font-size: 17px;
-    line-height: 1.7;
-    margin-top: 10px;
-}
+        .questao {
+            background: #0b0b0b;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
 
-footer {
-    text-align: center;
-    margin-top: 40px;
-}
-</style>
+        .questao:hover {
+            border-color: #555;
+            transform: translateY(-3px);
+        }
+
+        .numero {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .pergunta {
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .resposta {
+            background: #111;
+            border-left: 4px solid #fff;
+            padding: 18px;
+            border-radius: 8px;
+            color: #f1f1f1;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            margin-top: 35px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 27px;
+            }
+
+            body {
+                padding: 20px 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<h1>Digitalização no mundo do trabalho</h1>
+        <header>
+            <h1>Digitalização no Mundo do Trabalho</h1>
 
-<div class="introducao">
-A digitalização é o ato de transformar estruturas e prestações de serviço
-de uma empresa em um modelo de negócio digital, assim como a implementação
-de equipamentos. Esse é um fenômeno contemporâneo universal e atinge
-empresas e setores públicos de todos os países, em diferentes níveis,
-com maior ou menor grau de planejamento e acompanhamento.
-</div>
+            <p>
+                A digitalização é o ato de transformar estruturas e prestações
+                de serviço de uma empresa em um modelo de negócio digital,
+                assim como a implementação de equipamentos. Esse é um fenômeno
+                contemporâneo universal e atinge empresas e setores públicos
+                de todos os países, em diferentes níveis, com maior ou menor
+                grau de planejamento e acompanhamento.
+            </p>
+        </header>
 
-<div class="questao">
 
-<h2>
-Questão 1 — Como você imagina a participação das mulheres na área de tecnologia até 2030
-e o que pode ser feito para aumentar essa participação?
-</h2>
+        <section class="questao">
 
-<div class="resposta">
-foco e disciplina e saber fazer o trabalho digital de forma eficaz
-</div>
+            <div class="numero">01</div>
 
-</div>
+            <div class="pergunta">
+                Como você imagina a participação das mulheres na área de
+                tecnologia até 2030 e o que pode ser feito para aumentar
+                essa participação?
+            </div>
 
-<div class="questao">
+            <div class="resposta">
+                Foco e disciplina e saber fazer o trabalho digital de forma eficaz.
+            </div>
 
-<h2>
-Questão 2 — Você acha que as tecnologias digitais conseguem resolver todos os tipos
-de problemas? Explique sua opinião.
-</h2>
+        </section>
 
-<div class="resposta">
-a inclusao de mulheres na tecnologia ajuda a promover igualdade de genero
-e a combater a descriminacao.A tecnologia é um campo dominado pelos
-homens,isso pode afastar mulheres da area de trabalhomesmo q tenham interece.
-</div>
 
-</div>
+        <section class="questao">
 
-<div class="questao">
+            <div class="numero">02</div>
 
-<h2>
-Questão 3 — Quais habilidades digitais você acredita que precisará desenvolver para
-o mercado de trabalho? Justifique.
-</h2>
+            <div class="pergunta">
+                Você acha que as tecnologias digitais conseguem resolver
+                todos os tipos de problemas? Explique sua opinião.
+            </div>
 
-<div class="resposta">
-é mais para empresas ajuda a prestar servicos como a implementacao de
-equipamentos digitais.
-</div>
+            <div class="resposta">
+                A inclusão de mulheres na tecnologia ajuda a promover igualdade
+                de gênero e a combater a discriminação. A tecnologia é um campo
+                dominado pelos homens, isso pode afastar mulheres da área de
+                trabalho mesmo que tenham interesse.
+            </div>
 
-</div>
+        </section>
 
-<footer>
-Trabalho escolar • Digitalização no mundo do trabalho
-</footer>
 
-</div>
+        <section class="questao">
+
+            <div class="numero">03</div>
+
+            <div class="pergunta">
+                Quais habilidades digitais você acredita que precisará
+                desenvolver para o mercado de trabalho? Justifique.
+            </div>
+
+            <div class="resposta">
+                É mais para empresas ajuda a prestar serviços como a
+                implementação de equipamentos digitais.
+            </div>
+
+        </section>
+
+
+        <footer>
+            Trabalho escolar — Digitalização no Mundo do Trabalho
+        </footer>
+
+    </div>
 
 </body>
 </html>
+```
