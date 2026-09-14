@@ -129,7 +129,7 @@
             <div class="numero">01.</div>
 
             <div class="pergunta">
-                Quais habilidades digitais você pensa que precisará desenvolver
+                Quais habilidades digitais você pensa que precisará para desenvolver
                 para o mercado? 
             </div>
 
