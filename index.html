@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -15,88 +14,93 @@
         }
 
         body {
-            background: #050505;
-            color: #fff;
-            font-family: Arial, sans-serif;
+            background: #d6d6d6;
+            color: #222;
+            font-family: "Comic Sans MS", "Segoe Print", Arial, sans-serif;
             min-height: 100vh;
             padding: 40px 20px;
         }
 
-        .container {
-            max-width: 1000px;
+        .folha {
+            max-width: 900px;
             margin: auto;
+            min-height: 1100px;
+            padding: 55px 65px 60px 65px;
+            position: relative;
+
+            background-color: #fff;
+
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 31px,
+                #9ec5e8 32px,
+                transparent 33px
+            );
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            border: 1px solid #222;
-            border-radius: 18px;
-            background: #0b0b0b;
+            margin-bottom: 35px;
         }
 
         header h1 {
-            font-size: 36px;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
+            font-size: 32px;
+            margin-bottom: 16px;
+            color: #222;
+            text-decoration: underline;
+            line-height: 32px;
         }
 
         header p {
-            color: #bdbdbd;
-            font-size: 16px;
-            line-height: 1.7;
+            font-size: 17px;
+            line-height: 32px;
+            text-align: justify;
         }
 
         .questao {
-            background: #0b0b0b;
-            border: 1px solid #222;
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            transition: 0.3s;
-        }
-
-        .questao:hover {
-            border-color: #555;
-            transform: translateY(-3px);
+            margin-bottom: 30px;
         }
 
         .numero {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: bold;
-            margin-bottom: 12px;
+            line-height: 32px;
         }
 
         .pergunta {
-            color: #ddd;
-            line-height: 1.6;
-            margin-bottom: 18px;
+            font-size: 17px;
+            line-height: 32px;
+            margin-bottom: 0;
+            text-align: justify;
         }
 
         .resposta {
-            background: #111;
-            border-left: 4px solid #fff;
-            padding: 18px;
-            border-radius: 8px;
-            color: #f1f1f1;
-            line-height: 1.7;
-        }
-
-        footer {
-            text-align: center;
-            color: #666;
-            margin-top: 35px;
-            font-size: 14px;
+            font-size: 17px;
+            line-height: 32px;
+            text-align: justify;
         }
 
         @media (max-width: 600px) {
-            header h1 {
-                font-size: 27px;
+            body {
+                padding: 10px;
             }
 
-            body {
-                padding: 20px 12px;
+            .folha {
+                padding: 35px 25px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            header p,
+            .pergunta,
+            .resposta {
+                font-size: 15px;
+                line-height: 28px;
             }
         }
     </style>
@@ -104,7 +108,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="folha">
 
         <header>
             <h1>Digitalização no Mundo do Trabalho</h1>
@@ -122,12 +126,11 @@
 
         <section class="questao">
 
-            <div class="numero">01</div>
+            <div class="numero">01.</div>
 
             <div class="pergunta">
-                Como você imagina a participação das mulheres na área de
-                tecnologia até 2030 e o que pode ser feito para aumentar
-                essa participação?
+                Quais habilidades digitais você pensa que precisará desenvolver
+                para o mercado? Justifique sua resposta.
             </div>
 
             <div class="resposta">
@@ -139,11 +142,13 @@
 
         <section class="questao">
 
-            <div class="numero">02</div>
+            <div class="numero">02.</div>
 
             <div class="pergunta">
-                Você acha que as tecnologias digitais conseguem resolver
-                todos os tipos de problemas? Explique sua opinião.
+                De acordo com o texto, em relação à quantidade de mulheres que
+                trabalhavam na área de tecnologia em 2024, como você avalia que
+                estará esse cenário até o ano de 2030 e quais ações podem ser
+                tomadas para promover a entrada de mulheres nessa área?
             </div>
 
             <div class="resposta">
@@ -158,11 +163,11 @@
 
         <section class="questao">
 
-            <div class="numero">03</div>
+            <div class="numero">03.</div>
 
             <div class="pergunta">
-                Quais habilidades digitais você acredita que precisará
-                desenvolver para o mercado de trabalho? Justifique.
+                Sobre a digitalização, você considera que as tecnologias
+                digitais podem solucionar qualquer tipo de problema? Por que?
             </div>
 
             <div class="resposta">
@@ -172,13 +177,7 @@
 
         </section>
 
-
-        <footer>
-            Trabalho escolar — Digitalização no Mundo do Trabalho
-        </footer>
-
     </div>
 
 </body>
 </html>
-```
