@@ -130,7 +130,7 @@
 
             <div class="pergunta">
                 Quais habilidades digitais você pensa que precisará desenvolver
-                para o mercado? Justifique sua resposta.
+                para o mercado? 
             </div>
 
             <div class="resposta">
@@ -167,7 +167,7 @@
 
             <div class="pergunta">
                 Sobre a digitalização, você considera que as tecnologias
-                digitais podem solucionar qualquer tipo de problema? Por que?
+                digitais podem solucionar qualquer tipo de problema? 
             </div>
 
             <div class="resposta">
