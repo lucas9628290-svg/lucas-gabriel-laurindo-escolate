@@ -2,584 +2,644 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dia Nacional de Luta da Pessoa com Deficiência</title>
+<title>Código de Segurança e Saúde Escolar</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f8f5;
-            color: #1f2937;
-            line-height: 1.6;
-        }
+body {
+    background: #eef3f8;
+    color: #17202a;
+}
 
-        /* MENU */
-        header {
-            background: #087f5b;
-            color: white;
-            padding: 18px 8%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
-        }
+/* ===== CABEÇALHO ===== */
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
+header {
+    background: linear-gradient(135deg, #0b3d91, #087f5b);
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
 
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-        }
+header h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: bold;
-        }
+header p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: auto;
+}
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+/* ===== MENU ===== */
 
-        /* CAPA */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 50px 20px;
-            background:
-                linear-gradient(rgba(0,80,55,0.88), rgba(0,120,80,0.82)),
-                radial-gradient(circle at top, #45d69b, #087f5b);
-            color: white;
-        }
+nav {
+    background: #071f3d;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        .hero-content {
-            max-width: 900px;
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
 
-        .hero h1 {
-            font-size: clamp(38px, 6vw, 72px);
-            margin-bottom: 20px;
-        }
+nav a:hover {
+    background: #087f5b;
+}
 
-        .hero h2 {
-            font-size: 25px;
-            font-weight: normal;
-            margin-bottom: 20px;
-        }
+/* ===== CONTAINER ===== */
 
-        .hero p {
-            font-size: 18px;
-            max-width: 750px;
-            margin: auto;
-        }
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
 
-        .data {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 25px;
-            border-radius: 30px;
-            background: white;
-            color: #087f5b;
-            font-weight: bold;
-            font-size: 18px;
-        }
+/* ===== SEÇÕES ===== */
 
-        /* SEÇÕES */
-        section {
-            padding: 70px 8%;
-        }
+section {
+    background: white;
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
 
-        .titulo {
-            text-align: center;
-            color: #087f5b;
-            font-size: 34px;
-            margin-bottom: 35px;
-        }
+section h2 {
+    color: #0b3d91;
+    margin-bottom: 18px;
+    border-left: 5px solid #087f5b;
+    padding-left: 12px;
+}
 
-        .texto {
-            max-width: 950px;
-            margin: auto;
-            font-size: 18px;
-            text-align: center;
-        }
+section h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #087f5b;
+}
 
-        /* CARDS */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            max-width: 1100px;
-            margin: 40px auto 0;
-        }
+p {
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
 
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
-            transition: 0.3s;
-            border-top: 7px solid #087f5b;
-        }
+ul {
+    margin-left: 25px;
+    line-height: 1.8;
+}
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
+/* ===== CARDS ===== */
 
-        .icone {
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
 
-        .card h3 {
-            color: #087f5b;
-            margin-bottom: 12px;
-        }
+.card {
+    background: #f4f8fc;
+    padding: 22px;
+    border-radius: 12px;
+    border-top: 5px solid #0b3d91;
+    transition: 0.3s;
+}
 
-        /* BENGALAS */
-        .bengalas {
-            background: #e8f7f0;
-        }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
 
-        .bengala {
-            position: relative;
-            overflow: hidden;
-        }
+.card h3 {
+    margin-top: 0;
+}
 
-        .bengala-branca {
-            border-top-color: #ffffff;
-        }
+/* ===== ALERTA ===== */
 
-        .bengala-verde {
-            border-top-color: #18a558;
-        }
+.alerta {
+    background: #fff4d6;
+    border-left: 6px solid #f0a500;
+    padding: 20px;
+    border-radius: 10px;
+}
 
-        .bengala-vermelha {
-            border-top-color: #e63946;
-        }
+/* ===== EMERGÊNCIA ===== */
 
-        .barra {
-            height: 18px;
-            width: 100%;
-            border-radius: 20px;
-            margin: 15px 0 20px;
-        }
+.emergencia {
+    background: #ffe5e5;
+    border-left: 6px solid #d90429;
+}
 
-        .barra-branca {
-            background: #ffffff;
-            border: 2px solid #bbb;
-        }
+.emergencia h2 {
+    color: #b00020;
+}
 
-        .barra-verde {
-            background: #18a558;
-        }
+/* ===== CHECKLIST ===== */
 
-        .barra-vermelha {
-            background: linear-gradient(
-                to right,
-                #ffffff 0%,
-                #ffffff 50%,
-                #e63946 50%,
-                #e63946 100%
-            );
-            border: 1px solid #aaa;
-        }
+.checklist label {
+    display: block;
+    margin: 12px 0;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
-        /* VIDEO */
-        .video-area {
-            background: #111827;
-            color: white;
-            text-align: center;
-        }
+.checklist input {
+    margin-right: 10px;
+}
 
-        .video-area .titulo {
-            color: #7fffc4;
-        }
+/* ===== BOTÃO ===== */
 
-        .video-container {
-            max-width: 900px;
-            margin: 35px auto 0;
-            aspect-ratio: 16 / 9;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-        }
+button {
+    background: #087f5b;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
 
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+button:hover {
+    background: #056b4c;
+}
 
-        /* ACESSIBILIDADE */
-        .acessibilidade {
-            max-width: 1000px;
-            margin: auto;
-        }
+/* ===== RODAPÉ ===== */
 
-        .lista {
-            background: white;
-            border-radius: 18px;
-            padding: 30px 40px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
+footer {
+    background: #071f3d;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 40px;
+}
 
-        .lista li {
-            margin: 15px 0;
-            font-size: 18px;
-        }
+footer p {
+    margin: 5px;
+}
 
-        /* FRASE FINAL */
-        .frase {
-            background: #087f5b;
-            color: white;
-            text-align: center;
-            padding: 70px 20px;
-        }
+/* ===== RESPONSIVO ===== */
 
-        .frase h2 {
-            font-size: 36px;
-            margin-bottom: 15px;
-        }
+@media (max-width: 600px) {
 
-        .frase p {
-            font-size: 20px;
-        }
+    header h1 {
+        font-size: 30px;
+    }
 
-        /* RODAPÉ */
-        footer {
-            background: #052e24;
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
+    section {
+        padding: 20px;
+    }
 
-        /* RESPONSIVO */
-        @media (max-width: 700px) {
-            nav {
-                flex-direction: column;
-            }
-
-            nav a {
-                margin: 5px;
-                font-size: 14px;
-            }
-
-            section {
-                padding: 50px 5%;
-            }
-
-            .lista {
-                padding: 25px;
-            }
-        }
-    </style>
+    nav a {
+        font-size: 14px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- MENU -->
-    <header>
-        <nav>
-            <div class="logo">♿ Inclusão</div>
+<header>
+    <h1>🛡️ Código de Segurança e Saúde Escolar</h1>
 
-            <div>
-                <a href="#sobre">Sobre</a>
-                <a href="#bengalas">Bengalas</a>
-                <a href="#video">Vídeo</a>
-                <a href="#acessibilidade">Acessibilidade</a>
-            </div>
-        </nav>
-    </header>
+    <p>
+        Um conjunto de orientações para promover um ambiente escolar
+        seguro, saudável, respeitoso e preparado para situações de emergência.
+    </p>
+</header>
 
+<nav>
+    <a href="#objetivo">Objetivo</a>
+    <a href="#seguranca">Segurança</a>
+    <a href="#saude">Saúde</a>
+    <a href="#emergencia">Emergências</a>
+    <a href="#responsabilidades">Responsabilidades</a>
+    <a href="#checklist">Checklist</a>
+</nav>
 
-    <!-- CAPA -->
-    <section class="hero">
+<div class="container">
 
-        <div class="hero-content">
+<!-- OBJETIVO -->
 
-            <h1>Dia Nacional de Luta da Pessoa com Deficiência</h1>
+<section id="objetivo">
 
-            <h2>Respeito • Inclusão • Acessibilidade • Igualdade</h2>
+<h2>🎯 1. Objetivo</h2>
 
-            <p>
-                Uma data para conscientizar a sociedade sobre os direitos,
-                a inclusão e a importância de combater o preconceito contra
-                as pessoas com deficiência.
-            </p>
+<p>
+O Código de Segurança e Saúde Escolar tem como objetivo estabelecer
+orientações para prevenir acidentes, promover a saúde e garantir
+um ambiente adequado para o aprendizado.
+</p>
 
-            <div class="data">
-                21 de Setembro
-            </div>
+<p>
+As regras devem ser conhecidas e respeitadas por toda a comunidade escolar.
+</p>
 
-        </div>
+</section>
 
-    </section>
+<!-- PRINCÍPIOS -->
 
+<section>
 
-    <!-- SOBRE -->
-    <section id="sobre">
+<h2>📋 2. Princípios do Código</h2>
 
-        <h2 class="titulo">O que é essa data?</h2>
+<div class="cards">
 
-        <p class="texto">
-            O Dia Nacional de Luta da Pessoa com Deficiência é celebrado
-            em 21 de setembro. A data busca conscientizar a sociedade
-            sobre a importância da inclusão, da acessibilidade, do respeito
-            e dos direitos das pessoas com deficiência.
-        </p>
+<div class="card">
+<h3>🛡️ Prevenção</h3>
+<p>
+Identificar riscos antes que eles causem acidentes.
+</p>
+</div>
 
-        <div class="cards">
+<div class="card">
+<h3>❤️ Saúde</h3>
+<p>
+Promover hábitos que contribuam para o bem-estar físico e emocional.
+</p>
+</div>
 
-            <div class="card">
-                <div class="icone">🤝</div>
-                <h3>Inclusão</h3>
-                <p>
-                    Todas as pessoas devem ter oportunidades de participar
-                    da sociedade com igualdade.
-                </p>
-            </div>
+<div class="card">
+<h3>🤝 Respeito</h3>
+<p>
+Garantir convivência respeitosa entre todos.
+</p>
+</div>
 
-            <div class="card">
-                <div class="icone">♿</div>
-                <h3>Acessibilidade</h3>
-                <p>
-                    Espaços, serviços e tecnologias devem ser acessíveis
-                    para diferentes necessidades.
-                </p>
-            </div>
+<div class="card">
+<h3>🚨 Responsabilidade</h3>
+<p>
+Cada pessoa deve colaborar para manter a escola segura.
+</p>
+</div>
 
-            <div class="card">
-                <div class="icone">❤️</div>
-                <h3>Respeito</h3>
-                <p>
-                    Respeitar as diferenças é fundamental para combater
-                    o preconceito e a discriminação.
-                </p>
-            </div>
+</div>
 
-        </div>
+</section>
 
-    </section>
+<!-- SEGURANÇA -->
 
+<section id="seguranca">
 
-    <!-- BENGALAS -->
-    <section id="bengalas" class="bengalas">
+<h2>🛡️ 3. Regras de Segurança</h2>
 
-        <h2 class="titulo">Você sabe o significado das cores das bengalas?</h2>
+<ul>
+<li>Não correr em corredores, escadas ou áreas perigosas.</li>
+<li>Manter corredores e saídas de emergência livres.</li>
+<li>Não brincar com equipamentos elétricos.</li>
+<li>Utilizar corretamente os materiais escolares.</li>
+<li>Não bloquear portas ou equipamentos de emergência.</li>
+<li>Informar imediatamente qualquer situação de risco.</li>
+<li>Respeitar as orientações dos professores e funcionários.</li>
+<li>Não mexer em equipamentos sem autorização.</li>
+</ul>
 
-        <p class="texto">
-            A bengala longa é um recurso de orientação e mobilidade.
-            No Brasil, as cores podem indicar diferentes condições
-            relacionadas à deficiência visual.
-        </p>
+</section>
 
+<!-- SAÚDE -->
 
-        <div class="cards">
+<section id="saude">
 
-            <!-- BRANCA -->
-            <div class="card bengala bengala-branca">
+<h2>❤️ 4. Saúde e Bem-Estar</h2>
 
-                <div class="icone">⚪</div>
+<h3>🧼 Higiene</h3>
 
-                <h3>Bengala Branca</h3>
+<ul>
+<li>Lavar as mãos regularmente.</li>
+<li>Manter os ambientes limpos.</li>
+<li>Não compartilhar objetos pessoais de higiene.</li>
+<li>Utilizar corretamente os banheiros.</li>
+</ul>
 
-                <div class="barra barra-branca"></div>
+<h3>🥗 Alimentação</h3>
 
-                <p>
-                    É utilizada por pessoas com <strong>cegueira</strong>.
-                </p>
+<ul>
+<li>Priorizar uma alimentação equilibrada.</li>
+<li>Beber água regularmente.</li>
+<li>Evitar o desperdício de alimentos.</li>
+</ul>
 
-            </div>
+<h3>🧠 Saúde emocional</h3>
 
+<ul>
+<li>Respeitar sentimentos e limites dos colegas.</li>
+<li>Combater bullying e discriminação.</li>
+<li>Procurar um adulto de confiança quando houver um problema.</li>
+<li>Promover diálogo e acolhimento.</li>
+</ul>
 
-            <!-- VERDE -->
-            <div class="card bengala bengala-verde">
+</section>
 
-                <div class="icone">🟢</div>
+<!-- AMBIENTE -->
 
-                <h3>Bengala Verde</h3>
+<section>
 
-                <div class="barra barra-verde"></div>
+<h2>🌱 5. Ambiente Escolar</h2>
 
-                <p>
-                    É utilizada por pessoas com
-                    <strong>baixa visão</strong>.
-                </p>
+<p>
+Todos devem colaborar para manter a escola limpa, organizada,
+acessível e segura.
+</p>
 
-            </div>
+<div class="cards">
 
+<div class="card">
+<h3>♻️ Limpeza</h3>
+<p>Descartar resíduos nos locais corretos.</p>
+</div>
 
-            <!-- VERMELHA E BRANCA -->
-            <div class="card bengala bengala-vermelha">
+<div class="card">
+<h3>🚪 Circulação</h3>
+<p>Manter portas, corredores e escadas desobstruídos.</p>
+</div>
 
-                <div class="icone">🔴</div>
+<div class="card">
+<h3>💡 Energia</h3>
+<p>Evitar desperdício de energia elétrica.</p>
+</div>
 
-                <h3>Bengala Branca e Vermelha</h3>
+<div class="card">
+<h3>🌳 Meio ambiente</h3>
+<p>Preservar árvores, jardins e áreas externas.</p>
+</div>
 
-                <div class="barra barra-vermelha"></div>
+</div>
 
-                <p>
-                    É utilizada por pessoas com
-                    <strong>surdocegueira</strong>.
-                </p>
+</section>
 
-            </div>
+<!-- EMERGÊNCIA -->
 
-        </div>
+<section id="emergencia" class="emergencia">
 
-    </section>
+<h2>🚨 6. Procedimentos de Emergência</h2>
 
+<p>
+Em uma emergência, mantenha a calma e siga as orientações
+dos responsáveis pela escola.
+</p>
 
-    <!-- VÍDEO -->
-    <section id="video" class="video-area">
+<ul>
+<li>Comunicar imediatamente o problema a um adulto.</li>
+<li>Seguir as rotas de evacuação indicadas.</li>
+<li>Não voltar para buscar objetos pessoais.</li>
+<li>Não utilizar elevadores durante uma evacuação.</li>
+<li>Dirigir-se ao ponto de encontro determinado pela escola.</li>
+<li>Não espalhar informações falsas durante uma emergência.</li>
+</ul>
 
-        <h2 class="titulo">Vídeo sobre Inclusão</h2>
+<div class="alerta">
+<strong>Importante:</strong>
+Em uma situação real, siga o plano de emergência da sua escola
+e as orientações dos profissionais responsáveis.
+</div>
 
-        <p>
-            Assista ao vídeo sobre inclusão de uma criança com deficiência.
-        </p>
+</section>
 
-        <div class="video-container">
+<!-- RESPONSABILIDADES -->
 
-            <iframe
-                src="https://www.youtube.com/embed/Bz1LAj3kt6s"
-                title="Inclusão de uma criança com deficiência"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-            </iframe>
+<section id="responsabilidades">
 
-        </div>
+<h2>👥 7. Responsabilidades</h2>
 
-    </section>
+<div class="cards">
 
+<div class="card">
+<h3>👨‍🎓 Alunos</h3>
+<p>
+Respeitar as regras, cuidar dos espaços e comunicar situações de risco.
+</p>
+</div>
 
-    <!-- ACESSIBILIDADE -->
-    <section id="acessibilidade">
+<div class="card">
+<h3>👩‍🏫 Professores</h3>
+<p>
+Orientar os alunos e colaborar para um ambiente seguro.
+</p>
+</div>
 
-        <div class="acessibilidade">
+<div class="card">
+<h3>🧑‍💼 Funcionários</h3>
+<p>
+Auxiliar na prevenção de acidentes e comunicar problemas.
+</p>
+</div>
 
-            <h2 class="titulo">Como podemos ajudar na inclusão?</h2>
+<div class="card">
+<h3>🏫 Gestão</h3>
+<p>
+Organizar medidas de prevenção, manutenção e resposta a emergências.
+</p>
+</div>
 
-            <div class="lista">
+<div class="card">
+<h3>👨‍👩‍👧 Responsáveis</h3>
+<p>
+Acompanhar a vida escolar e manter comunicação com a escola.
+</p>
+</div>
 
-                <ul>
+</div>
 
-                    <li>
-                        Respeitar a autonomia e as escolhas da pessoa com deficiência.
-                    </li>
+</section>
 
-                    <li>
-                        Não fazer comentários preconceituosos ou tratar a pessoa
-                        de forma infantilizada.
-                    </li>
+<!-- BULLYING -->
 
-                    <li>
-                        Perguntar antes de oferecer ajuda e respeitar a resposta.
-                    </li>
+<section>
 
-                    <li>
-                        Respeitar espaços e recursos destinados à acessibilidade.
-                    </li>
+<h2>🤝 8. Prevenção ao Bullying</h2>
 
-                    <li>
-                        Incentivar ambientes escolares, profissionais e públicos
-                        mais acessíveis.
-                    </li>
+<p>
+A escola deve promover respeito, inclusão e convivência saudável.
+Atitudes de bullying, discriminação, ameaças ou agressões devem
+ser comunicadas a um adulto responsável.
+</p>
 
-                    <li>
-                        Combater o preconceito e valorizar as diferenças.
-                    </li>
+<ul>
+<li>Respeite as diferenças.</li>
+<li>Não humilhe ou ofenda colegas.</li>
+<li>Não compartilhe conteúdos ofensivos.</li>
+<li>Peça ajuda quando presenciar uma situação de violência.</li>
+</ul>
 
-                </ul>
+</section>
 
-            </div>
+<!-- TECNOLOGIA -->
 
-        </div>
+<section>
 
-    </section>
+<h2>💻 9. Segurança Digital</h2>
 
+<ul>
+<li>Não compartilhar senhas.</li>
+<li>Não divulgar informações pessoais de colegas.</li>
+<li>Utilizar a internet de maneira responsável.</li>
+<li>Não praticar cyberbullying.</li>
+<li>Desconfiar de links e mensagens suspeitas.</li>
+<li>Comunicar problemas digitais a um adulto responsável.</li>
+</ul>
 
-    <!-- FRASE FINAL -->
-    <section class="frase">
+</section>
 
-        <h2>Inclusão não é favor. É direito.</h2>
+<!-- ACESSIBILIDADE -->
 
-        <p>
-            Uma sociedade acessível é uma sociedade para todos.
-        </p>
+<section>
 
-    </section>
+<h2>♿ 10. Acessibilidade e Inclusão</h2>
 
+<p>
+A escola deve buscar garantir que todos tenham condições de participar
+das atividades escolares com segurança e respeito.
+</p>
 
-    <!-- RODAPÉ -->
-    <footer>
+<ul>
+<li>Respeitar espaços destinados à acessibilidade.</li>
+<li>Não bloquear rampas ou passagens acessíveis.</li>
+<li>Respeitar pessoas com deficiência.</li>
+<li>Comunicar problemas de acessibilidade à escola.</li>
+</ul>
 
-        <p>
-            Dia Nacional de Luta da Pessoa com Deficiência • 21 de Setembro
-        </p>
+</section>
 
-        <p>
-            Trabalho de conscientização e inclusão
-        </p>
+<!-- CHECKLIST -->
 
-    </footer>
+<section id="checklist">
 
+<h2>✅ 11. Checklist de Segurança</h2>
 
-    <script>
+<div class="checklist">
 
-        // Pequena animação ao aparecerem os cards
-        const cards = document.querySelectorAll(".card");
+<label>
+<input type="checkbox">
+Corredores estão livres?
+</label>
 
-        const observer = new IntersectionObserver((entries) => {
+<label>
+<input type="checkbox">
+As saídas de emergência estão acessíveis?
+</label>
 
-            entries.forEach(entry => {
+<label>
+<input type="checkbox">
+Os materiais estão organizados?
+</label>
 
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
+<label>
+<input type="checkbox">
+Os ambientes estão limpos?
+</label>
 
-            });
+<label>
+<input type="checkbox">
+Os equipamentos apresentam condições adequadas?
+</label>
 
-        }, {
-            threshold: 0.15
-        });
+<label>
+<input type="checkbox">
+Os alunos conhecem as regras de segurança?
+</label>
 
+<button onclick="verificarChecklist()">
+Verificar checklist
+</button>
 
-        cards.forEach(card => {
+</div>
 
-            card.style.opacity = "0";
-            card.style.transform = "translateY(25px)";
-            card.style.transition = "0.6s ease";
+<p id="resultado"></p>
 
-            observer.observe(card);
+</section>
 
-        });
+<!-- COMPROMISSO -->
 
-    </script>
+<section>
+
+<h2>✍️ 12. Compromisso da Comunidade Escolar</h2>
+
+<p>
+Nós nos comprometemos a colaborar para construir uma escola
+mais segura, saudável, inclusiva e respeitosa.
+</p>
+
+<div class="alerta">
+<strong>Segurança é responsabilidade de todos.</strong>
+</div>
+
+</section>
+
+</div>
+
+<footer>
+
+<p>🛡️ Código de Segurança e Saúde Escolar</p>
+
+<p>
+Projeto educativo para conscientização da comunidade escolar.
+</p>
+
+<p>© 2026 - Comunidade Escolar</p>
+
+</footer>
+
+<script>
+
+function verificarChecklist() {
+
+    const caixas = document.querySelectorAll(
+        '.checklist input[type="checkbox"]'
+    );
+
+    let marcadas = 0;
+
+    caixas.forEach(caixa => {
+        if (caixa.checked) {
+            marcadas++;
+        }
+    });
+
+    const resultado = document.getElementById("resultado");
+
+    if (marcadas === caixas.length) {
+
+        resultado.innerHTML =
+        "✅ Checklist completo! Todos os itens foram marcados.";
+
+        resultado.style.color = "#087f5b";
+
+    } else {
+
+        resultado.innerHTML =
+        "⚠️ Você marcou " + marcadas +
+        " de " + caixas.length +
+        " itens.";
+
+        resultado.style.color = "#b00020";
+    }
+}
+
+</script>
 
 </body>
 </html>
