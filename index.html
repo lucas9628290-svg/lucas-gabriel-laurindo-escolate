@@ -3,631 +3,334 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Educação para a Vida | BNCC</title>
+<title>Consciência Negra | História, Cultura e Respeito</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
 :root{
- --bg:#07111f;--panel:#101f35;--text:#f2f7ff;--muted:#c5d3e2;
- --blue:#168bff;--cyan:#38e9ee;--green:#52f59b;--purple:#a66bff;
- --pink:#ff55bb;--border:#29435e;
+ --bg:#100d0b;--panel:#1d1713;--panel2:#281d17;--text:#fff6eb;--muted:#d0bba7;
+ --gold:#f4b942;--orange:#e97832;--red:#c94c35;--green:#70a879;--line:#60402b;
+ --shadow:0 18px 55px #0008
 }
-body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;overflow-x:hidden;transition:background .5s,color .5s}
-body.light{--bg:#eaf3ff;--panel:#fff;--text:#152b44;--muted:#40566f;--border:#c3d5e8}
-#particles{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
-header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding:18px 6%;background:#081729eF;border-bottom:1px solid #284866;backdrop-filter:blur(15px)}
-.logo{font-size:19px;font-weight:900;background:linear-gradient(90deg,#38e9ee,#a66bff,#52f59b);background-size:200%;background-clip:text;color:transparent;animation:gradient 4s linear infinite}
-nav{display:flex;gap:17px;flex-wrap:wrap}
-nav a{color:#d8e8f8;text-decoration:none;font-size:13px;transition:.3s}
-nav a:hover{color:#38e9ee;text-shadow:0 0 12px #38e9ee}
-.theme{border:1px solid #38e9ee;background:transparent;color:#38e9ee;border-radius:8px;padding:9px;cursor:pointer}
-.hero{min-height:500px;padding:100px 8%;display:flex;align-items:center;background:radial-gradient(circle at 85% 30%,#712cff50,transparent 35%),radial-gradient(circle at 20% 90%,#00d5ba25,transparent 40%)}
-.hero-content{max-width:850px}
-.tag{color:var(--green);letter-spacing:4px;font-weight:bold;font-size:12px}
-h1{font-size:clamp(38px,7vw,76px);margin:23px 0;line-height:1.05}
-.gradient-text{background:linear-gradient(90deg,#38e9ee,#a66bff,#ff55bb,#52f59b);background-size:300%;background-clip:text;color:transparent;animation:gradient 6s linear infinite}
-.hero p{font-size:17px;line-height:1.8;color:var(--muted);max-width:680px}
-.btn{background:linear-gradient(100deg,#168bff,#a66bff);color:white;border:0;border-radius:9px;padding:14px 22px;font-weight:bold;cursor:pointer;margin-top:22px;transition:.3s}
-.btn:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 0 25px #168bff90}
-section{padding:75px 8%;scroll-margin-top:75px}
-.title{text-align:center;margin-bottom:35px}
-.title h2{font-size:clamp(25px,4vw,36px);margin-bottom:10px}
-.title p{color:var(--muted)}
-.line{height:3px;width:75px;margin:15px auto;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:10px}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px;line-height:1.8;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{position:relative;overflow:hidden;padding:25px;border-radius:15px;background:var(--panel);border:1px solid var(--border);transition:.35s}
-.card:before{content:"";position:absolute;inset:0;background:linear-gradient(130deg,#38e9ee13,#a66bff12,transparent);opacity:0;transition:.3s}
-.card:hover{transform:translateY(-8px);border-color:var(--cyan);box-shadow:0 0 22px #38e9ee32}
-.card:hover:before{opacity:1}
-.card>*{position:relative}
-.icon{font-size:38px}
-.card h3{margin:15px 0;color:var(--cyan)}
-.card p{color:var(--muted);line-height:1.7;font-size:14px}
-.card button{background:#183a56;color:#fff;padding:9px 13px;border:1px solid #38e9ee;border-radius:7px;margin-top:15px;cursor:pointer}
-.tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-.tab{padding:11px 18px;border-radius:8px;border:1px solid var(--border);color:var(--text);background:var(--panel);cursor:pointer}
-.tab.active,.tab:hover{background:linear-gradient(100deg,#168bff,#7547cc);color:white;border-color:transparent}
-.tab-content{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:28px;line-height:1.8}
-.mission{background:var(--panel);padding:22px;border:1px solid var(--border);border-radius:13px}
-.mission label{display:flex;gap:10px;align-items:center;cursor:pointer}
-.mission input{accent-color:#38e9ee;width:18px;height:18px}
-.progress{height:12px;background:#263c53;border-radius:20px;overflow:hidden;margin:17px 0}
-.progress div{height:100%;width:0%;background:linear-gradient(90deg,#168bff,#38e9ee,#52f59b);transition:width .4s}
-#score{color:var(--green);font-weight:bold}
-.quiz{max-width:700px;margin:auto;padding:28px;background:var(--panel);border:1px solid var(--border);border-radius:16px}
-.quiz-option{display:block;width:100%;text-align:left;margin-top:12px;padding:14px;background:#1c3550;color:white;border:1px solid #345574;border-radius:8px;cursor:pointer;transition:.2s}
-.quiz-option:hover{background:#245a83}
-.quiz-option:disabled{opacity:.7;cursor:default}
-#feedback{margin:20px 0;color:var(--green);line-height:1.6}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-top:30px}
-.stat{text-align:center;padding:20px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
-.stat strong{font-size:30px;color:var(--cyan);display:block}
-footer{text-align:center;padding:35px;background:#050d18;color:#91a9bd;line-height:1.8}
-#top{position:fixed;right:20px;bottom:20px;border:0;background:#168bff;color:white;padding:13px 16px;border-radius:50%;cursor:pointer;z-index:15;box-shadow:0 0 15px #168bff88}
-#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#142c40;color:white;padding:13px 20px;border-radius:10px;border:1px solid #38e9ee;opacity:0;pointer-events:none;transition:.3s;z-index:30}
-#toast.show{opacity:1}
-@keyframes gradient{0%{background-position:0%}100%{background-position:300%}}
-@media(max-width:650px){header{justify-content:center}nav{justify-content:center}section{padding:50px 6%}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-@media print{header,#top,.btn,.tabs,#particles{display:none!important}body{background:white;color:black}.card,.panel,.mission,.quiz{break-inside:avoid}}
-.game-area{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px}
-.game-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:23px;transition:.3s}
-.game-card:hover{border-color:var(--cyan);box-shadow:0 0 22px #38e9ee30;transform:translateY(-5px)}
-.game-card h3{color:var(--cyan);margin:10px 0}
-.game-card p{color:var(--muted);font-size:14px;line-height:1.6}
-.game-buttons{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
-.game-buttons button,.game-action{border:1px solid #38e9ee;background:#183a56;color:white;padding:11px 13px;border-radius:8px;cursor:pointer;transition:.2s}
-.game-buttons button:hover,.game-action:hover{background:#168bff;box-shadow:0 0 14px #168bff80}
-.game-result{margin-top:14px;min-height:24px;color:var(--green);font-weight:bold}
-.game-score{color:var(--cyan);font-weight:bold}
-.game-progress{height:9px;background:#263c53;border-radius:20px;overflow:hidden;margin:12px 0}
-.game-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#168bff,#38e9ee,#52f59b);transition:.3s}
-.game-question{color:var(--text);font-weight:bold;margin-top:15px;line-height:1.5}
-@media(max-width:600px){.game-card{padding:18px}}
-.quiz-result-card{margin:18px 0;padding:24px;border:1px solid var(--cyan);border-radius:18px;background:linear-gradient(135deg,rgba(56,233,238,.12),rgba(166,107,255,.14));text-align:center;box-shadow:0 0 24px rgba(56,233,238,.10)}
-.quiz-grade{font-size:clamp(2.8rem,8vw,4.4rem);font-weight:900;letter-spacing:-2px;color:var(--cyan);text-shadow:0 0 20px rgba(56,233,238,.28);margin:6px 0}
-.quiz-result-card h3{margin:8px 0 12px}
-.quiz-result-card p{line-height:1.7;color:var(--muted)}
-#recycleOptions{display:flex;flex-wrap:wrap;gap:8px}
-.motivation-card{position:relative;overflow:hidden}
-.motivation-orb{width:112px;height:112px;border-radius:50%;margin:22px auto;display:grid;place-items:center;font-size:44px;background:radial-gradient(circle at 35% 30%,#fff,#38e9ee 20%,#7438df 70%);box-shadow:0 0 22px #38e9ee88,0 0 45px #a66bff55;animation:motivatePulse 2s ease-in-out infinite}
-@keyframes motivatePulse{50%{transform:scale(1.08);filter:hue-rotate(35deg)}}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 15% 0%,#542713 0,transparent 38%),radial-gradient(ellipse at 95% 28%,#3c2514 0,transparent 32%),var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:20;background:#100d0bf0;backdrop-filter:blur(14px);border-bottom:1px solid #65452d}
+.nav{max-width:1200px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-weight:900;letter-spacing:.5px;color:var(--gold);font-size:1.08rem}
+.links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.links a{font-size:.9rem;color:var(--muted)}
+.links a:hover{color:var(--gold)}
+button{font:inherit;cursor:pointer}
+.theme{border:1px solid var(--gold);color:var(--gold);background:transparent;padding:8px 13px;border-radius:20px}
+.hero{max-width:1200px;margin:34px auto 25px;padding:38px 22px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
+.kicker{color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.8rem}
+h1{font-size:clamp(2.6rem,6vw,5.4rem);line-height:.99;margin:14px 0 20px;letter-spacing:-2px}
+h1 span{color:var(--gold)}
+.lead{color:var(--muted);font-size:1.12rem;max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{display:inline-block;border:0;border-radius:12px;padding:13px 18px;font-weight:800;background:linear-gradient(120deg,var(--gold),var(--orange));color:#211207;box-shadow:0 8px 25px #e9783240}
+.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}
+.hero-art{min-height:320px;border:1px solid #8c592e;border-radius:28px;background:linear-gradient(145deg,#542b17,#21150f 55%,#75421e);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow)}
+.sun{width:210px;height:210px;border-radius:50%;background:linear-gradient(135deg,#f8d477,#e97832);box-shadow:0 0 80px #e9783277;position:absolute;top:40px;right:55px}
+.art-text{position:relative;text-align:center;padding:25px;z-index:1}
+.art-text .big{font-size:5.8rem;line-height:1}
+.art-text h2{font-size:1.65rem;margin:8px 0;color:#fff}
+.art-text p{color:#ffe6c3;margin:0}
+.section{max-width:1150px;margin:25px auto;padding:28px 22px}
+.section-title{font-size:clamp(1.8rem,4vw,2.7rem);margin:0 0 8px}
+.section-sub{color:var(--muted);margin:0 0 23px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:var(--shadow)}
+.card .symbol{font-size:2rem}
+.card h3{margin:9px 0 6px;color:var(--gold)}
+.card p{margin:0;color:var(--muted)}
+.timeline{border-left:3px solid var(--orange);padding-left:22px;display:grid;gap:18px}
+.event{position:relative;background:var(--panel);border:1px solid var(--line);padding:16px 18px;border-radius:14px}
+.event:before{content:"";position:absolute;left:-31px;top:22px;width:14px;height:14px;background:var(--gold);border-radius:50%;box-shadow:0 0 0 5px #e9783228}
+.event b{color:var(--gold)}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.person{overflow:hidden;padding:0}
+.person-top{height:105px;background:linear-gradient(120deg,#8c4c20,#d68a36);display:grid;place-items:center;font-size:3rem}
+.person-body{padding:18px}
+.person-body h3{color:var(--gold);margin:0 0 5px}
+.person-body p{color:var(--muted);margin:0}
+.callout{border-left:5px solid var(--gold);background:#342316;padding:20px 23px;border-radius:0 16px 16px 0;color:#ffe9ca}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 14px;border-radius:20px}
+.tab.active{background:var(--gold);color:#211207;border-color:var(--gold);font-weight:bold}
+.tab-content{min-height:125px}
+.quiz{max-width:760px}
+.q-count{color:var(--gold);font-weight:bold;font-size:.85rem;letter-spacing:1px}
+.question{font-size:1.25rem;font-weight:bold;margin:10px 0 16px}
+.answers{display:grid;gap:9px}
+.answer{padding:12px 14px;text-align:left;background:#302219;border:1px solid #65452d;color:var(--text);border-radius:10px}
+.answer:hover{border-color:var(--gold)}
+.answer:disabled{cursor:default;opacity:.85}
+.feedback{min-height:30px;margin:13px 0;color:#f4d39c;font-weight:bold}
+.progress{height:9px;background:#493222;border-radius:20px;overflow:hidden;margin-top:16px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--gold));transition:width .3s}
+footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;color:var(--muted);margin-top:45px}
+.small{font-size:.88rem;color:var(--muted)}
+.light{--bg:#fffaf3;--panel:#ffffff;--panel2:#fff3e2;--text:#21140d;--muted:#493426;--gold:#8a4b00;--orange:#a94712;--line:#c49b72;--shadow:0 12px 35px #75421e18}
+.light header{background:#fffaf3ed}
+.light .answer{background:#fff2df;color:#2b1a10}
+.light .callout{background:#f7e4c9;color:#553619}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.grid,.people{grid-template-columns:repeat(2,1fr)}.links{gap:10px}}
+@media(max-width:560px){.nav{align-items:flex-start;flex-direction:column}.links{font-size:.8rem}.hero{padding-top:20px}.grid,.people{grid-template-columns:1fr}.hero-art{min-height:250px}.sun{width:160px;height:160px}}
+
+/* Melhorias de contraste no tema claro */
+.light body{
+ background:radial-gradient(ellipse at 12% 0%,#f5dfc5 0,transparent 38%),
+            radial-gradient(ellipse at 95% 28%,#f8e8d5 0,transparent 34%),#fffaf3;
+ color:#21140d
+}
+.light .lead,.light .section-sub,.light .card p,.light .person-body p,
+.light .links a,.light .small,.light .event,.light footer{color:#493426}
+.light h1,.light .section-title,.light .question,.light .card h3,
+.light .person-body h3{color:#2b190e}
+.light .card,.light .event,.light .quiz{background:#fffdf9;border-color:#c49b72}
+.light .answer{background:#fff3e3;color:#2b190e;border-color:#b98b5e}
+.light .answer:hover{border-color:#8a4b00;background:#ffe7c8}
+.light .callout{background:#f3dfc5;color:#402512;border-left-color:#8a4b00}
+.light .theme{color:#754000;border-color:#8a4b00}
+.light .logo,.light .kicker{color:#754000}
+.light .tab{background:#fffdf9;color:#352114;border-color:#b98b5e}
+.light .tab.active{background:#8a4b00;color:#fff}
+.light .progress{background:#e6d2bc}
+.light footer{border-color:#c49b72}
 </style>
 </head>
 
 <body>
-<canvas id="particles"></canvas>
-
 <header>
- <div class="logo">✦ EDUCAÇÃO PARA A VIDA</div>
- <nav>
-  <a href="#inicio">Início</a>
-  <a href="#sobre">Projeto</a>
-  <a href="#bncc">BNCC</a>
-  <a href="#temas">Temas</a>
-  <a href="#atividades">Atividades</a>
-  <a href="#minigames">Minigames</a>
-  <a href="#missao">Missões</a>
-  <a href="#quiz">Quiz</a>
+ <nav class="nav">
+  <a class="logo" href="#inicio">✊🏾 CONSCIÊNCIA NEGRA</a>
+  <div class="links">
+   <a href="#significado">Significado</a>
+   <a href="#historia">História</a>
+   <a href="#personalidades">Personalidades</a>
+   <a href="#cultura">Cultura</a>
+   <a href="#quiz">Quiz</a>
+   <button class="theme" onclick="document.body.classList.toggle('light')">☀️ Tema</button>
+  </div>
  </nav>
- <button class="theme" id="theme">☀️ Tema</button>
 </header>
 
-<main>
-<section class="hero" id="inicio">
- <div class="hero-content">
-  <div class="tag">✦ PROJETO EDUCACIONAL • BNCC</div>
-  <h1>O futuro começa com <span class="gradient-text">educação!</span></h1>
-  <p>Conhecimento, respeito, cidadania e responsabilidade. Descubra como pequenas atitudes podem transformar sua vida, sua escola e toda a sociedade.</p>
-  <button class="btn" onclick="go('sobre')">EXPLORAR PROJETO →</button>
-  <div class="stats">
-   <div class="stat"><strong>10</strong>Competências gerais da BNCC</div>
-   <div class="stat"><strong>6</strong>Temas principais</div>
-   <div class="stat"><strong>∞</strong>Possibilidades de aprender</div>
+<main id="inicio">
+<section class="hero">
+ <div>
+  <div class="kicker">20 de novembro • História • Identidade • Respeito</div>
+  <h1>Consciência<br><span>Negra</span></h1>
+  <p class="lead">Conhecer a história da população negra é reconhecer suas contribuições, valorizar culturas e lutar por uma sociedade com respeito, igualdade e oportunidades para todos.</p>
+  <div class="actions">
+   <a class="btn" href="#significado">Explorar o tema ↓</a>
+   <a class="btn secondary" href="#quiz">Testar conhecimentos</a>
+  </div>
+ </div>
+ <div class="hero-art" aria-label="Arte simbólica em tons quentes sobre identidade e valorização">
+  <div class="sun"></div>
+  <div class="art-text">
+   <div class="big">✊🏾</div>
+   <h2>Memória, resistência<br>e valorização</h2>
+   <p>Uma história que faz parte do Brasil.</p>
   </div>
  </div>
 </section>
 
-<section id="sobre">
- <div class="title"><h2>🌎 Educação que transforma</h2><div class="line"></div><p>Conhecimento para além da sala de aula.</p></div>
- <div class="panel">
-  A Semana Educação para a Vida é uma oportunidade de desenvolver conhecimentos e atitudes importantes para o cotidiano. Ela incentiva os estudantes a refletirem sobre saúde, cidadania, respeito, meio ambiente, tecnologia e responsabilidade social.
-  <br><br>Mais do que aprender conteúdos, é aprender a conviver, fazer escolhas conscientes e construir um futuro melhor.
+<section class="section" id="significado">
+ <h2 class="section-title">O que é Consciência Negra?</h2>
+ <p class="section-sub">Um convite para aprender, refletir e agir durante todo o ano.</p>
+ <div class="grid">
+  <article class="card">
+   <div class="symbol">📚</div>
+   <h3>Conhecer a história</h3>
+   <p>Estudar a trajetória da população negra, a escravidão, as lutas por liberdade e a participação na construção do Brasil.</p>
+  </article>
+  <article class="card">
+   <div class="symbol">🌍</div>
+   <h3>Valorizar culturas</h3>
+   <p>Reconhecer a influência africana e afro-brasileira na música, culinária, língua, arte, ciência, religião e nas tradições.</p>
+  </article>
+  <article class="card">
+   <div class="symbol">🤝</div>
+   <h3>Combater o racismo</h3>
+   <p>Identificar atitudes preconceituosas, respeitar as diferenças e contribuir para ambientes mais justos e acolhedores.</p>
+  </article>
  </div>
 </section>
 
-<section id="bncc">
- <div class="title"><h2>📚 A conexão com a BNCC</h2><div class="line"></div><p>Base Nacional Comum Curricular</p></div>
- <div class="panel">A BNCC estabelece aprendizagens essenciais e dez competências gerais que orientam a formação integral dos estudantes da Educação Básica.<br><br>Explore algumas competências relacionadas às atividades:</div>
- <br><div class="grid" id="competencias"></div>
+<section class="section" id="historia">
+ <h2 class="section-title">Uma história de luta e resistência</h2>
+ <p class="section-sub">Alguns marcos importantes para compreender o tema.</p>
+ <div class="timeline">
+  <div class="event"><b>Período colonial</b><br>Milhões de africanos foram trazidos à força para o Brasil e submetidos à escravização. Mesmo diante da violência, preservaram saberes, culturas e formas de resistência.</div>
+  <div class="event"><b>Quilombos</b><br>Comunidades formadas por pessoas que resistiam à escravidão e buscavam liberdade. Palmares tornou-se um dos quilombos mais conhecidos.</div>
+  <div class="event"><b>1695 — Zumbi dos Palmares</b><br>Zumbi, uma das lideranças de Palmares, foi morto em 20 de novembro de 1695. A data passou a simbolizar a resistência negra.</div>
+  <div class="event"><b>1888 — Abolição</b><br>A Lei Áurea declarou extinta a escravidão legal no Brasil, mas não garantiu reparação, igualdade ou condições dignas para a população liberta.</div>
+  <div class="event"><b>20 de novembro</b><br>A data é lembrada como Dia da Consciência Negra. A Lei 14.759/2023 tornou o dia feriado nacional.</div>
+ </div>
 </section>
 
-<section id="temas">
- <div class="title"><h2>🚀 Central de conhecimentos</h2><div class="line"></div><p>Clique nos temas para descobrir mais.</p></div>
+<section class="section" id="personalidades">
+ <h2 class="section-title">Personalidades negras que marcaram a história</h2>
+ <p class="section-sub">Pessoas que contribuíram para a literatura, ciência, educação e luta por direitos.</p>
+ <div class="people">
+  <article class="card person">
+   <div class="person-top">✊🏾</div>
+   <div class="person-body">
+    <h3>Zumbi dos Palmares</h3>
+    <p>Liderança do Quilombo dos Palmares e símbolo da resistência contra a escravidão no Brasil.</p>
+   </div>
+  </article>
+  <article class="card person">
+   <div class="person-top">🌿</div>
+   <div class="person-body">
+    <h3>Dandara dos Palmares</h3>
+    <p>Figura histórica ligada à resistência de Palmares e à luta pela liberdade.</p>
+   </div>
+  </article>
+  <article class="card person">
+   <div class="person-top">📖</div>
+   <div class="person-body">
+    <h3>Carolina Maria de Jesus</h3>
+    <p>Escritora brasileira conhecida pelo livro <i>Quarto de Despejo</i>, que registra sua vivência na favela do Canindé.</p>
+   </div>
+  </article>
+  <article class="card person">
+   <div class="person-top">🔬</div>
+   <div class="person-body">
+    <h3>Sônia Guimarães</h3>
+    <p>Física brasileira, professora e pesquisadora, reconhecida por sua atuação na área de ciência e tecnologia.</p>
+   </div>
+  </article>
+  <article class="card person">
+   <div class="person-top">🎓</div>
+   <div class="person-body">
+    <h3>Antonieta de Barros</h3>
+    <p>Educadora, jornalista e primeira mulher negra eleita deputada estadual no Brasil.</p>
+   </div>
+  </article>
+  <article class="card person">
+   <div class="person-top">🖋️</div>
+   <div class="person-body">
+    <h3>Conceição Evaristo</h3>
+    <p>Escritora brasileira cuja obra aborda memória, identidade, desigualdade e experiências da população negra.</p>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section class="section" id="cultura">
+ <h2 class="section-title">A presença africana e afro-brasileira no nosso dia a dia</h2>
+ <p class="section-sub">Selecione um tema para conhecer alguns exemplos.</p>
  <div class="tabs">
-  <button class="tab active" data-tab="saude">❤️ Saúde</button>
-  <button class="tab" data-tab="ambiente">🌱 Ambiente</button>
-  <button class="tab" data-tab="cidadania">⚖️ Cidadania</button>
-  <button class="tab" data-tab="digital">💻 Digital</button>
-  <button class="tab" data-tab="financas">💰 Finanças</button>
-  <button class="tab" data-tab="respeito">🤝 Respeito</button>
+  <button class="tab active" onclick="showTab(0,this)">🎵 Música</button>
+  <button class="tab" onclick="showTab(1,this)">🍲 Culinária</button>
+  <button class="tab" onclick="showTab(2,this)">🥁 Dança</button>
+  <button class="tab" onclick="showTab(3,this)">🎨 Arte e linguagem</button>
  </div>
- <div class="tab-content" id="tabContent"></div>
-</section>
-
-<section id="atividades">
- <div class="title"><h2>🎯 Laboratório de atividades</h2><div class="line"></div><p>Ideias para aprender na prática.</p></div>
- <div class="grid" id="activities"></div>
-</section>
-
-<section id="minigames">
- <div class="title"><h2>🎮 Arena dos Minigames</h2><div class="line"></div><p>Aprenda brincando: cada desafio trabalha uma atitude importante para a vida.</p></div>
- <div class="game-area">
-  <div class="game-card">
-   <div class="icon">♻️</div><h3>1. Mestre da Reciclagem</h3>
-   <p>Escolha a lixeira correta para cada material. Acerte e ganhe pontos para ajudar o planeta!</p>
-   <div class="game-question" id="recycleItem">Material: Garrafa de plástico</div>
-   <div class="game-buttons" id="recycleOptions">
-    <button onclick="recycleAnswer('papel')">🔵 Papel</button>
-    <button onclick="recycleAnswer('plastico')">🔴 Plástico</button>
-    <button onclick="recycleAnswer('vidro')">🟢 Vidro</button>
-    <button onclick="recycleAnswer('metal')">🟡 Metal</button>
-    <button onclick="recycleAnswer('organico')">🟤 Orgânico</button>
-    <button onclick="recycleAnswer('especial')">⚫ Coleta especial</button>
-   </div>
-   <div class="game-result" id="recycleResult" aria-live="polite"></div>
-   <div class="game-score">Pontos: <span id="recycleScore">0</span></div>
-   <button class="game-action" onclick="nextRecycle()">Próximo material →</button>
-  </div>
-
-  <div class="game-card">
-   <div class="icon">🛡️</div><h3>2. Detetive da Internet</h3>
-   <p>Mostre que sabe navegar com responsabilidade. Escolha a atitude mais segura.</p>
-   <div class="game-question" id="digitalQuestion">Uma pessoa desconhecida pede sua senha. O que fazer?</div>
-   <div class="game-buttons" id="digitalOptions">
-    <button onclick="digitalAnswer(0)">Enviar a senha</button>
-    <button onclick="digitalAnswer(1)">Não compartilhar e avisar alguém de confiança</button>
-    <button onclick="digitalAnswer(2)">Publicar a senha</button>
-   </div>
-   <div class="game-result" id="digitalResult" aria-live="polite"></div>
-   <div class="game-score">Pontos: <span id="digitalScore">0</span></div>
-   <button class="game-action" onclick="nextDigital()">Próxima situação →</button>
-  </div>
-
-  <div class="game-card">
-   <div class="icon">🤝</div><h3>3. Escolha com Empatia</h3>
-   <p>Em cada situação, escolha uma atitude que demonstre respeito, cooperação e empatia.</p>
-   <div class="game-question" id="empathyQuestion">Um colega está sendo excluído de uma atividade. O que você faz?</div>
-   <div class="game-buttons" id="empathyOptions">
-    <button onclick="empathyAnswer(0)">Convido para participar</button>
-    <button onclick="empathyAnswer(1)">Finjo que não percebi</button>
-    <button onclick="empathyAnswer(2)">Faço piada da situação</button>
-   </div>
-   <div class="game-result" id="empathyResult" aria-live="polite"></div>
-   <div class="game-score">Pontos: <span id="empathyScore">0</span></div>
-   <button class="game-action" onclick="nextEmpathy()">Próxima situação →</button>
-  </div>
-
-  <div class="game-card">
-   <div class="icon">💰</div><h3>4. Desafio do Orçamento</h3>
-   <p>Você tem R$ 50 fictícios. Escolha uma opção que ajude a planejar o dinheiro com consciência.</p>
-   <div class="game-question" id="moneyQuestion">Você quer guardar parte do dinheiro para um objetivo. Qual escolha é melhor?</div>
-   <div class="game-buttons" id="moneyOptions">
-    <button onclick="moneyAnswer(0)">Gastar tudo agora</button>
-    <button onclick="moneyAnswer(1)">Separar uma parte para economizar</button>
-    <button onclick="moneyAnswer(2)">Comprar sem comparar preços</button>
-   </div>
-   <div class="game-result" id="moneyResult" aria-live="polite"></div>
-   <div class="game-score">Pontos: <span id="moneyScore">0</span></div>
-   <button class="game-action" onclick="nextMoney()">Próxima decisão →</button>
-  </div>
- </div>
-
- <div class="game-card motivation-card">
-  <div class="icon">🌟</div><h3>6. Roleta da Motivação</h3>
-  <p>Precisa de um incentivo? Gire e receba uma frase aleatória para continuar aprendendo e acreditando no seu potencial!</p>
-  <div class="motivation-orb" id="motivationOrb">✨</div>
-  <button class="game-action" onclick="spinMotivation()">💫 RECEBER MOTIVAÇÃO</button>
-  <div class="motivation-result" id="motivationResult" aria-live="polite">Sua próxima frase pode mudar seu dia!</div>
- </div>
-
- <div class="panel" style="margin-top:22px;text-align:center">
-  <h3 style="color:var(--cyan)">🏆 Placar da Arena</h3>
-  <p>Some seus pontos nos quatro minigames e pratique atitudes que fazem a diferença!</p>
-  <div class="game-progress"><span id="arenaBar"></span></div>
-  <p class="game-score" id="arenaScore">Total: 0 pontos</p>
-  <button class="game-action" onclick="resetGames()">↻ Reiniciar todos os minigames</button>
+ <div class="card tab-content" id="tabContent">
+  <h3>Música</h3>
+  <p>O samba, o jongo, o maracatu e muitos outros ritmos têm raízes e influências africanas. Essas expressões carregam memória, criatividade e identidade.</p>
  </div>
 </section>
 
-<section id="missao">
- <div class="title"><h2>🏆 Suas missões educativas</h2><div class="line"></div><p>Complete as tarefas e acompanhe seu progresso.</p></div>
- <div class="mission">
-  <h3>DESAFIO: CIDADÃO CONSCIENTE</h3>
-  <p style="color:var(--muted);margin-top:8px">Marque as atividades concluídas:</p>
-  <div class="progress"><div id="progressBar"></div></div>
-  <p id="progressText">0 de 6 missões concluídas</p>
-  <div id="missionList" style="display:grid;gap:16px;margin-top:20px"></div>
-  <p id="achievement" style="color:var(--green);margin-top:20px"></p>
+<section class="section">
+ <div class="callout">
+  <b>Combater o racismo é responsabilidade de todos.</b><br>
+  Respeitar não é apenas não ofender: é reconhecer a dignidade das pessoas, ouvir suas experiências, questionar preconceitos e agir quando presenciar discriminação.
  </div>
 </section>
 
-<section id="quiz">
- <div class="title"><h2>🧠 Desafio do conhecimento</h2><div class="line"></div><p>Teste o que você aprendeu!</p></div>
- <div class="quiz">
-  <p id="questionCount" style="color:var(--cyan)">PERGUNTA 1</p>
-  <h3 id="question" style="margin:15px 0">Carregando...</h3>
-  <div id="options"></div>
-  <div id="feedback"></div>
-  <button class="btn" id="next" style="display:none">PRÓXIMA →</button>
+<section class="section" id="quiz">
+ <h2 class="section-title">Quiz: o que você aprendeu?</h2>
+ <p class="section-sub">Responda às perguntas e veja seu resultado ao final.</p>
+ <div class="card quiz">
+  <div class="q-count" id="qCount">PERGUNTA 1 DE 5</div>
+  <div class="question" id="question">Por que o Dia da Consciência Negra é lembrado em 20 de novembro?</div>
+  <div class="answers" id="answers"></div>
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+  <button class="btn" id="next" style="display:none" onclick="nextQuestion()">Próxima pergunta →</button>
+  <div class="progress"><span id="progress"></span></div>
  </div>
-</section>
-
-<section style="text-align:center">
- <div class="title"><h2>✨ Faça parte da transformação!</h2><p>O conhecimento cresce quando é compartilhado.</p></div>
- <p style="color:var(--muted);line-height:1.8">Cada atitude conta. Respeitar, aprender, cuidar e colaborar são passos para construir um mundo melhor.</p>
- <button class="btn" onclick="window.print()">🖨 SALVAR / IMPRIMIR PDF</button>
- <button class="btn" onclick="shareSite()">📤 COMPARTILHAR</button>
 </section>
 </main>
 
 <footer>
- <b>EDUCAÇÃO PARA A VIDA • BNCC</b><br>
- Projeto educativo sobre competências, valores e cidadania.<br>
- Aprender hoje para transformar o amanhã.
+ <b>Consciência Negra — História, cultura, respeito e igualdade.</b><br>
+ <span class="small">Material educativo para estudo e reflexão. Aprender história ajuda a construir um futuro mais justo.</span>
 </footer>
 
-<button id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div id="toast"></div>
-
 <script>
-// COMPETÊNCIAS
-const skills=[
-["🧠","Conhecimento","Valorizar e utilizar conhecimentos sobre o mundo."],
-["🔬","Pensamento científico","Investigar, pesquisar e criar soluções."],
-["🎨","Repertório cultural","Valorizar diferentes manifestações culturais."],
-["💬","Comunicação","Expressar ideias e compartilhar informações."],
-["💻","Cultura digital","Utilizar tecnologias de forma crítica e responsável."],
-["💡","Trabalho e projeto de vida","Planejar objetivos e desenvolver autonomia."],
-["⚖️","Argumentação","Defender ideias com informações confiáveis."],
-["❤️","Autoconhecimento","Cuidar da saúde física e emocional."],
-["🤝","Empatia e cooperação","Respeitar diferenças e trabalhar em equipe."],
-["🌎","Responsabilidade e cidadania","Agir com ética e responsabilidade."]
+const tabs=[
+ ['Música','O samba, o jongo, o maracatu e muitos outros ritmos têm raízes e influências africanas. Essas expressões carregam memória, criatividade e identidade.'],
+ ['Culinária','Pratos e ingredientes como acarajé, vatapá, quiabo e diferentes preparos com azeite de dendê mostram a presença de conhecimentos culinários africanos na cultura brasileira.'],
+ ['Dança','A capoeira combina luta, música, jogo e expressão cultural. O jongo e outras manifestações tradicionais também preservam memórias e conhecimentos afro-brasileiros.'],
+ ['Arte e linguagem','Artistas, escritores e criadores negros ampliam as formas de contar a história do país. Muitas palavras, estilos, técnicas e expressões do português brasileiro têm influências africanas.']
 ];
-document.getElementById('competencias').innerHTML=skills.map(s=>`
-<div class="card">
-<div class="icon">${s[0]}</div><h3>${s[1]}</h3><p>${s[2]}</p>
-</div>`).join('');
 
-// TEMAS
-const themes={
-saude:["❤️ Saúde e bem-estar","Cuidar de si é essencial para viver bem. A saúde envolve alimentação equilibrada, atividade física, descanso, prevenção e atenção à saúde emocional."],
-ambiente:["🌱 Meio ambiente","Preservar a natureza é responsabilidade de todos. Economizar água, reciclar, evitar desperdícios e proteger os animais são atitudes importantes."],
-cidadania:["⚖️ Cidadania","Ser cidadão significa conhecer direitos e deveres, respeitar as leis, participar da comunidade e contribuir para uma sociedade justa."],
-digital:["💻 Educação digital","A internet oferece oportunidades, mas exige responsabilidade. Proteja seus dados, respeite as pessoas e verifique informações antes de compartilhar."],
-financas:["💰 Educação financeira","Organizar o dinheiro, planejar gastos, economizar e evitar compras por impulso ajudam a construir hábitos financeiros responsáveis."],
-respeito:["🤝 Respeito e diversidade","Cada pessoa possui características e experiências diferentes. Respeitar as diferenças, combater o preconceito e praticar a empatia fortalece a convivência."]
-};
-function setTab(name){
- const t=themes[name];
- document.getElementById('tabContent').innerHTML=
- `<h3 style="color:var(--cyan);font-size:23px">${t[0]}</h3>
- <p style="margin-top:15px">${t[1]}</p>
- <p style="margin-top:18px;color:var(--green)">✦ Aprender também é colocar em prática!</p>`;
- document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+function showTab(i,btn){
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active');
+ document.getElementById('tabContent').innerHTML='<h3>'+tabs[i][0]+'</h3><p>'+tabs[i][1]+'</p>';
 }
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
-setTab('saude');
 
-// ATIVIDADES
-const activities=[
-["🎤","Roda de conversa","Debater assuntos importantes e compartilhar opiniões."],
-["🌳","Desafio ambiental","Criar uma campanha de preservação da natureza."],
-["🎨","Arte e cidadania","Produzir cartazes sobre respeito e inclusão."],
-["📱","Internet segura","Aprender a reconhecer notícias falsas."],
-["💰","Planejamento financeiro","Criar um orçamento fictício e organizar despesas."],
-["🤝","Trabalho em equipe","Resolver desafios colaborando com os colegas."]
+const qs=[
+ {q:'Por que o Dia da Consciência Negra é lembrado em 20 de novembro?',a:['Pela data da morte de Zumbi dos Palmares','Pela assinatura da Lei Áurea','Pelo início da República'],c:0,why:'20 de novembro marca a morte de Zumbi dos Palmares, em 1695.'},
+ {q:'O que eram os quilombos?',a:['Fábricas do período colonial','Comunidades de resistência à escravidão','Escolas militares'],c:1,why:'Quilombos eram comunidades formadas por pessoas que resistiam à escravidão e buscavam liberdade.'},
+ {q:'Qual é um objetivo da Consciência Negra?',a:['Apagar parte da história','Valorizar a cultura e combater o racismo','Separar as pessoas'],c:1,why:'A data incentiva o conhecimento histórico, a valorização cultural e o combate ao racismo.'},
+ {q:'Quem escreveu Quarto de Despejo?',a:['Carolina Maria de Jesus','Sônia Guimarães','Antonieta de Barros'],c:0,why:'Carolina Maria de Jesus foi uma escritora brasileira, autora de Quarto de Despejo.'},
+ {q:'O que podemos fazer no cotidiano?',a:['Ignorar o preconceito','Repetir estereótipos','Respeitar as diferenças e enfrentar atitudes racistas'],c:2,why:'O respeito e a ação contra a discriminação são responsabilidades de todos.'}
 ];
-document.getElementById('activities').innerHTML=activities.map((a,i)=>`
-<div class="card">
-<div class="icon">${a[0]}</div><h3>${a[1]}</h3><p>${a[2]}</p>
-<button onclick="toast('Atividade ${i+1}: ${a[1]}!')">VER ATIVIDADE →</button>
-</div>`).join('');
 
-// MISSÕES
-const missions=[
-"Respeitar a opinião de outra pessoa.",
-"Separar corretamente os materiais recicláveis.",
-"Pesquisar sobre um direito do cidadão.",
-"Aprender uma dica de segurança digital.",
-"Planejar uma forma de economizar.",
-"Compartilhar um conhecimento com alguém."
-];
-document.getElementById('missionList').innerHTML=missions.map((m,i)=>`
-<label><input type="checkbox" class="missionCheck"> ${m}</label>`).join('');
-function updateMissions(){
- const checks=[...document.querySelectorAll('.missionCheck')];
- const done=checks.filter(c=>c.checked).length;
- document.getElementById('progressBar').style.width=(done/checks.length*100)+'%';
- document.getElementById('progressText').textContent=done+' de '+checks.length+' missões concluídas';
- document.getElementById('achievement').textContent=done===6?'🏆 PARABÉNS! Você concluiu todas as missões!':done>=3?'⭐ Você está indo muito bem!':'';
-}
-document.querySelectorAll('.missionCheck').forEach(c=>c.addEventListener('change',updateMissions));
+let qi=0,score=0,locked=false;
 
-// ARENA DE MINIGAMES
-const gamePoints={recycle:0,digital:0,empathy:0,money:0};
-function updateArena(){
- const total=Object.values(gamePoints).reduce((a,b)=>a+b,0);
- document.getElementById('arenaScore').textContent=`Total: ${total} pontos`;
- document.getElementById('arenaBar').style.width=(total/30*100)+'%';
- ['recycle','digital','empathy','money'].forEach(k=>{
-  const el=document.getElementById(k+'Score');
-  if(el)el.textContent=gamePoints[k];
- });
-}
-const recycleItems=[
- {name:'Garrafa de plástico limpa',type:'plastico'},
- {name:'Jornal velho',type:'papel'},
- {name:'Pote de vidro',type:'vidro'},
- {name:'Lata de refrigerante',type:'metal'},
- {name:'Caixa de papelão',type:'papel'},
- {name:'Embalagem plástica limpa',type:'plastico'},
- {name:'Casca de banana',type:'organico'},
- {name:'Restos de folhas e verduras',type:'organico'},
- {name:'Pilha usada',type:'especial'},
- {name:'Celular antigo sem uso',type:'especial'},
- {name:'Lata de conserva',type:'metal'},
- {name:'Pote de geleia de vidro',type:'vidro'}
-];
-let recycleIndex=0,recycleLocked=false;
-function renderRecycle(){
- const item=recycleItems[recycleIndex%recycleItems.length];
- document.getElementById('recycleItem').textContent='Material: '+item.name;
- document.getElementById('recycleResult').textContent='';
- recycleLocked=false;
-}
-function recycleAnswer(type){
- if(recycleLocked)return;
- recycleLocked=true;
- const item=recycleItems[recycleIndex%recycleItems.length];
- if(type===item.type){
-  gamePoints.recycle++;
-  document.getElementById('recycleResult').textContent='✅ Muito bem! Separação consciente ajuda o meio ambiente.';
- }else{
-  document.getElementById('recycleResult').textContent=item.type==='especial'?'💡 Esse item precisa de ponto de coleta específico. Não coloque no lixo comum.':'💡 Observe o material: papel, plástico, vidro, metal ou resíduo orgânico.';
- }
- updateArena();
-}
-function nextRecycle(){recycleIndex++;renderRecycle()}
-
-const digitalCases=[
- {q:'Uma pessoa desconhecida pede sua senha. O que fazer?',o:['Enviar a senha','Não compartilhar e avisar alguém de confiança','Publicar a senha'],a:1,ok:'Senhas são pessoais e devem ser protegidas.'},
- {q:'Você recebe uma notícia surpreendente. Qual é a melhor atitude?',o:['Compartilhar imediatamente','Verificar em fontes confiáveis','Acreditar só pelo título'],a:1,ok:'Conferir a informação ajuda a evitar notícias falsas.'},
- {q:'Alguém envia um link suspeito pedindo seus dados. O que fazer?',o:['Não clicar e pedir orientação','Informar seus dados','Encaminhar para todos'],a:0,ok:'Desconfie de links suspeitos e proteja seus dados.'},
- {q:'Um colega publica uma foto sua sem perguntar. Como agir?',o:['Conversar e pedir que respeite sua privacidade','Compartilhar também','Fazer comentários ofensivos'],a:0,ok:'Sua imagem e sua privacidade merecem respeito.'},
- {q:'Em um grupo, alguém começa a humilhar outra pessoa. O que fazer?',o:['Participar da zoação','Salvar e espalhar a mensagem','Não apoiar a ofensa e procurar ajuda de um adulto de confiança'],a:2,ok:'Respeito também vale no ambiente digital.'},
- {q:'Um perfil promete um prêmio e pede seus dados pessoais. Qual atitude é mais segura?',o:['Enviar tudo rapidamente','Desconfiar, não fornecer dados e verificar a informação','Passar o link para todos'],a:1,ok:'Promessas muito boas podem ser enganosas. Proteja seus dados.'}
-];
-let digitalIndex=0,digitalLocked=false;
-function renderDigital(){
- const x=digitalCases[digitalIndex%digitalCases.length];
- document.getElementById('digitalQuestion').textContent=x.q;
- document.getElementById('digitalOptions').innerHTML=x.o.map((v,i)=>`<button onclick="digitalAnswer(${i})">${v}</button>`).join('');
- document.getElementById('digitalResult').textContent='';digitalLocked=false;
-}
-function digitalAnswer(i){
- if(digitalLocked)return;digitalLocked=true;
- const x=digitalCases[digitalIndex%digitalCases.length];
- if(i===x.a){gamePoints.digital++;document.getElementById('digitalResult').textContent='✅ '+x.ok}
- else document.getElementById('digitalResult').textContent='💡 Pense na sua segurança, privacidade e respeito na internet.';
- updateArena();
-}
-function nextDigital(){digitalIndex++;renderDigital()}
-
-const empathyCases=[
- {q:'Um colega está sendo excluído de uma atividade. O que você faz?',o:['Convido para participar','Finjo que não percebi','Faço piada da situação'],a:0,ok:'Incluir as pessoas fortalece o respeito e a convivência.'},
- {q:'Alguém tem uma opinião diferente da sua. Como agir?',o:['Interromper e ofender','Ouvir com respeito','Espalhar comentários ofensivos'],a:1,ok:'Ouvir com respeito permite aprender com as diferenças.'},
- {q:'Seu grupo precisa terminar um trabalho. Qual atitude ajuda?',o:['Deixar tudo para uma pessoa','Discutir sem ouvir ninguém','Dividir tarefas e colaborar'],a:2,ok:'Cooperar torna o trabalho mais justo e organizado.'},
- {q:'Uma pessoa nova chegou à turma e está sozinha. O que você pode fazer?',o:['Dar boas-vindas e conversar','Ignorar a pessoa','Fazer comentários sobre ela'],a:0,ok:'Acolher alguém ajuda a criar um ambiente mais inclusivo.'},
- {q:'Você percebe que magoou alguém com uma fala. Qual atitude demonstra responsabilidade?',o:['Dizer que a pessoa exagerou','Pedir desculpas e tentar reparar','Repetir a fala'],a:1,ok:'Reconhecer um erro e tentar melhorar é uma atitude responsável.'},
- {q:'Na divisão de tarefas, um colega está com dificuldade. O que fazer?',o:['Deixar tudo para ele','Criticar sem ajudar','Oferecer ajuda e reorganizar as tarefas'],a:2,ok:'A colaboração respeita as necessidades de cada pessoa.'}
-];
-let empathyIndex=0,empathyLocked=false;
-function renderEmpathy(){
- const x=empathyCases[empathyIndex%empathyCases.length];
- document.getElementById('empathyQuestion').textContent=x.q;
- document.getElementById('empathyOptions').innerHTML=x.o.map((v,i)=>`<button onclick="empathyAnswer(${i})">${v}</button>`).join('');
- document.getElementById('empathyResult').textContent='';empathyLocked=false;
-}
-function empathyAnswer(i){
- if(empathyLocked)return;empathyLocked=true;
- const x=empathyCases[empathyIndex%empathyCases.length];
- if(i===x.a){gamePoints.empathy++;document.getElementById('empathyResult').textContent='✅ '+x.ok}
- else document.getElementById('empathyResult').textContent='💡 Reflita sobre respeito, inclusão, diálogo e cooperação.';
- updateArena();
-}
-function nextEmpathy(){empathyIndex++;renderEmpathy()}
-
-const moneyCases=[
- {q:'Você quer guardar parte do dinheiro para um objetivo. Qual escolha é melhor?',o:['Gastar tudo agora','Separar uma parte para economizar','Comprar sem comparar preços'],a:1,ok:'Planejar e guardar uma parte ajuda a alcançar objetivos.'},
- {q:'Dois produtos parecidos têm preços diferentes. O que fazer?',o:['Comparar preços e necessidades','Comprar o mais caro sempre','Comprar os dois sem pensar'],a:0,ok:'Comparar opções ajuda a fazer escolhas conscientes.'},
- {q:'Você recebeu R$ 50 fictícios para organizar. Qual plano é mais responsável?',o:['Gastar sem planejar','Ignorar o preço dos produtos','Definir prioridades e controlar os gastos'],a:2,ok:'Um orçamento ajuda a organizar o dinheiro e evitar desperdícios.'},
- {q:'Você quer comprar algo, mas ainda não tem dinheiro suficiente. Qual é uma boa decisão?',o:['Planejar quanto guardar por semana','Pedir dinheiro sem explicar','Comprar por impulso'],a:0,ok:'Definir uma meta e acompanhar a economia ajuda a realizar planos.'},
- {q:'No mercado, um produto está em promoção, mas você não precisa dele. O que fazer?',o:['Comprar só porque está barato','Avaliar se é necessário antes de comprar','Levar vários'],a:1,ok:'Uma compra consciente considera necessidade e preço.'},
- {q:'Você recebeu R$ 30 fictícios para o lanche da semana. Como organizar?',o:['Gastar tudo no primeiro dia','Não conferir os preços','Planejar os gastos para os vários dias'],a:2,ok:'Organizar o dinheiro ajuda a evitar que ele acabe antes da hora.'}
-];
-let moneyIndex=0,moneyLocked=false;
-function renderMoney(){
- const x=moneyCases[moneyIndex%moneyCases.length];
- document.getElementById('moneyQuestion').textContent=x.q;
- document.getElementById('moneyOptions').innerHTML=x.o.map((v,i)=>`<button onclick="moneyAnswer(${i})">${v}</button>`).join('');
- document.getElementById('moneyResult').textContent='';moneyLocked=false;
-}
-function moneyAnswer(i){
- if(moneyLocked)return;moneyLocked=true;
- const x=moneyCases[moneyIndex%moneyCases.length];
- if(i===x.a){gamePoints.money++;document.getElementById('moneyResult').textContent='✅ '+x.ok}
- else document.getElementById('moneyResult').textContent='💡 Pense em planejamento, prioridades e escolhas conscientes.';
- updateArena();
-}
-function nextMoney(){moneyIndex++;renderMoney()}
-
-const motivationPhrases=[
- 'Você é capaz de aprender coisas incríveis. Continue tentando!',
- 'Pequenos passos todos os dias levam a grandes conquistas.',
- 'Errar faz parte do aprendizado. Tente mais uma vez!',
- 'Seu esforço de hoje constrói as oportunidades de amanhã.',
- 'Não compare seu caminho com o de ninguém. Respeite seu ritmo e continue.',
- 'Acredite nas suas ideias: o conhecimento abre portas.',
- 'Você não precisa saber tudo agora. Precisa ter vontade de aprender.',
- 'Sua dedicação pode transformar sonhos em projetos.',
- 'Cada desafio é uma chance de descobrir algo novo.',
- 'Continue! Sua próxima conquista pode estar mais perto do que imagina.',
- 'Seja gentil, tenha coragem e nunca pare de aprender.',
- 'O importante não é ser perfeito, é evoluir um pouco a cada dia.'
-];
-let lastMotivation=-1;
-function spinMotivation(){
- let n=Math.floor(Math.random()*motivationPhrases.length);
- if(motivationPhrases.length>1&&n===lastMotivation)n=(n+1)%motivationPhrases.length;
- lastMotivation=n;
- const box=document.getElementById('motivationResult');
- const orb=document.getElementById('motivationOrb');
- box.textContent='✨ '+motivationPhrases[n];
- orb.textContent='🌟';
- orb.animate([{transform:'rotate(0) scale(1)'},{transform:'rotate(360deg) scale(1.22)'},{transform:'rotate(720deg) scale(1)'}],{duration:700,easing:'ease-out'});
-}
-function resetGames(){
- Object.keys(gamePoints).forEach(k=>gamePoints[k]=0);
- recycleIndex=digitalIndex=empathyIndex=moneyIndex=0;
- renderRecycle();renderDigital();renderEmpathy();renderMoney();updateArena();
- toast('Arena reiniciada! Bom jogo! 🎮');
-}
-renderRecycle();renderDigital();renderEmpathy();renderMoney();updateArena();
-
-// QUIZ
-const questions=[
-["O que significa BNCC?",["Base Nacional Comum Curricular","Banco Nacional de Conhecimento","Base Nacional de Ciências"],0,"A BNCC orienta as aprendizagens essenciais."],
-["Qual atitude ajuda o meio ambiente?",["Desperdiçar água","Reciclar materiais","Jogar lixo nas ruas"],1,"Reciclar ajuda a preservar recursos naturais."],
-["O que é cidadania?",["Ignorar as regras","Respeitar direitos e deveres","Desrespeitar opiniões"],1,"Cidadania envolve direitos, deveres e participação."],
-["O que é empatia?",["Compreender o outro","Julgar as pessoas","Ignorar sentimentos"],0,"Empatia é compreender e respeitar as experiências alheias."],
-["Como agir com segurança na internet?",["Compartilhar senhas","Clicar em qualquer link","Proteger dados pessoais"],2,"Proteger informações é fundamental no ambiente digital."],
-["Para que serve a educação financeira?",["Gastar sem pensar","Planejar e organizar dinheiro","Comprar por impulso"],1,"O planejamento financeiro ajuda a fazer escolhas conscientes."]
-];
-let current=0,points=0,answered=false;
-function loadQuestion(){
- answered=false;
- const q=questions[current];
- document.getElementById('questionCount').textContent=`PERGUNTA ${current+1} DE ${questions.length}`;
- document.getElementById('question').textContent=q[0];
+function renderQ(){
+ locked=false;
+ const q=qs[qi];
+ document.getElementById('qCount').textContent=`PERGUNTA ${qi+1} DE ${qs.length}`;
+ document.getElementById('question').textContent=q.q;
  document.getElementById('feedback').textContent='';
  document.getElementById('next').style.display='none';
- document.getElementById('next').textContent='PRÓXIMA →';
- document.getElementById('options').innerHTML=q[1].map((o,i)=>`<button class="quiz-option" data-answer="${i}">${o}</button>`).join('');
- document.querySelectorAll('.quiz-option').forEach(b=>b.onclick=()=>answer(+b.dataset.answer));
+ document.getElementById('answers').innerHTML=q.a.map((v,i)=>`<button class="answer" onclick="choose(${i})">${String.fromCharCode(65+i)}) ${v}</button>`).join('');
+ document.getElementById('progress').style.width=(qi/qs.length*100)+'%';
 }
-function answer(i){
- if(answered)return;
- answered=true;
- const q=questions[current];
- const correct=i===q[2];
- if(correct)points++;
- document.getElementById('feedback').textContent=(correct?'✅ Muito bem! ':'💡 Boa tentativa! A resposta correta é: '+q[1][q[2]]+'. ')+q[3];
- document.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);
- const next=document.getElementById('next');
- next.style.display='block';
- next.textContent=current===questions.length-1?'VER MINHA NOTA':'PRÓXIMA →';
+
+function choose(i){
+ if(locked)return;
+ locked=true;
+ const q=qs[qi];
+ const ok=i===q.c;
+ if(ok)score++;
+ document.querySelectorAll('.answer').forEach(b=>b.disabled=true);
+ document.getElementById('feedback').textContent=(ok?'✅ Muito bem! ':'💡 Boa tentativa! ')+q.why;
+ document.getElementById('next').style.display='inline-block';
+ document.getElementById('next').textContent=qi===qs.length-1?'Ver resultado':'Próxima pergunta →';
 }
-function showQuizResult(){
- const grade=(points/questions.length*10);
- let title,message,tip;
- if(points===6){
-  title='🏆 Excelente! Você mandou muito bem!';
-  message='Você demonstrou que aprendeu muito sobre cidadania, respeito, meio ambiente e escolhas conscientes.';
-  tip='Continue compartilhando esse conhecimento e colocando boas atitudes em prática!';
- }else if(points>=4){
-  title='🌟 Muito bom! Você está no caminho certo!';
-  message='Você já conhece vários assuntos importantes. Com uma pequena revisão, pode acertar ainda mais.';
-  tip='Revise as perguntas que achou difíceis e tente novamente. Você consegue!';
- }else if(points>=2){
-  title='📚 Dá para melhorar — e isso faz parte de aprender!';
-  message='Sua nota mostra alguns assuntos que merecem mais atenção. Não desanime: cada tentativa ajuda você a evoluir.';
-  tip='Leia as seções do projeto sobre BNCC, cidadania, meio ambiente e segurança digital antes de jogar outra vez.';
- }else{
-  title='💪 Hora de aprender mais um pouco!';
-  message='Desta vez foi difícil, mas uma nota não define sua capacidade. O importante é descobrir o que precisa revisar.';
-  tip='Volte aos temas do projeto, peça ajuda se precisar e tente novamente. Aprender é um processo!';
+
+function nextQuestion(){
+ if(qi<qs.length-1){
+  qi++;
+  renderQ();
+  return;
  }
- document.getElementById('questionCount').textContent='RESULTADO FINAL';
- document.getElementById('question').textContent=title;
- document.getElementById('options').innerHTML=`<div class="quiz-result-card"><div class="quiz-grade">${grade.toFixed(1).replace('.',',')}/10</div><h3>Você acertou ${points} de ${questions.length} perguntas.</h3><p>${message}</p><p><b>Dica:</b> ${tip}</p></div>`;
- document.getElementById('feedback').textContent='Sua participação já é um passo importante. Continue aprendendo!';
- const b=document.getElementById('next');
- b.style.display='inline-block';
- b.textContent='🔄 FAZER O QUIZ NOVAMENTE';
- b.onclick=restartQuiz;
+ const grade=score*2;
+ let msg=score===5?'Excelente! Você demonstrou ótimo conhecimento sobre o tema.':score>=3?'Muito bom! Continue estudando e ampliando seus conhecimentos.':'Você pode melhorar! Revise o conteúdo e tente novamente. Aprender é um processo.';
+ document.getElementById('qCount').textContent='RESULTADO FINAL';
+ document.getElementById('question').textContent=`Você acertou ${score} de ${qs.length} — Nota ${grade}/10`;
+ document.getElementById('answers').innerHTML=`<p>${msg}</p><button class="btn" onclick="restartQuiz()">Refazer quiz</button>`;
+ document.getElementById('feedback').textContent='Continue aprendendo, questionando preconceitos e valorizando a diversidade.';
+ document.getElementById('next').style.display='none';
+ document.getElementById('progress').style.width='100%';
 }
+
 function restartQuiz(){
- current=0;points=0;loadQuestion();
- document.getElementById('next').onclick=nextQuiz;
+ qi=0;
+ score=0;
+ renderQ();
 }
-function nextQuiz(){
- if(current<questions.length-1){current++;loadQuestion()}
- else showQuizResult();
-}
-document.getElementById('next').onclick=nextQuiz;
-loadQuestion();
 
-// TEMA CLARO/ESCURO
-document.getElementById('theme').onclick=()=>{
- document.body.classList.toggle('light');
- document.getElementById('theme').textContent=document.body.classList.contains('light')?'🌙 Tema':'☀️ Tema';
-};
-
-// PARTÍCULAS ANIMADAS
-const canvas=document.getElementById('particles');
-const c=canvas.getContext('2d');
-let particles=[];
-function resize(){
- canvas.width=innerWidth*devicePixelRatio;
- canvas.height=innerHeight*devicePixelRatio;
- c.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
- particles=Array.from({length:55},()=>({
-  x:Math.random()*innerWidth,y:Math.random()*innerHeight,
-  r:Math.random()*2+1,v:Math.random()*.35+.1,
-  color:['#38e9ee','#a66bff','#52f59b','#ff55bb'][Math.floor(Math.random()*4)]
- }));
-}
-function animate(){
- c.clearRect(0,0,innerWidth,innerHeight);
- particles.forEach(p=>{
-  p.y-=p.v;if(p.y<0)p.y=innerHeight;
-  c.beginPath();c.arc(p.x,p.y,p.r,0,Math.PI*2);
-  c.fillStyle=p.color;c.globalAlpha=.45;c.fill();
- });
- c.globalAlpha=1;
- requestAnimationFrame(animate);
-}
-resize();animate();addEventListener('resize',resize);
-
-// UTILIDADES
-function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
-let toastTimer;
-function toast(msg){
- const el=document.getElementById('toast');
- el.textContent=msg;el.classList.add('show');
- clearTimeout(toastTimer);
- toastTimer=setTimeout(()=>el.classList.remove('show'),2400);
-}
-async function shareSite(){
- if(navigator.share){
-  try{await navigator.share({title:'Educação para a Vida',text:'Conheça este projeto educativo sobre a BNCC!',url:location.href})}catch(e){}
- }else{
-  try{await navigator.clipboard.writeText(location.href);toast('Link copiado!')}
-  catch(e){toast('Use a opção de copiar o endereço do navegador.')}
- }
-}
+renderQ();
 </script>
 </body>
 </html>
