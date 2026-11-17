@@ -1,67 +1,617 @@
-<!-- PERFIL DO ALUNO -->
-<div class="profile-area">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOCHILA.exe | Lucas</title>
 
-    <label for="photoInput" style="cursor:pointer">
-        <img
-            id="profilePhoto"
-            class="profile-photo"
-            src="https://placehold.co/200x200/10283e/00c8ff?text=LUCAS"
-            alt="Foto de perfil">
-    </label>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
-    <input
-        type="file"
-        id="photoInput"
-        accept="image/*"
-        hidden>
+:root{--blue:#00c8ff;--red:#ff1744;--bg:#050914;--panel:#0b1425;--text:#eaf7ff;--muted:#8294aa}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Inter,sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 15% 20%,#003c6840,transparent 35%),radial-gradient(circle at 90% 80%,#8b001e30,transparent 35%);pointer-events:none;z-index:-1}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:-1}
+header{min-height:75px;padding:12px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #17334b;background:#07101eea;position:sticky;top:0;z-index:10;backdrop-filter:blur(15px)}
+.logo{font-family:Orbitron;font-size:20px;font-weight:900;letter-spacing:2px}
+.logo span{color:var(--blue)}
+.status{color:#00ff9d;font-size:11px;letter-spacing:1px}
+.clock{font-family:Orbitron;color:var(--red);font-size:16px;text-shadow:0 0 12px var(--red)}
+.container{width:90%;max-width:1300px;margin:35px auto}
+.school-profile{width:90%;max-width:1300px;margin:25px auto 0}
+.school-logo{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.school-logo img{width:190px;max-height:78px;object-fit:contain;background:white;border-radius:9px;padding:5px}
+.school-caption{font-family:Orbitron;font-size:11px;color:var(--blue);letter-spacing:1px}
+.school-caption small{display:block;font-family:Inter;color:var(--muted);font-size:11px;letter-spacing:0;margin-top:6px}
+.profile-area{display:flex;align-items:center;gap:22px;padding:20px;margin-bottom:28px;border:1px solid #087ca5;border-radius:16px;background:linear-gradient(120deg,#101e30,#07101e);box-shadow:0 0 20px #00c8ff20}
+.profile-photo{width:100px;height:100px;border-radius:50%;border:3px solid var(--blue);object-fit:cover;background:#142c45;box-shadow:0 0 18px #00c8ff60;cursor:pointer;transition:.25s}
+.profile-photo:hover{transform:scale(1.06);box-shadow:0 0 25px var(--blue)}
+.profile-info h2{font-family:Orbitron;color:var(--blue);font-size:18px;margin-bottom:8px}
+.profile-info p{color:var(--muted);font-size:12px;margin-bottom:12px}
+.welcome{margin-bottom:30px}
+.welcome h1{font-family:Orbitron;font-size:clamp(23px,4vw,35px);margin-bottom:10px}
+.welcome h1 span{color:var(--blue)}
+.welcome p{color:var(--muted);font-size:14px}
+.dashboard{display:grid;grid-template-columns:330px 1fr;gap:25px}
+.panel{background:linear-gradient(145deg,#101d31,#080f1d);border:1px solid #1a3851;border-radius:16px;padding:23px;box-shadow:0 0 25px #001e3525}
+.panel h2{font-family:Orbitron;font-size:14px;margin-bottom:20px;letter-spacing:1px}
+.backpack-area{perspective:800px;min-height:330px;display:flex;justify-content:center;align-items:center;flex-direction:column}
+.backpack{width:185px;height:235px;background:linear-gradient(140deg,#142c45,#07101c 65%,#101d30);border:3px solid #087ca5;border-radius:75px 75px 35px 35px;position:relative;transform-style:preserve-3d;transform:rotateY(-12deg);box-shadow:0 0 20px #00c8ff60,inset 0 0 25px #00c8ff20;animation:float 4s ease-in-out infinite}
+.backpack::before{content:"";position:absolute;width:125px;height:80px;background:#10283e;border:2px solid var(--red);border-radius:20px 20px 30px 30px;bottom:22px;left:27px;box-shadow:0 0 12px #ff174455}
+.backpack::after{content:"L";font-family:Orbitron;font-size:48px;color:var(--blue);text-shadow:0 0 20px var(--blue);position:absolute;top:80px;left:75px}
+.zip{position:absolute;height:175px;width:3px;background:var(--blue);left:50%;top:15px;box-shadow:0 0 10px var(--blue)}
+.zip::after{content:"";position:absolute;width:12px;height:22px;background:var(--red);border-radius:4px;left:-5px;top:60px;box-shadow:0 0 12px var(--red)}
+@keyframes float{0%,100%{transform:translateY(0) rotateY(-12deg)}50%{transform:translateY(-12px) rotateY(12deg)}}
+.backpack-label{font-family:Orbitron;font-size:11px;color:var(--blue);margin-top:25px;letter-spacing:2px}
+.progress{height:7px;background:#182b3c;border-radius:20px;overflow:hidden;margin-top:13px}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--red));box-shadow:0 0 12px var(--blue);transition:width .3s}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.stat{background:#101e30;padding:15px;border:1px solid #1a354c;border-radius:12px}
+.stat small{color:var(--muted);font-size:11px}
+.stat strong{display:block;font-family:Orbitron;font-size:23px;color:var(--blue);margin-top:7px}
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
+.tab{padding:11px 16px;border:1px solid #234158;background:#0a1627;color:#a9bed0;border-radius:8px;cursor:pointer;transition:.3s}
+.tab:hover,.tab.active{color:white;border-color:var(--blue);background:#06334a;box-shadow:0 0 12px #00c8ff35}
+.section{display:none}
+.section.active{display:block;animation:appear .3s}
+@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.subjects{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.subject{background:#101e30;border:1px solid #1c3a52;padding:17px;border-radius:12px;cursor:pointer;transition:.25s}
+.subject:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:0 0 15px #00c8ff30}
+.subject b{display:block;margin-bottom:7px}
+.subject small{color:var(--muted)}
+input,textarea,select{width:100%;padding:13px;margin:8px 0;border:1px solid #234158;border-radius:8px;background:#071323;color:white;outline:none;font-family:Inter}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 10px #00c8ff35}
+textarea{min-height:120px;resize:vertical}
+.btn{padding:12px 18px;border:1px solid var(--blue);border-radius:8px;background:#06344b;color:white;cursor:pointer;transition:.25s;margin:5px 3px 5px 0}
+.btn:hover{background:var(--blue);color:#00111c;box-shadow:0 0 18px var(--blue)}
+.btn.red{border-color:var(--red);background:#421321}
+.btn.red:hover{background:var(--red);color:white;box-shadow:0 0 15px var(--red)}
+.note{padding:15px;border:1px solid #1b4059;background:#101d2e;border-radius:10px;margin-top:12px;overflow-wrap:anywhere}
+.note h3{color:var(--blue);font-size:15px}
+.note p{color:#b4c5d5;font-size:13px;margin:10px 0;white-space:pre-wrap}
+.note small{color:var(--muted)}
+.note-actions{margin-top:8px}
+.search{margin-bottom:15px}
+.task{display:flex;align-items:center;justify-content:space-between;padding:13px;margin:10px 0;background:#101d2e;border-radius:9px;border:1px solid #203b50;gap:10px}
+.task.done span{text-decoration:line-through;opacity:.5}
+.task input{width:auto;margin:0 8px 0 0}
+.task label{flex:1;overflow-wrap:anywhere}
+.empty{color:var(--muted);text-align:center;padding:25px}
+footer{text-align:center;padding:30px;color:#526b82;font-size:11px;letter-spacing:2px}
+@media(max-width:850px){.dashboard{grid-template-columns:1fr}.backpack-area{min-height:290px}}
+@media(max-width:500px){
+header{padding:12px 15px}
+.logo{font-size:14px}
+.clock{font-size:12px}
+.container,.school-profile{width:94%}
+.school-logo img{width:125px}
+.school-caption{font-size:9px}
+.profile-area{gap:14px;padding:15px}
+.profile-photo{width:78px;height:78px}
+.profile-info h2{font-size:14px}
+.stats{grid-template-columns:repeat(3,1fr)}
+.stat{padding:10px}
+.stat strong{font-size:17px}
+.subjects{grid-template-columns:1fr}
+}
+</style>
+</head>
 
-    <div class="profile-info">
-        <h2>LUCAS GABRIEL</h2>
-        <p>ALUNO • MINHA MOCHILA DIGITAL</p>
-    </div>
+<body>
 
+<canvas id="particles"></canvas>
+
+<header>
+ <div class="logo">MOCHILA<span>.EXE</span></div>
+ <div class="status">● SISTEMA ONLINE</div>
+ <div class="clock" id="clock">00:00:00</div>
+</header>
+
+<div class="school-profile">
+
+ <div class="school-logo">
+  <img src="data:image/webp;base64,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" alt="ECM - Escola Estadual Emília Cabral Mota">
+  <div class="school-caption">SISTEMA ESCOLAR<small>ESCOLA ESTADUAL EMÍLIA CABRAL MOTA</small></div>
+ </div>
+
+ <div class="profile-area">
+  <label for="photoInput" style="cursor:pointer;display:block" aria-label="Escolher foto de perfil">
+   <img id="profilePhoto" class="profile-photo" src="https://placehold.co/200x200/10283e/00c8ff?text=LUCAS" alt="Foto de perfil">
+  </label>
+  <div class="profile-info">
+   <h2>LUCAS GABRIEL</h2>
+   <p>ALUNO • MINHA MOCHILA DIGITAL</p>
+   <input type="file" id="photoInput" accept="image/*" hidden>
+  </div>
+ </div>
 </div>
 
+<div class="container">
+
+ <div class="welcome">
+  <h1>OLÁ, <span>LUCAS!</span></h1>
+  <p>Seu espaço digital de estudos. Organize, registre e evolua.</p>
+ </div>
+
+ <div class="dashboard">
+
+  <aside class="panel">
+   <h2>🎒 MOCHILA DIGITAL</h2>
+   <div class="backpack-area">
+    <div class="backpack"><div class="zip"></div></div>
+    <div class="backpack-label">LUCAS SYSTEM V1.0</div>
+   </div>
+
+   <p style="font-size:12px;color:var(--muted)">STATUS DA MOCHILA</p>
+   <div class="progress"><div id="progressBar"></div></div>
+   <p id="storageText" style="font-size:11px;color:var(--blue);margin-top:9px">0 arquivos armazenados</p>
+   <button class="btn" style="width:100%;margin-top:20px" onclick="openTab('notes')">ABRIR MOCHILA</button>
+  </aside>
+
+  <main class="panel">
+
+   <div class="stats">
+    <div class="stat"><small>ANOTAÇÕES</small><strong id="noteCount">0</strong></div>
+    <div class="stat"><small>TAREFAS</small><strong id="taskCount">0</strong></div>
+    <div class="stat"><small>CONCLUÍDAS</small><strong id="doneCount">0</strong></div>
+   </div>
+
+   <nav class="tabs">
+    <button class="tab active" onclick="openTab('home',this)">INÍCIO</button>
+    <button class="tab" onclick="openTab('subjects',this)">MATÉRIAS</button>
+    <button class="tab" onclick="openTab('notes',this)">ANOTAÇÕES</button>
+    <button class="tab" onclick="openTab('tasks',this)">TAREFAS</button>
+    <button class="tab" onclick="openTab('trash',this)">LIXEIRA</button>
+   </nav>
+
+   <section class="section active" id="home">
+    <h2>PAINEL PRINCIPAL</h2>
+    <p style="color:var(--muted);line-height:1.8;font-size:14px">
+     Bem-vindo ao seu sistema pessoal de organização escolar.
+     Aqui você pode guardar conteúdos, organizar tarefas e acompanhar seus estudos.
+    </p>
+
+    <div class="note">
+     <h3>⚡ CENTRAL DE COMANDO</h3>
+     <p>Seu conhecimento é seu melhor equipamento. Organize sua rotina e avance um passo de cada vez.</p>
+    </div>
+
+    <div class="note">
+     <h3>📡 SISTEMA</h3>
+     <p>Armazenamento local: ativo
+     <br>Interface: operacional
+     <br>Sincronização: navegador atual
+     <br>Dados salvos neste dispositivo</p>
+    </div>
+   </section>
+
+   <section class="section" id="subjects">
+    <h2>📚 SEU MATERIAL ESCOLAR</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:15px">Selecione uma matéria para criar uma anotação.</p>
+
+    <div class="subjects">
+     <div class="subject" onclick="selectSubject('Matemática')"><b>📐 Matemática</b><small>Cálculos e exercícios</small></div>
+     <div class="subject" onclick="selectSubject('Português')"><b>📖 Português</b><small>Leitura e gramática</small></div>
+     <div class="subject" onclick="selectSubject('História')"><b>🏛️ História</b><small>Sociedade e acontecimentos</small></div>
+     <div class="subject" onclick="selectSubject('Geografia')"><b>🌎 Geografia</b><small>Espaço e sociedade</small></div>
+     <div class="subject" onclick="selectSubject('Biologia')"><b>🧬 Biologia</b><small>Vida e natureza</small></div>
+     <div class="subject" onclick="selectSubject('Química')"><b>⚗️ Química</b><small>Matéria e reações</small></div>
+     <div class="subject" onclick="selectSubject('Física')"><b>⚡ Física</b><small>Energia e movimento</small></div>
+     <div class="subject" onclick="selectSubject('Filosofia')"><b>🧠 Filosofia</b><small>Pensamento e sociedade</small></div>
+     <div class="subject" onclick="selectSubject('Sociologia')"><b>👥 Sociologia</b><small>Sociedade e cultura</small></div>
+     <div class="subject" onclick="selectSubject('Inglês')"><b>🌐 Inglês</b><small>Vocabulário e idiomas</small></div>
+     <div class="subject" onclick="selectSubject('Programação')"><b>💻 Programação</b><small>Java, HTML e códigos</small></div>
+     <div class="subject" onclick="selectSubject('Banco de Dados')"><b>🗄️ Banco de Dados</b><small>Informações e sistemas</small></div>
+     <div class="subject" onclick="selectSubject('Redes de Computadores')"><b>🌐 Redes</b><small>Conexões e infraestrutura</small></div>
+     <div class="subject" onclick="selectSubject('Desenvolvimento Web')"><b>🖥️ Desenvolvimento Web</b><small>Sites e aplicações</small></div>
+     <div class="subject" onclick="selectSubject('Robótica')"><b>🤖 Robótica</b><small>Tecnologia e automação</small></div>
+     <div class="subject" onclick="selectSubject('Educação Física')"><b>⚽ Educação Física</b><small>Esportes e movimento</small></div>
+    </div>
+   </section>
+
+   <section class="section" id="notes">
+    <h2>📝 BLOCO DE ANOTAÇÕES</h2>
+    <input id="noteTitle" placeholder="Nome da anotação...">
+
+    <select id="noteSubject">
+     <option>Geral</option>
+     <option>Matemática</option>
+     <option>Português</option>
+     <option>História</option>
+     <option>Geografia</option>
+     <option>Biologia</option>
+     <option>Química</option>
+     <option>Física</option>
+     <option>Filosofia</option>
+     <option>Sociologia</option>
+     <option>Inglês</option>
+     <option>Programação</option>
+     <option>Banco de Dados</option>
+     <option>Redes de Computadores</option>
+     <option>Desenvolvimento Web</option>
+     <option>Robótica</option>
+     <option>Educação Física</option>
+    </select>
+
+    <textarea id="noteContent" placeholder="Digite seu conteúdo, resumo, exercícios ou informações importantes..."></textarea>
+    <button class="btn" onclick="saveNote()">+ SALVAR NA MOCHILA</button>
+    <input class="search" id="searchNotes" placeholder="🔎 Pesquisar anotações..." oninput="renderNotes()">
+    <div id="notesList"></div>
+   </section>
+
+   <section class="section" id="tasks">
+    <h2>📋 CENTRAL DE TAREFAS</h2>
+    <input id="taskInput" placeholder="Digite uma tarefa ou atividade...">
+    <button class="btn" onclick="addTask()">+ ADICIONAR TAREFA</button>
+    <div id="tasksList"></div>
+   </section>
+
+   <section class="section" id="trash">
+    <h2>🗑️ LIXEIRA</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:15px">Aqui ficam as anotações excluídas. Você pode recuperá-las.</p>
+    <div id="trashList"></div>
+    <button class="btn red" onclick="clearTrash()">ESVAZIAR LIXEIRA</button>
+   </section>
+
+  </main>
+ </div>
+</div>
+
+<footer>MOCHILA.EXE © 2026 | DESENVOLVIDO PARA LUCAS</footer>
+
 <script>
-const photoInput = document.getElementById("photoInput");
-const profilePhoto = document.getElementById("profilePhoto");
+// BANCO DE DADOS LOCAL
 
-const savedPhoto = localStorage.getItem("lucas_profile_photo");
+let notes=JSON.parse(localStorage.getItem('lucas_notes')||'[]');
+let tasks=JSON.parse(localStorage.getItem('lucas_tasks')||'[]');
+let trash=JSON.parse(localStorage.getItem('lucas_trash')||'[]');
 
-if (savedPhoto) {
-    profilePhoto.src = savedPhoto;
+function saveData(){
+ localStorage.setItem('lucas_notes',JSON.stringify(notes));
+ localStorage.setItem('lucas_tasks',JSON.stringify(tasks));
+ localStorage.setItem('lucas_trash',JSON.stringify(trash));
+ updateStats();
 }
 
-photoInput.addEventListener("change", function() {
-    const file = this.files[0];
+// SONS
 
-    if (!file) return;
+function sound(freq=500){
+ try{
+  const audio=new(window.AudioContext||window.webkitAudioContext)();
+  const oscillator=audio.createOscillator();
+  const gain=audio.createGain();
+  oscillator.connect(gain);
+  gain.connect(audio.destination);
+  oscillator.frequency.value=freq;
+  gain.gain.setValueAtTime(.04,audio.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);
+  oscillator.start();
+  oscillator.stop(audio.currentTime+.12);
+ }catch(e){}
+}
 
-    if (!file.type.startsWith("image/")) {
-        alert("Escolha uma imagem válida!");
-        return;
-    }
-
-    if (file.size > 3 * 1024 * 1024) {
-        alert("Escolha uma imagem de até 3 MB.");
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-        try {
-            localStorage.setItem(
-                "lucas_profile_photo",
-                event.target.result
-            );
-
-            profilePhoto.src = event.target.result;
-        } catch(error) {
-            alert("Não foi possível salvar a foto.");
-        }
-    };
-
-    reader.readAsDataURL(file);
+document.addEventListener('click',e=>{
+ if(e.target.closest('button,.subject,.profile-photo'))sound(650);
 });
+
+// NAVEGAÇÃO
+
+function openTab(id,button){
+ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+
+ if(button){
+  button.classList.add('active');
+ }else{
+  document.querySelectorAll('.tab').forEach(t=>{
+   if(t.getAttribute('onclick')?.includes("'"+id+"'"))t.classList.add('active');
+  });
+ }
+}
+
+function selectSubject(subject){
+ document.getElementById('noteSubject').value=subject;
+ openTab('notes');
+ document.getElementById('noteTitle').focus();
+}
+
+// ANOTAÇÕES
+
+function saveNote(){
+ const title=document.getElementById('noteTitle').value.trim();
+ const content=document.getElementById('noteContent').value.trim();
+ const subject=document.getElementById('noteSubject').value;
+
+ if(!title||!content){
+  alert('Preencha o título e o conteúdo!');
+  return;
+ }
+
+ notes.unshift({
+  id:Date.now(),
+  title,
+  content,
+  subject,
+  date:new Date().toLocaleDateString('pt-BR')
+ });
+
+ document.getElementById('noteTitle').value='';
+ document.getElementById('noteContent').value='';
+
+ saveData();
+ renderNotes();
+}
+
+function renderNotes(){
+ const list=document.getElementById('notesList');
+ const search=document.getElementById('searchNotes').value.toLowerCase();
+
+ const filtered=notes.filter(n=>
+  (n.title+n.content+n.subject).toLowerCase().includes(search)
+ );
+
+ if(!filtered.length){
+  list.innerHTML='<div class="empty">Nenhuma anotação encontrada.</div>';
+  return;
+ }
+
+ list.innerHTML=filtered.map(n=>`
+  <div class="note">
+   <h3>${escapeHTML(n.title)}</h3>
+   <small>${escapeHTML(n.subject)} • ${escapeHTML(n.date)}</small>
+   <p>${escapeHTML(n.content)}</p>
+   <div class="note-actions">
+    <button class="btn red" onclick="deleteNote(${n.id})">🗑️ EXCLUIR</button>
+   </div>
+  </div>
+ `).join('');
+}
+
+function deleteNote(id){
+ const note=notes.find(n=>n.id===id);
+ if(!note)return;
+ trash.unshift(note);
+ notes=notes.filter(n=>n.id!==id);
+ saveData();
+ renderNotes();
+ renderTrash();
+}
+
+function restoreNote(id){
+ const note=trash.find(n=>n.id===id);
+ if(!note)return;
+ notes.unshift(note);
+ trash=trash.filter(n=>n.id!==id);
+ saveData();
+ renderNotes();
+ renderTrash();
+}
+
+function clearTrash(){
+ if(!confirm('Deseja apagar permanentemente as anotações da lixeira?'))return;
+ trash=[];
+ saveData();
+ renderTrash();
+}
+
+// LIXEIRA
+
+function renderTrash(){
+ const list=document.getElementById('trashList');
+
+ if(!trash.length){
+  list.innerHTML='<div class="empty">Sua lixeira está vazia.</div>';
+  return;
+ }
+
+ list.innerHTML=trash.map(n=>`
+  <div class="note">
+   <h3>${escapeHTML(n.title)}</h3>
+   <small>${escapeHTML(n.subject)}</small>
+   <div class="note-actions">
+    <button class="btn" onclick="restoreNote(${n.id})">↩ RECUPERAR</button>
+   </div>
+  </div>
+ `).join('');
+}
+
+// TAREFAS
+
+function addTask(){
+ const input=document.getElementById('taskInput');
+ const value=input.value.trim();
+
+ if(!value){
+  alert('Digite uma tarefa!');
+  return;
+ }
+
+ tasks.push({
+  id:Date.now(),
+  title:value,
+  done:false
+ });
+
+ input.value='';
+ saveData();
+ renderTasks();
+}
+
+function toggleTask(id){
+ const task=tasks.find(t=>t.id===id);
+ if(!task)return;
+ task.done=!task.done;
+ saveData();
+ renderTasks();
+}
+
+function deleteTask(id){
+ tasks=tasks.filter(t=>t.id!==id);
+ saveData();
+ renderTasks();
+}
+
+function renderTasks(){
+ const list=document.getElementById('tasksList');
+
+ if(!tasks.length){
+  list.innerHTML='<div class="empty">Nenhuma tarefa cadastrada.</div>';
+  return;
+ }
+
+ list.innerHTML=tasks.map(t=>`
+  <div class="task ${t.done?'done':''}">
+   <label>
+    <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})">
+    <span>${escapeHTML(t.title)}</span>
+   </label>
+   <button class="btn red" onclick="deleteTask(${t.id})">X</button>
+  </div>
+ `).join('');
+}
+
+// ESTATÍSTICAS
+
+function updateStats(){
+ document.getElementById('noteCount').textContent=notes.length;
+ document.getElementById('taskCount').textContent=tasks.length;
+ document.getElementById('doneCount').textContent=tasks.filter(t=>t.done).length;
+
+ const total=notes.length+tasks.length+trash.length;
+
+ document.getElementById('storageText').textContent=total+' arquivos armazenados';
+ document.getElementById('progressBar').style.width=Math.min(100,total*5)+'%';
+}
+
+// PROTEÇÃO DE TEXTO
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,char=>({
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#039;'
+ }[char]));
+}
+
+// RELÓGIO
+
+function updateClock(){
+ document.getElementById('clock').textContent=new Date().toLocaleTimeString('pt-BR');
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+// FOTO DE PERFIL
+
+const photoInput=document.getElementById('photoInput');
+const profilePhoto=document.getElementById('profilePhoto');
+
+profilePhoto.addEventListener('click',()=>photoInput.click());
+
+try{
+ const savedPhoto=localStorage.getItem('lucas_profile_photo');
+ if(savedPhoto)profilePhoto.src=savedPhoto;
+}catch(e){}
+
+photoInput.addEventListener('change',function(){
+ const file=this.files[0];
+ if(!file)return;
+
+ if(!file.type.startsWith('image/')){
+  alert('Escolha uma imagem válida!');
+  return;
+ }
+
+ const reader=new FileReader();
+
+ reader.onload=function(event){
+  const img=new Image();
+
+  img.onload=function(){
+   const canvas=document.createElement('canvas');
+   const max=500;
+   const scale=Math.min(1,max/Math.max(img.width,img.height));
+
+   canvas.width=Math.round(img.width*scale);
+   canvas.height=Math.round(img.height*scale);
+
+   canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+
+   const data=canvas.toDataURL('image/jpeg',.82);
+
+   try{
+    localStorage.setItem('lucas_profile_photo',data);
+    profilePhoto.src=data;
+    alert('Foto de perfil atualizada!');
+   }catch(e){
+    alert('Não foi possível salvar a foto. Tente outra imagem.');
+   }
+  };
+
+  img.src=event.target.result;
+ };
+
+ reader.readAsDataURL(file);
+});
+
+// PARTÍCULAS
+
+const particleCanvas=document.getElementById('particles');
+const ctx=particleCanvas.getContext('2d');
+let particles=[];
+
+function resize(){
+ particleCanvas.width=window.innerWidth;
+ particleCanvas.height=window.innerHeight;
+}
+
+window.addEventListener('resize',resize);
+resize();
+
+for(let i=0;i<55;i++){
+ particles.push({
+  x:Math.random()*particleCanvas.width,
+  y:Math.random()*particleCanvas.height,
+  size:Math.random()*2+.5,
+  speed:Math.random()*.5+.1
+ });
+}
+
+function animateParticles(){
+ ctx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
+
+ particles.forEach(p=>{
+  p.y-=p.speed;
+
+  if(p.y<0){
+   p.y=particleCanvas.height;
+   p.x=Math.random()*particleCanvas.width;
+  }
+
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+  ctx.fillStyle=Math.random()>.5?'#00c8ff':'#ff1744';
+  ctx.fill();
+ });
+
+ requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+// INICIALIZAÇÃO
+
+renderNotes();
+renderTasks();
+renderTrash();
+updateStats();
+
 </script>
+</body>
+</html>
