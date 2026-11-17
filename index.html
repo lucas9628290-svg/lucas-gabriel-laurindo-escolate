@@ -1,336 +1,1016 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consciência Negra | História, Cultura e Respeito</title>
+<title>MOCHILA.exe | Lucas</title>
 
 <style>
-:root{
- --bg:#100d0b;--panel:#1d1713;--panel2:#281d17;--text:#fff6eb;--muted:#d0bba7;
- --gold:#f4b942;--orange:#e97832;--red:#c94c35;--green:#70a879;--line:#60402b;
- --shadow:0 18px 55px #0008
-}
-*{box-sizing:border-box;scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse at 15% 0%,#542713 0,transparent 38%),radial-gradient(ellipse at 95% 28%,#3c2514 0,transparent 32%),var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
-a{color:inherit;text-decoration:none}
-header{position:sticky;top:0;z-index:20;background:#100d0bf0;backdrop-filter:blur(14px);border-bottom:1px solid #65452d}
-.nav{max-width:1200px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-weight:900;letter-spacing:.5px;color:var(--gold);font-size:1.08rem}
-.links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.links a{font-size:.9rem;color:var(--muted)}
-.links a:hover{color:var(--gold)}
-button{font:inherit;cursor:pointer}
-.theme{border:1px solid var(--gold);color:var(--gold);background:transparent;padding:8px 13px;border-radius:20px}
-.hero{max-width:1200px;margin:34px auto 25px;padding:38px 22px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
-.kicker{color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.8rem}
-h1{font-size:clamp(2.6rem,6vw,5.4rem);line-height:.99;margin:14px 0 20px;letter-spacing:-2px}
-h1 span{color:var(--gold)}
-.lead{color:var(--muted);font-size:1.12rem;max-width:650px}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
-.btn{display:inline-block;border:0;border-radius:12px;padding:13px 18px;font-weight:800;background:linear-gradient(120deg,var(--gold),var(--orange));color:#211207;box-shadow:0 8px 25px #e9783240}
-.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}
-.hero-art{min-height:320px;border:1px solid #8c592e;border-radius:28px;background:linear-gradient(145deg,#542b17,#21150f 55%,#75421e);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow)}
-.sun{width:210px;height:210px;border-radius:50%;background:linear-gradient(135deg,#f8d477,#e97832);box-shadow:0 0 80px #e9783277;position:absolute;top:40px;right:55px}
-.art-text{position:relative;text-align:center;padding:25px;z-index:1}
-.art-text .big{font-size:5.8rem;line-height:1}
-.art-text h2{font-size:1.65rem;margin:8px 0;color:#fff}
-.art-text p{color:#ffe6c3;margin:0}
-.section{max-width:1150px;margin:25px auto;padding:28px 22px}
-.section-title{font-size:clamp(1.8rem,4vw,2.7rem);margin:0 0 8px}
-.section-sub{color:var(--muted);margin:0 0 23px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
-.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:var(--shadow)}
-.card .symbol{font-size:2rem}
-.card h3{margin:9px 0 6px;color:var(--gold)}
-.card p{margin:0;color:var(--muted)}
-.timeline{border-left:3px solid var(--orange);padding-left:22px;display:grid;gap:18px}
-.event{position:relative;background:var(--panel);border:1px solid var(--line);padding:16px 18px;border-radius:14px}
-.event:before{content:"";position:absolute;left:-31px;top:22px;width:14px;height:14px;background:var(--gold);border-radius:50%;box-shadow:0 0 0 5px #e9783228}
-.event b{color:var(--gold)}
-.people{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
-.person{overflow:hidden;padding:0}
-.person-top{height:105px;background:linear-gradient(120deg,#8c4c20,#d68a36);display:grid;place-items:center;font-size:3rem}
-.person-body{padding:18px}
-.person-body h3{color:var(--gold);margin:0 0 5px}
-.person-body p{color:var(--muted);margin:0}
-.callout{border-left:5px solid var(--gold);background:#342316;padding:20px 23px;border-radius:0 16px 16px 0;color:#ffe9ca}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
-.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 14px;border-radius:20px}
-.tab.active{background:var(--gold);color:#211207;border-color:var(--gold);font-weight:bold}
-.tab-content{min-height:125px}
-.quiz{max-width:760px}
-.q-count{color:var(--gold);font-weight:bold;font-size:.85rem;letter-spacing:1px}
-.question{font-size:1.25rem;font-weight:bold;margin:10px 0 16px}
-.answers{display:grid;gap:9px}
-.answer{padding:12px 14px;text-align:left;background:#302219;border:1px solid #65452d;color:var(--text);border-radius:10px}
-.answer:hover{border-color:var(--gold)}
-.answer:disabled{cursor:default;opacity:.85}
-.feedback{min-height:30px;margin:13px 0;color:#f4d39c;font-weight:bold}
-.progress{height:9px;background:#493222;border-radius:20px;overflow:hidden;margin-top:16px}
-.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--gold));transition:width .3s}
-footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;color:var(--muted);margin-top:45px}
-.small{font-size:.88rem;color:var(--muted)}
-.light{--bg:#fffaf3;--panel:#ffffff;--panel2:#fff3e2;--text:#21140d;--muted:#493426;--gold:#8a4b00;--orange:#a94712;--line:#c49b72;--shadow:0 12px 35px #75421e18}
-.light header{background:#fffaf3ed}
-.light .answer{background:#fff2df;color:#2b1a10}
-.light .callout{background:#f7e4c9;color:#553619}
-@media(max-width:850px){.hero{grid-template-columns:1fr}.grid,.people{grid-template-columns:repeat(2,1fr)}.links{gap:10px}}
-@media(max-width:560px){.nav{align-items:flex-start;flex-direction:column}.links{font-size:.8rem}.hero{padding-top:20px}.grid,.people{grid-template-columns:1fr}.hero-art{min-height:250px}.sun{width:160px;height:160px}}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
-/* Melhorias de contraste no tema claro */
-.light body{
- background:radial-gradient(ellipse at 12% 0%,#f5dfc5 0,transparent 38%),
-            radial-gradient(ellipse at 95% 28%,#f8e8d5 0,transparent 34%),#fffaf3;
- color:#21140d
+:root {
+    --blue: #00c8ff;
+    --red: #ff1744;
+    --bg: #050914;
+    --panel: #0b1425;
+    --text: #eaf7ff;
+    --muted: #8294aa;
 }
-.light .lead,.light .section-sub,.light .card p,.light .person-body p,
-.light .links a,.light .small,.light .event,.light footer{color:#493426}
-.light h1,.light .section-title,.light .question,.light .card h3,
-.light .person-body h3{color:#2b190e}
-.light .card,.light .event,.light .quiz{background:#fffdf9;border-color:#c49b72}
-.light .answer{background:#fff3e3;color:#2b190e;border-color:#b98b5e}
-.light .answer:hover{border-color:#8a4b00;background:#ffe7c8}
-.light .callout{background:#f3dfc5;color:#402512;border-left-color:#8a4b00}
-.light .theme{color:#754000;border-color:#8a4b00}
-.light .logo,.light .kicker{color:#754000}
-.light .tab{background:#fffdf9;color:#352114;border-color:#b98b5e}
-.light .tab.active{background:#8a4b00;color:#fff}
-.light .progress{background:#e6d2bc}
-.light footer{border-color:#c49b72}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+    radial-gradient(circle at 15% 20%, #003c6840, transparent 35%),
+    radial-gradient(circle at 90% 80%, #8b001e30, transparent 35%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+#particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+header {
+    height: 75px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #17334b;
+    background: #07101eea;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    font-family: Orbitron;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span { color: var(--blue); }
+
+.status {
+    color: #00ff9d;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.clock {
+    font-family: Orbitron;
+    color: var(--red);
+    font-size: 16px;
+    text-shadow: 0 0 12px var(--red);
+}
+
+.container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 35px auto;
+}
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+.welcome h1 {
+    font-family: Orbitron;
+    font-size: clamp(23px, 4vw, 35px);
+    margin-bottom: 10px;
+}
+
+.welcome h1 span { color: var(--blue); }
+
+.welcome p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 330px 1fr;
+    gap: 25px;
+}
+
+.panel {
+    background: linear-gradient(145deg, #101d31, #080f1d);
+    border: 1px solid #1a3851;
+    border-radius: 16px;
+    padding: 23px;
+    box-shadow: 0 0 25px #001e3525;
+}
+
+.panel h2 {
+    font-family: Orbitron;
+    font-size: 14px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.backpack-area {
+    perspective: 800px;
+    min-height: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.backpack {
+    width: 185px;
+    height: 235px;
+    background: linear-gradient(140deg, #142c45, #07101c 65%, #101d30);
+    border: 3px solid #087ca5;
+    border-radius: 75px 75px 35px 35px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-12deg);
+    box-shadow:
+    0 0 20px #00c8ff60,
+    inset 0 0 25px #00c8ff20;
+    animation: float 4s ease-in-out infinite;
+}
+
+.backpack::before {
+    content: "";
+    position: absolute;
+    width: 125px;
+    height: 80px;
+    background: #10283e;
+    border: 2px solid var(--red);
+    border-radius: 20px 20px 30px 30px;
+    bottom: 22px;
+    left: 27px;
+    box-shadow: 0 0 12px #ff174455;
+}
+
+.backpack::after {
+    content: "L";
+    font-family: Orbitron;
+    font-size: 48px;
+    color: var(--blue);
+    text-shadow: 0 0 20px var(--blue);
+    position: absolute;
+    top: 80px;
+    left: 75px;
+}
+
+.zip {
+    position: absolute;
+    height: 175px;
+    width: 3px;
+    background: var(--blue);
+    left: 50%;
+    top: 15px;
+    box-shadow: 0 0 10px var(--blue);
+}
+
+.zip::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 22px;
+    background: var(--red);
+    border-radius: 4px;
+    left: -5px;
+    top: 60px;
+    box-shadow: 0 0 12px var(--red);
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0) rotateY(-12deg); }
+    50% { transform: translateY(-12px) rotateY(12deg); }
+}
+
+.backpack-label {
+    font-family: Orbitron;
+    font-size: 11px;
+    color: var(--blue);
+    margin-top: 25px;
+    letter-spacing: 2px;
+}
+
+.progress {
+    height: 7px;
+    background: #182b3c;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 13px;
+}
+
+.progress div {
+    height: 100%;
+    width: 65%;
+    background: linear-gradient(90deg, var(--blue), var(--red));
+    box-shadow: 0 0 12px var(--blue);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.stat {
+    background: #101e30;
+    padding: 15px;
+    border: 1px solid #1a354c;
+    border-radius: 12px;
+}
+
+.stat small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.stat strong {
+    display: block;
+    font-family: Orbitron;
+    font-size: 23px;
+    color: var(--blue);
+    margin-top: 7px;
+}
+
+.tabs {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 11px 16px;
+    border: 1px solid #234158;
+    background: #0a1627;
+    color: #a9bed0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.tab:hover, .tab.active {
+    color: white;
+    border-color: var(--blue);
+    background: #06334a;
+    box-shadow: 0 0 12px #00c8ff35;
+}
+
+.section { display: none; }
+.section.active { display: block; animation: appear .3s; }
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.subjects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.subject {
+    background: #101e30;
+    border: 1px solid #1c3a52;
+    padding: 17px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.subject:hover {
+    transform: translateY(-4px);
+    border-color: var(--blue);
+    box-shadow: 0 0 15px #00c8ff30;
+}
+
+.subject b {
+    display: block;
+    margin-bottom: 7px;
+}
+
+.subject small {
+    color: var(--muted);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0;
+    border: 1px solid #234158;
+    border-radius: 8px;
+    background: #071323;
+    color: white;
+    outline: none;
+    font-family: Inter;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 10px #00c8ff35;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn {
+    padding: 12px 18px;
+    border: 1px solid var(--blue);
+    border-radius: 8px;
+    background: #06344b;
+    color: white;
+    cursor: pointer;
+    transition: .25s;
+    margin: 5px 3px 5px 0;
+}
+
+.btn:hover {
+    background: var(--blue);
+    color: #00111c;
+    box-shadow: 0 0 18px var(--blue);
+}
+
+.btn.red {
+    border-color: var(--red);
+    background: #421321;
+}
+
+.btn.red:hover {
+    background: var(--red);
+    color: white;
+    box-shadow: 0 0 15px var(--red);
+}
+
+.note {
+    padding: 15px;
+    border: 1px solid #1b4059;
+    background: #101d2e;
+    border-radius: 10px;
+    margin-top: 12px;
+    overflow-wrap: anywhere;
+}
+
+.note h3 { color: var(--blue); font-size: 15px; }
+.note p { color: #b4c5d5; font-size: 13px; margin: 10px 0; white-space: pre-wrap; }
+
+.note small { color: var(--muted); }
+
+.note-actions { margin-top: 8px; }
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px;
+    margin: 10px 0;
+    background: #101d2e;
+    border-radius: 9px;
+    border: 1px solid #203b50;
+    gap: 10px;
+}
+
+.task.done span {
+    text-decoration: line-through;
+    opacity: .5;
+}
+
+.task input {
+    width: auto;
+    margin: 0 8px 0 0;
+}
+
+.task label {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+.search {
+    margin-bottom: 15px;
+}
+
+.empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 25px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #526b82;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+@media(max-width:850px) {
+    .dashboard { grid-template-columns: 1fr; }
+    .backpack-area { min-height: 290px; }
+}
+
+@media(max-width:500px) {
+    header { padding: 0 15px; }
+    .logo { font-size: 14px; }
+    .clock { font-size: 12px; }
+    .container { width: 94%; }
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .stat { padding: 10px; }
+    .stat strong { font-size: 17px; }
+    .subjects { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 
 <body>
+
+<canvas id="particles"></canvas>
+
 <header>
- <nav class="nav">
-  <a class="logo" href="#inicio">✊🏾 CONSCIÊNCIA NEGRA</a>
-  <div class="links">
-   <a href="#significado">Significado</a>
-   <a href="#historia">História</a>
-   <a href="#personalidades">Personalidades</a>
-   <a href="#cultura">Cultura</a>
-   <a href="#quiz">Quiz</a>
-   <button class="theme" onclick="document.body.classList.toggle('light')">☀️ Tema</button>
-  </div>
- </nav>
+    <div class="logo">MOCHILA<span>.EXE</span></div>
+    <div class="status">● SISTEMA ONLINE</div>
+    <div class="clock" id="clock">00:00:00</div>
 </header>
 
-<main id="inicio">
-<section class="hero">
- <div>
-  <div class="kicker">20 de novembro • História • Identidade • Respeito</div>
-  <h1>Consciência<br><span>Negra</span></h1>
-  <p class="lead">Conhecer a história da população negra é reconhecer suas contribuições, valorizar culturas e lutar por uma sociedade com respeito, igualdade e oportunidades para todos.</p>
-  <div class="actions">
-   <a class="btn" href="#significado">Explorar o tema ↓</a>
-   <a class="btn secondary" href="#quiz">Testar conhecimentos</a>
-  </div>
- </div>
- <div class="hero-art" aria-label="Arte simbólica em tons quentes sobre identidade e valorização">
-  <div class="sun"></div>
-  <div class="art-text">
-   <div class="big">✊🏾</div>
-   <h2>Memória, resistência<br>e valorização</h2>
-   <p>Uma história que faz parte do Brasil.</p>
-  </div>
- </div>
-</section>
+<div class="container">
 
-<section class="section" id="significado">
- <h2 class="section-title">O que é Consciência Negra?</h2>
- <p class="section-sub">Um convite para aprender, refletir e agir durante todo o ano.</p>
- <div class="grid">
-  <article class="card">
-   <div class="symbol">📚</div>
-   <h3>Conhecer a história</h3>
-   <p>Estudar a trajetória da população negra, a escravidão, as lutas por liberdade e a participação na construção do Brasil.</p>
-  </article>
-  <article class="card">
-   <div class="symbol">🌍</div>
-   <h3>Valorizar culturas</h3>
-   <p>Reconhecer a influência africana e afro-brasileira na música, culinária, língua, arte, ciência, religião e nas tradições.</p>
-  </article>
-  <article class="card">
-   <div class="symbol">🤝</div>
-   <h3>Combater o racismo</h3>
-   <p>Identificar atitudes preconceituosas, respeitar as diferenças e contribuir para ambientes mais justos e acolhedores.</p>
-  </article>
- </div>
-</section>
+    <div class="welcome">
+        <h1>OLÁ, <span>LUCAS!</span></h1>
+        <p>Seu espaço digital de estudos. Organize, registre e evolua.</p>
+    </div>
 
-<section class="section" id="historia">
- <h2 class="section-title">Uma história de luta e resistência</h2>
- <p class="section-sub">Alguns marcos importantes para compreender o tema.</p>
- <div class="timeline">
-  <div class="event"><b>Período colonial</b><br>Milhões de africanos foram trazidos à força para o Brasil e submetidos à escravização. Mesmo diante da violência, preservaram saberes, culturas e formas de resistência.</div>
-  <div class="event"><b>Quilombos</b><br>Comunidades formadas por pessoas que resistiam à escravidão e buscavam liberdade. Palmares tornou-se um dos quilombos mais conhecidos.</div>
-  <div class="event"><b>1695 — Zumbi dos Palmares</b><br>Zumbi, uma das lideranças de Palmares, foi morto em 20 de novembro de 1695. A data passou a simbolizar a resistência negra.</div>
-  <div class="event"><b>1888 — Abolição</b><br>A Lei Áurea declarou extinta a escravidão legal no Brasil, mas não garantiu reparação, igualdade ou condições dignas para a população liberta.</div>
-  <div class="event"><b>20 de novembro</b><br>A data é lembrada como Dia da Consciência Negra. A Lei 14.759/2023 tornou o dia feriado nacional.</div>
- </div>
-</section>
+    <div class="dashboard">
 
-<section class="section" id="personalidades">
- <h2 class="section-title">Personalidades negras que marcaram a história</h2>
- <p class="section-sub">Pessoas que contribuíram para a literatura, ciência, educação e luta por direitos.</p>
- <div class="people">
-  <article class="card person">
-   <div class="person-top">✊🏾</div>
-   <div class="person-body">
-    <h3>Zumbi dos Palmares</h3>
-    <p>Liderança do Quilombo dos Palmares e símbolo da resistência contra a escravidão no Brasil.</p>
-   </div>
-  </article>
-  <article class="card person">
-   <div class="person-top">🌿</div>
-   <div class="person-body">
-    <h3>Dandara dos Palmares</h3>
-    <p>Figura histórica ligada à resistência de Palmares e à luta pela liberdade.</p>
-   </div>
-  </article>
-  <article class="card person">
-   <div class="person-top">📖</div>
-   <div class="person-body">
-    <h3>Carolina Maria de Jesus</h3>
-    <p>Escritora brasileira conhecida pelo livro <i>Quarto de Despejo</i>, que registra sua vivência na favela do Canindé.</p>
-   </div>
-  </article>
-  <article class="card person">
-   <div class="person-top">🔬</div>
-   <div class="person-body">
-    <h3>Sônia Guimarães</h3>
-    <p>Física brasileira, professora e pesquisadora, reconhecida por sua atuação na área de ciência e tecnologia.</p>
-   </div>
-  </article>
-  <article class="card person">
-   <div class="person-top">🎓</div>
-   <div class="person-body">
-    <h3>Antonieta de Barros</h3>
-    <p>Educadora, jornalista e primeira mulher negra eleita deputada estadual no Brasil.</p>
-   </div>
-  </article>
-  <article class="card person">
-   <div class="person-top">🖋️</div>
-   <div class="person-body">
-    <h3>Conceição Evaristo</h3>
-    <p>Escritora brasileira cuja obra aborda memória, identidade, desigualdade e experiências da população negra.</p>
-   </div>
-  </article>
- </div>
-</section>
+        <aside class="panel">
+            <h2>🎒 MOCHILA DIGITAL</h2>
 
-<section class="section" id="cultura">
- <h2 class="section-title">A presença africana e afro-brasileira no nosso dia a dia</h2>
- <p class="section-sub">Selecione um tema para conhecer alguns exemplos.</p>
- <div class="tabs">
-  <button class="tab active" onclick="showTab(0,this)">🎵 Música</button>
-  <button class="tab" onclick="showTab(1,this)">🍲 Culinária</button>
-  <button class="tab" onclick="showTab(2,this)">🥁 Dança</button>
-  <button class="tab" onclick="showTab(3,this)">🎨 Arte e linguagem</button>
- </div>
- <div class="card tab-content" id="tabContent">
-  <h3>Música</h3>
-  <p>O samba, o jongo, o maracatu e muitos outros ritmos têm raízes e influências africanas. Essas expressões carregam memória, criatividade e identidade.</p>
- </div>
-</section>
+            <div class="backpack-area">
+                <div class="backpack">
+                    <div class="zip"></div>
+                </div>
+                <div class="backpack-label">LUCAS SYSTEM V1.0</div>
+            </div>
 
-<section class="section">
- <div class="callout">
-  <b>Combater o racismo é responsabilidade de todos.</b><br>
-  Respeitar não é apenas não ofender: é reconhecer a dignidade das pessoas, ouvir suas experiências, questionar preconceitos e agir quando presenciar discriminação.
- </div>
-</section>
+            <p style="font-size:12px;color:var(--muted)">
+                STATUS DA MOCHILA
+            </p>
+            <div class="progress">
+                <div id="progressBar"></div>
+            </div>
 
-<section class="section" id="quiz">
- <h2 class="section-title">Quiz: o que você aprendeu?</h2>
- <p class="section-sub">Responda às perguntas e veja seu resultado ao final.</p>
- <div class="card quiz">
-  <div class="q-count" id="qCount">PERGUNTA 1 DE 5</div>
-  <div class="question" id="question">Por que o Dia da Consciência Negra é lembrado em 20 de novembro?</div>
-  <div class="answers" id="answers"></div>
-  <div class="feedback" id="feedback" aria-live="polite"></div>
-  <button class="btn" id="next" style="display:none" onclick="nextQuestion()">Próxima pergunta →</button>
-  <div class="progress"><span id="progress"></span></div>
- </div>
-</section>
-</main>
+            <p id="storageText" style="font-size:11px;color:var(--blue);margin-top:9px">
+                0 arquivos armazenados
+            </p>
+
+            <button class="btn" style="width:100%;margin-top:20px" onclick="openTab('notes')">
+                ABRIR MOCHILA
+            </button>
+        </aside>
+
+        <main class="panel">
+
+            <div class="stats">
+                <div class="stat">
+                    <small>ANOTAÇÕES</small>
+                    <strong id="noteCount">0</strong>
+                </div>
+                <div class="stat">
+                    <small>TAREFAS</small>
+                    <strong id="taskCount">0</strong>
+                </div>
+                <div class="stat">
+                    <small>CONCLUÍDAS</small>
+                    <strong id="doneCount">0</strong>
+                </div>
+            </div>
+
+            <nav class="tabs">
+                <button class="tab active" onclick="openTab('home',this)">INÍCIO</button>
+                <button class="tab" onclick="openTab('subjects',this)">MATÉRIAS</button>
+                <button class="tab" onclick="openTab('notes',this)">ANOTAÇÕES</button>
+                <button class="tab" onclick="openTab('tasks',this)">TAREFAS</button>
+                <button class="tab" onclick="openTab('trash',this)">LIXEIRA</button>
+            </nav>
+
+            <!-- INÍCIO -->
+            <section class="section active" id="home">
+                <h2>PAINEL PRINCIPAL</h2>
+                <p style="color:var(--muted);line-height:1.8;font-size:14px">
+                    Bem-vindo ao seu sistema pessoal de organização escolar.
+                    Aqui você pode guardar conteúdos, organizar tarefas e
+                    acompanhar seus estudos.
+                </p>
+
+                <div class="note">
+                    <h3>⚡ CENTRAL DE COMANDO</h3>
+                    <p>Seu conhecimento é seu melhor equipamento. Organize sua rotina e avance um passo de cada vez.</p>
+                </div>
+
+                <div class="note">
+                    <h3>📡 SISTEMA</h3>
+                    <p>Armazenamento local: ativo
+                    <br>Interface: operacional
+                    <br>Sincronização: navegador atual
+                    <br>Segurança: dados salvos neste dispositivo</p>
+                </div>
+            </section>
+
+            <!-- MATÉRIAS -->
+            <section class="section" id="subjects">
+                <h2>📚 SEU MATERIAL ESCOLAR</h2>
+                <p style="color:var(--muted);font-size:12px;margin-bottom:15px">
+                    Selecione uma matéria para criar uma anotação.
+                </p>
+
+                <div class="subjects">
+                    <div class="subject" onclick="selectSubject('Matemática')">
+                        <b>📐 Matemática</b><small>Cálculos e exercícios</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Português')">
+                        <b>📖 Português</b><small>Leitura e gramática</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('História')">
+                        <b>🏛️ História</b><small>Sociedade e acontecimentos</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Geografia')">
+                        <b>🌎 Geografia</b><small>Espaço e sociedade</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Biologia')">
+                        <b>🧬 Biologia</b><small>Vida e natureza</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Química')">
+                        <b>⚗️ Química</b><small>Matéria e reações</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Física')">
+                        <b>⚡ Física</b><small>Energia e movimento</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Filosofia')">
+                        <b>🧠 Filosofia</b><small>Pensamento e sociedade</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Sociologia')">
+                        <b>👥 Sociologia</b><small>Sociedade e cultura</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Inglês')">
+                        <b>🌐 Inglês</b><small>Vocabulário e idiomas</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Programação')">
+                        <b>💻 Programação</b><small>Java, HTML e códigos</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Banco de Dados')">
+                        <b>🗄️ Banco de Dados</b><small>Informações e sistemas</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Redes de Computadores')">
+                        <b>🌐 Redes</b><small>Conexões e infraestrutura</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Desenvolvimento Web')">
+                        <b>🖥️ Desenvolvimento Web</b><small>Sites e aplicações</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Robótica')">
+                        <b>🤖 Robótica</b><small>Tecnologia e automação</small>
+                    </div>
+                    <div class="subject" onclick="selectSubject('Educação Física')">
+                        <b>⚽ Educação Física</b><small>Esportes e movimento</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANOTAÇÕES -->
+            <section class="section" id="notes">
+                <h2>📝 BLOCO DE ANOTAÇÕES</h2>
+
+                <input id="noteTitle" placeholder="Nome da anotação...">
+
+                <select id="noteSubject">
+                    <option>Geral</option>
+                    <option>Matemática</option>
+                    <option>Português</option>
+                    <option>História</option>
+                    <option>Geografia</option>
+                    <option>Biologia</option>
+                    <option>Química</option>
+                    <option>Física</option>
+                    <option>Filosofia</option>
+                    <option>Sociologia</option>
+                    <option>Inglês</option>
+                    <option>Programação</option>
+                    <option>Banco de Dados</option>
+                    <option>Redes de Computadores</option>
+                    <option>Desenvolvimento Web</option>
+                    <option>Robótica</option>
+                    <option>Educação Física</option>
+                </select>
+
+                <textarea id="noteContent" placeholder="Digite seu conteúdo, resumo, exercícios ou informações importantes..."></textarea>
+
+                <button class="btn" onclick="saveNote()">+ SALVAR NA MOCHILA</button>
+
+                <input class="search" id="searchNotes" placeholder="🔎 Pesquisar anotações..." oninput="renderNotes()">
+
+                <div id="notesList"></div>
+            </section>
+
+            <!-- TAREFAS -->
+            <section class="section" id="tasks">
+                <h2>📋 CENTRAL DE TAREFAS</h2>
+
+                <input id="taskInput" placeholder="Digite uma tarefa ou atividade...">
+
+                <button class="btn" onclick="addTask()">+ ADICIONAR TAREFA</button>
+
+                <div id="tasksList"></div>
+            </section>
+
+            <!-- LIXEIRA -->
+            <section class="section" id="trash">
+                <h2>🗑️ LIXEIRA</h2>
+                <p style="color:var(--muted);font-size:13px;margin-bottom:15px">
+                    Aqui ficam as anotações excluídas. Você pode recuperá-las.
+                </p>
+
+                <div id="trashList"></div>
+
+                <button class="btn red" onclick="clearTrash()">ESVAZIAR LIXEIRA</button>
+            </section>
+
+        </main>
+    </div>
+</div>
 
 <footer>
- <b>Consciência Negra — História, cultura, respeito e igualdade.</b><br>
- <span class="small">Material educativo para estudo e reflexão. Aprender história ajuda a construir um futuro mais justo.</span>
+    MOCHILA.EXE © 2026 | DESENVOLVIDO PARA LUCAS
 </footer>
 
 <script>
-const tabs=[
- ['Música','O samba, o jongo, o maracatu e muitos outros ritmos têm raízes e influências africanas. Essas expressões carregam memória, criatividade e identidade.'],
- ['Culinária','Pratos e ingredientes como acarajé, vatapá, quiabo e diferentes preparos com azeite de dendê mostram a presença de conhecimentos culinários africanos na cultura brasileira.'],
- ['Dança','A capoeira combina luta, música, jogo e expressão cultural. O jongo e outras manifestações tradicionais também preservam memórias e conhecimentos afro-brasileiros.'],
- ['Arte e linguagem','Artistas, escritores e criadores negros ampliam as formas de contar a história do país. Muitas palavras, estilos, técnicas e expressões do português brasileiro têm influências africanas.']
-];
+// ====================================
+// BANCO DE DADOS LOCAL
+// ====================================
 
-function showTab(i,btn){
- document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
- btn.classList.add('active');
- document.getElementById('tabContent').innerHTML='<h3>'+tabs[i][0]+'</h3><p>'+tabs[i][1]+'</p>';
+let notes = JSON.parse(localStorage.getItem("lucas_notes") || "[]");
+let tasks = JSON.parse(localStorage.getItem("lucas_tasks") || "[]");
+let trash = JSON.parse(localStorage.getItem("lucas_trash") || "[]");
+
+function saveData() {
+    localStorage.setItem("lucas_notes", JSON.stringify(notes));
+    localStorage.setItem("lucas_tasks", JSON.stringify(tasks));
+    localStorage.setItem("lucas_trash", JSON.stringify(trash));
+    updateStats();
 }
 
-const qs=[
- {q:'Por que o Dia da Consciência Negra é lembrado em 20 de novembro?',a:['Pela data da morte de Zumbi dos Palmares','Pela assinatura da Lei Áurea','Pelo início da República'],c:0,why:'20 de novembro marca a morte de Zumbi dos Palmares, em 1695.'},
- {q:'O que eram os quilombos?',a:['Fábricas do período colonial','Comunidades de resistência à escravidão','Escolas militares'],c:1,why:'Quilombos eram comunidades formadas por pessoas que resistiam à escravidão e buscavam liberdade.'},
- {q:'Qual é um objetivo da Consciência Negra?',a:['Apagar parte da história','Valorizar a cultura e combater o racismo','Separar as pessoas'],c:1,why:'A data incentiva o conhecimento histórico, a valorização cultural e o combate ao racismo.'},
- {q:'Quem escreveu Quarto de Despejo?',a:['Carolina Maria de Jesus','Sônia Guimarães','Antonieta de Barros'],c:0,why:'Carolina Maria de Jesus foi uma escritora brasileira, autora de Quarto de Despejo.'},
- {q:'O que podemos fazer no cotidiano?',a:['Ignorar o preconceito','Repetir estereótipos','Respeitar as diferenças e enfrentar atitudes racistas'],c:2,why:'O respeito e a ação contra a discriminação são responsabilidades de todos.'}
-];
+// ====================================
+// SOM DOS BOTÕES
+// ====================================
 
-let qi=0,score=0,locked=false;
+function sound(freq = 500) {
+    try {
+        const audio = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audio.createOscillator();
+        const gain = audio.createGain();
 
-function renderQ(){
- locked=false;
- const q=qs[qi];
- document.getElementById('qCount').textContent=`PERGUNTA ${qi+1} DE ${qs.length}`;
- document.getElementById('question').textContent=q.q;
- document.getElementById('feedback').textContent='';
- document.getElementById('next').style.display='none';
- document.getElementById('answers').innerHTML=q.a.map((v,i)=>`<button class="answer" onclick="choose(${i})">${String.fromCharCode(65+i)}) ${v}</button>`).join('');
- document.getElementById('progress').style.width=(qi/qs.length*100)+'%';
+        oscillator.connect(gain);
+        gain.connect(audio.destination);
+
+        oscillator.frequency.value = freq;
+        gain.gain.setValueAtTime(0.04, audio.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.12);
+
+        oscillator.start();
+        oscillator.stop(audio.currentTime + 0.12);
+    } catch(e) {}
 }
 
-function choose(i){
- if(locked)return;
- locked=true;
- const q=qs[qi];
- const ok=i===q.c;
- if(ok)score++;
- document.querySelectorAll('.answer').forEach(b=>b.disabled=true);
- document.getElementById('feedback').textContent=(ok?'✅ Muito bem! ':'💡 Boa tentativa! ')+q.why;
- document.getElementById('next').style.display='inline-block';
- document.getElementById('next').textContent=qi===qs.length-1?'Ver resultado':'Próxima pergunta →';
+document.addEventListener("click", e => {
+    if(e.target.closest("button, .subject")) sound(650);
+});
+
+// ====================================
+// NAVEGAÇÃO
+// ====================================
+
+function openTab(id, button) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+
+    document.getElementById(id).classList.add("active");
+
+    if(button) {
+        button.classList.add("active");
+    } else {
+        document.querySelectorAll(".tab").forEach(t => {
+            if(t.getAttribute("onclick")?.includes("'" + id + "'")) {
+                t.classList.add("active");
+            }
+        });
+    }
 }
 
-function nextQuestion(){
- if(qi<qs.length-1){
-  qi++;
-  renderQ();
-  return;
- }
- const grade=score*2;
- let msg=score===5?'Excelente! Você demonstrou ótimo conhecimento sobre o tema.':score>=3?'Muito bom! Continue estudando e ampliando seus conhecimentos.':'Você pode melhorar! Revise o conteúdo e tente novamente. Aprender é um processo.';
- document.getElementById('qCount').textContent='RESULTADO FINAL';
- document.getElementById('question').textContent=`Você acertou ${score} de ${qs.length} — Nota ${grade}/10`;
- document.getElementById('answers').innerHTML=`<p>${msg}</p><button class="btn" onclick="restartQuiz()">Refazer quiz</button>`;
- document.getElementById('feedback').textContent='Continue aprendendo, questionando preconceitos e valorizando a diversidade.';
- document.getElementById('next').style.display='none';
- document.getElementById('progress').style.width='100%';
+// ====================================
+// ESCOLHER MATÉRIA
+// ====================================
+
+function selectSubject(subject) {
+    document.getElementById("noteSubject").value = subject;
+    openTab("notes");
+    document.getElementById("noteTitle").focus();
 }
 
-function restartQuiz(){
- qi=0;
- score=0;
- renderQ();
+// ====================================
+// ANOTAÇÕES
+// ====================================
+
+function saveNote() {
+    const title = document.getElementById("noteTitle").value.trim();
+    const content = document.getElementById("noteContent").value.trim();
+    const subject = document.getElementById("noteSubject").value;
+
+    if(!title || !content) {
+        alert("Preencha o título e o conteúdo!");
+        return;
+    }
+
+    notes.unshift({
+        id: Date.now(),
+        title,
+        content,
+        subject,
+        date: new Date().toLocaleDateString("pt-BR")
+    });
+
+    document.getElementById("noteTitle").value = "";
+    document.getElementById("noteContent").value = "";
+
+    saveData();
+    renderNotes();
 }
 
-renderQ();
+function renderNotes() {
+    const list = document.getElementById("notesList");
+    const search = document.getElementById("searchNotes").value.toLowerCase();
+
+    const filtered = notes.filter(n =>
+        (n.title + n.content + n.subject).toLowerCase().includes(search)
+    );
+
+    if(!filtered.length) {
+        list.innerHTML = '<div class="empty">Nenhuma anotação encontrada.</div>';
+        return;
+    }
+
+    list.innerHTML = filtered.map(n => `
+        <div class="note">
+            <h3>${escapeHTML(n.title)}</h3>
+            <small>${escapeHTML(n.subject)} • ${escapeHTML(n.date)}</small>
+            <p>${escapeHTML(n.content)}</p>
+            <div class="note-actions">
+                <button class="btn red" onclick="deleteNote(${n.id})">🗑️ EXCLUIR</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+function deleteNote(id) {
+    const note = notes.find(n => n.id === id);
+    if(!note) return;
+
+    trash.unshift(note);
+    notes = notes.filter(n => n.id !== id);
+
+    saveData();
+    renderNotes();
+    renderTrash();
+}
+
+function restoreNote(id) {
+    const note = trash.find(n => n.id === id);
+    if(!note) return;
+
+    notes.unshift(note);
+    trash = trash.filter(n => n.id !== id);
+
+    saveData();
+    renderNotes();
+    renderTrash();
+}
+
+function clearTrash() {
+    if(!confirm("Deseja apagar permanentemente as anotações da lixeira?")) return;
+
+    trash = [];
+    saveData();
+    renderTrash();
+}
+
+// ====================================
+// LIXEIRA
+// ====================================
+
+function renderTrash() {
+    const list = document.getElementById("trashList");
+
+    if(!trash.length) {
+        list.innerHTML = '<div class="empty">Sua lixeira está vazia.</div>';
+        return;
+    }
+
+    list.innerHTML = trash.map(n => `
+        <div class="note">
+            <h3>${escapeHTML(n.title)}</h3>
+            <small>${escapeHTML(n.subject)}</small>
+            <div class="note-actions">
+                <button class="btn" onclick="restoreNote(${n.id})">↩ RECUPERAR</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+// ====================================
+// TAREFAS
+// ====================================
+
+function addTask() {
+    const input = document.getElementById("taskInput");
+    const value = input.value.trim();
+
+    if(!value) {
+        alert("Digite uma tarefa!");
+        return;
+    }
+
+    tasks.push({
+        id: Date.now(),
+        title: value,
+        done: false
+    });
+
+    input.value = "";
+    saveData();
+    renderTasks();
+}
+
+function toggleTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if(!task) return;
+
+    task.done = !task.done;
+    saveData();
+    renderTasks();
+}
+
+function deleteTask(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    saveData();
+    renderTasks();
+}
+
+function renderTasks() {
+    const list = document.getElementById("tasksList");
+
+    if(!tasks.length) {
+        list.innerHTML = '<div class="empty">Nenhuma tarefa cadastrada.</div>';
+        return;
+    }
+
+    list.innerHTML = tasks.map(t => `
+        <div class="task ${t.done ? "done" : ""}">
+            <label>
+                <input type="checkbox" ${t.done ? "checked" : ""}
+                onchange="toggleTask(${t.id})">
+                <span>${escapeHTML(t.title)}</span>
+            </label>
+            <button class="btn red" onclick="deleteTask(${t.id})">X</button>
+        </div>
+    `).join("");
+}
+
+// ====================================
+// ESTATÍSTICAS
+// ====================================
+
+function updateStats() {
+    document.getElementById("noteCount").textContent = notes.length;
+    document.getElementById("taskCount").textContent = tasks.length;
+    document.getElementById("doneCount").textContent =
+        tasks.filter(t => t.done).length;
+
+    const total = notes.length + tasks.length + trash.length;
+
+    document.getElementById("storageText").textContent =
+        total + " arquivos armazenados";
+
+    const percentage = Math.min(100, total * 5);
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+}
+
+// ====================================
+// PROTEÇÃO DE TEXTO HTML
+// ====================================
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+}
+
+// ====================================
+// RELÓGIO DIGITAL
+// ====================================
+
+function updateClock() {
+    const now = new Date();
+
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString("pt-BR");
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+// ====================================
+// PARTÍCULAS DE FUNDO
+// ====================================
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+window.addEventListener("resize", resize);
+resize();
+
+for(let i = 0; i < 55; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 0.5,
+        speed: Math.random() * 0.5 + 0.1
+    });
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+        p.y -= p.speed;
+
+        if(p.y < 0) {
+            p.y = canvas.height;
+            p.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = Math.random() > 0.5 ? "#00c8ff" : "#ff1744";
+        ctx.fill();
+    });
+
+    requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+// ====================================
+// INICIALIZAÇÃO
+// ====================================
+
+renderNotes();
+renderTasks();
+renderTrash();
+updateStats();
+
 </script>
 </body>
 </html>
